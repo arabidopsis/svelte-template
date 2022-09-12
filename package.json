@@ -1,0 +1,19 @@
+{
+  "name": "svelte-template",
+  "version": "1.0.0",
+  "description": "template for svelte with esbuild",
+  "main": "src/main.js",
+  "scripts": {
+    "serve": "npx live-server public/",
+    "build-main": "node build.main.mjs"
+  },
+  "author": "ian castleden",
+  "license": "ISC",
+  "dependencies": {
+    "esbuild": "^0.15.7",
+    "esbuild-svelte": "^0.7.1",
+    "svelte": "^3.50.1",
+    "svelte-preprocess": "^4.10.7",
+    "typescript": "^4.8.3"
+  }
+}
