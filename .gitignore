@@ -133,3 +133,4 @@ instance/
 app/static/assets/
 .~lock.*#
 .venv/
+package-lock.json

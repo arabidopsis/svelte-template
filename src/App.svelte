@@ -1,6 +1,7 @@
 <script>
-  import svelteLogo from "./assets/svelte.svg";
+  import svelteLogo from "../app/static/img/svelte.svg";
   import Counter from "./lib/Counter.svelte";
+  const url = window.location.href;
 </script>
 
 <main>
@@ -17,7 +18,9 @@
     </a>
   </div>
   <h1>ESBuild + Svelte + Flask</h1>
-
+  <p>
+    Current url is {url} and the path is {window.location.pathname}
+  </p>
   <div class="card">
     <Counter count={48} />
   </div>
@@ -28,7 +31,9 @@
     >, the un-official Svelte app framework powered by ESbuild!!
   </p>
 
-  <p class="read-the-docs">Click on the Vite and Svelte logos to learn more</p>
+  <p class="read-the-docs">
+    Click on the ESbuild and Svelte logos to learn more
+  </p>
 </main>
 
 <style>

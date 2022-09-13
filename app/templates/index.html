@@ -15,5 +15,11 @@
 
 {% block js %}
 {{super()}}
+<script>
+const Config = {
+    view_url: "{{url_for('view.index')}}",
+    attr1: 22
+}
+</script>
 <script src="{{url_for('static', filename='assets/main.js')}}"></script>
 {% endblock js %}

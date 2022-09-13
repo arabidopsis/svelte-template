@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 {%- from "fragments/macros.html" import offsite, nav_link -%}
-{%- from "fragments/theme.html" import theme_html, theme_js -%}
 <html lang="en">
 <head>
     {% include "fragments/meta.html" %}
@@ -19,103 +18,11 @@
         {{ cdn_css("fontawesome") }}
 
     {% endif %}
-    {# see https://themesguide.github.io/top-hat/dist/
-    or https://github.com/ThemesGuide/top-hat/tree/master/dist #}
-    {% set theme = config.THEME %}
-    {% if theme or config.DEBUG %}
-    <link id="bootstrap-theme-css" rel="stylesheet" type="text/css"  href="{% if theme %}https://themesguide.github.io/top-hat/dist/{{theme}}/theme.css{% endif %}" />
-    {% endif %}
+
     {% block cdn_css %}{% endblock %}
     <style>
-        /*{# from https://www.smashingmagazine.com/2015/11/using-system-ui-fonts-practical-guide/ #}*/
-        :root {
-            --footer-a-color: #66aaff;
-            --turnover-dark: #222;
-            --turnover-light: #999;
-            --gruppo: Gruppo, "Ubuntu", var(--bs-font-sans-serif);
-        }
-
-        #turnover-navbar {
-            z-index:500;
-        }
-        .turnover-bg-dark {
-            background-color: var(--turnover-dark);
-            color: var(--bs-light);
-        }
-        .turnover-bg-light {
-            background-color: var(--turnover-light);
-            color: var(--bs-dark);
-        }
-        .turnover-bg-dark a {
-            color: var(--bs-light);
-        }
-
-        .turnover-bg-dark .dropdown-menu  {
-            background-color: var(--turnover-dark);
-        }
-
-        #turnover-footer.turnover-bg-dark a:hover {
-            color: var(--bs-white);
-        }
-
-        #turnover-footer.turnover-bg-dark a {
-            color: var(--footer-a-color);
-        }
-        #hero {
-            width:100%;
-            height:150px;
-            background: bottom / cover url('{{url_for('static', filename='img/svelte.svg')}}'),
-                var(--turnover-dark);
-            background-repeat: repeat-x;
-        }
-
-        #wrap {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-        main {
-            flex-grow: 1;
-        }
-
-        .header-text {
-            height: 100%;
-            font-size: 4em;
-            font-family: var(--gruppo);
-            color: var(--bs-white);
-            text-shadow: 2px 2px black;
-        }
-        .header-font {
-            font-family: var(--gruppo);
-        }
-
-        a.offsite {
-            background-position: right center;
-            background-repeat: no-repeat;
-            padding-right: 12px;
-            background-image: url("{{offsite('#007bff', '#ffffff')}}");
-        }
-
-
-        .turnover-bg-dark a.offsite {
-            background-image: url("{{offsite('#66aaff', '#000000')}}");
-        }
-
-        #toast-container > .toast-error {
-            background-color: var(--bs-danger) !important;
-        }
-        #toast-container > .toast-warning {
-            background-color: var(--bs-warning) !important;
-        }
-        #toast-container > .toast-success {
-            background-color: var(--bs-success) !important;
-        }
-        #toast-container > .toast-info {
-            background-color: var(--bs-info) !important;
-        }
-
+    {% include "raw.css" with context %}
     </style>
-
     {% block css %}{% endblock css %}
 
     {% block header_js %}{% endblock %}
@@ -134,7 +41,7 @@
 
         {% block header %}
         <header>
-            <div id="hero" class="d-none d-lg-block turnover-bg-dark text-white">
+            <div id="hero" class="d-none d-lg-block app-bg-dark text-white">
                 <span class="header-text">
                     <span>{{config.APP_NAME}}</span>
                 </span>
@@ -151,18 +58,18 @@
         </header>
         {% endblock header %}
         {% block navbar %}
-        <nav id="turnover-navbar" class="navbar sticky-top navbar-expand-md navbar-dark turnover-bg-dark" id="top">
+        <nav id="app-navbar" class="navbar sticky-top navbar-expand-md navbar-dark app-bg-dark" id="top">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">
                     <img src="{{url_for('static', filename='img/svelte.svg')}}" style="height:1.1em; margin-top:-2px" alt="{{config.APP_NAME}} logo"/>
                     {{config.APP_NAME}}
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#turnover-navbar-collapse"
-                    aria-controls="turnover-navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#app-navbar-collapse"
+                    aria-controls="app-navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <div id="turnover-navbar-collapse" class="collapse navbar-collapse" role="navigation">
+                <div id="app-navbar-collapse" class="collapse navbar-collapse" role="navigation">
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
                             <a {{ nav_link('view.index') }} title="Home page">
@@ -175,11 +82,6 @@
                     </ul>
                     <ul class="navbar-nav">
                         {%- block navbar_right -%}
-                        {%- if config.DEBUG -%}
-                            <li class="nav-item d-none d-xl-block">{{ theme_html(theme) }}</li>
-                        {%- endif -%}
-
-
                         {% endblock navbar_right %}
                     </ul>
                 </div>
@@ -196,7 +98,7 @@
         {% block postcontent %}{% endblock %}
 
         {% block footer %}
-        <footer id="turnover-footer" class="turnover-bg-dark text-light">
+        <footer id="app-footer" class="app-bg-dark text-light">
             <div class="container">
                 <div class="d-flex justify-content-around">
                     <div>
@@ -264,7 +166,6 @@
     {{ cdn_js("fontawesome") }}
 
     {% endif %}
-    {% if config.DEBUG %}{{ theme_js() }}{% endif %}
     {% block js %}{% endblock js %}
     {% block stream %}{% endblock %}
 </body>
