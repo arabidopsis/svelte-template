@@ -20,6 +20,7 @@ href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.c
 integrity = "sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
 
 [toastr.js] # at 2.1.4
+# toastr requires jquery
 src = "https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"
 integrity = "sha256-yNbKY1y6h2rbVcQtf0b8lq4a+xpktyFc3pSYoGAY1qQ="
 
@@ -51,10 +52,6 @@ integrity = "sha256-FdatTf20PQr/rWg+cAKfl6j4/IY3oohFAJ7gVC3M34E="
 href = "https://cdn.jsdelivr.net/npm/@ttskch/select2-bootstrap4-theme@1.4.0/dist/select2-bootstrap4.min.css"
 integrity = "sha256-3UPl0A8ykc7qW77XmHP0HDb1Nvs/09AACcTrNpIbdJ4="
 
-# [mathjax.js]
-# src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-chtml.min.js"
-# integrity = "sha512-T8xxpazDtODy3WOP/c6hvQI2O9UPdARlDWE0CvH1Cfqc0TXZF6GZcEKL7tIR8VbfS/7s/J6C+VOqrD6hIo++vQ=="
-# async = true
 
 [mathjax.js]
 src = "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-chtml.js"

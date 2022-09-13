@@ -16,6 +16,13 @@
     <a href="https://svelte.dev" target="_blank">
       <img src={svelteLogo} class="logo svelte" alt="Svelte Logo" />
     </a>
+    <a href="https://palletsprojects.com/p/flask/" target="_blank">
+      <img
+        src="https://flask.palletsprojects.com/en/2.2.x/_images/flask-logo.png"
+        class="logo flask"
+        alt="Flask Logo"
+      />
+    </a>
   </div>
   <h1>ESBuild + Svelte + Flask</h1>
   <p>
@@ -24,12 +31,6 @@
   <div class="card">
     <Counter count={48} />
   </div>
-
-  <p>
-    Check out <a href="https://github.com/sveltejs/kit#readme" target="_blank"
-      >SvelteKit</a
-    >, the un-official Svelte app framework powered by ESbuild!!
-  </p>
 
   <p class="read-the-docs">
     Click on the ESbuild and Svelte logos to learn more
