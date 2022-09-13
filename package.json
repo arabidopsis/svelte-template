@@ -4,8 +4,9 @@
   "description": "template for svelte with esbuild",
   "main": "src/main.js",
   "scripts": {
-    "serve": "npx live-server public/",
-    "build-main": "node build.main.mjs"
+    "serve": "npx live-server",
+    "build": "node build.main.mjs",
+    "build-watch": "WATCH=1 node build.main.mjs"
   },
   "author": "ian castleden",
   "license": "ISC",

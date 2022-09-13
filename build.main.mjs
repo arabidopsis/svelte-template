@@ -1,7 +1,7 @@
 import build from './build.mjs';
-const result  = await build({
+const result = await build({
     entryPoints: ["src/main.js"],
-    outdir: "public/assets",
+    outdir: "app/static/assets",
 
 })
 
