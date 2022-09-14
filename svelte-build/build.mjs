@@ -22,4 +22,3 @@ async function build(config) {
   return esbuild.build({ ...baseconfig, ...config })//.catch(() => process.exit(1))
 }
 export default build;
-

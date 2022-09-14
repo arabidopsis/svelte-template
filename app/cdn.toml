@@ -73,3 +73,12 @@ href = "https://cdn.datatables.net/select/1.4.0/css/select.dataTables.min.css"
 
 [datatables-select.js]
 src = "https://cdn.datatables.net/select/1.4.0/js/dataTables.select.min.js"
+
+[notyf.js]
+# toast without jquery
+src = "https://cdn.jsdelivr.net/npm/notyf@3.10.0/notyf.min.js"
+integrity = "sha256-UnlpkMLasaTx2ZqovxBXUcQ5jq3oKXaZZ1aWENNFETE="
+
+[notyf.css]
+href = "https://cdn.jsdelivr.net/npm/notyf@3.10.0/notyf.min.css"
+integrity = "sha256-IwkvZNRC/3S26O1gWwjBINmrPZ4zYvPX4z/98OKWHkQ="

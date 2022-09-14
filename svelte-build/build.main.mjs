@@ -4,4 +4,3 @@ const result = await build({
     outdir: "app/static/assets",
 
 })
-

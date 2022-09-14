@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import math
 import subprocess
-
 from pathlib import Path
 from shutil import which
 from typing import Any
@@ -59,4 +58,3 @@ def rmfiles(files: list[str]) -> None:
             Path(f).unlink()
         except OSError:
             pass
-

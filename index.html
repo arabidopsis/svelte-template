@@ -3,14 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="{{url_for('static', filename='assets/main.css')}}">
+    <link rel="stylesheet" href="app/static/assets/main.css">
     <title>ESbuild + Svelte</title>
   </head>
   <body>
     <div style="margin: 0 auto; max-width: 1280px; text-align:center;">
-      <p>This mounts svelte code directly</p>
+      <p>This mounts svelte code directly. Run <code>npm run serve</code>
+      to have a hot reload.
+      </p>
     </div>
     <div id="app"></div>
-    <script src="{{url_for('static', filename='assets/main.js')}"></script>
+    <script src="app/static/assets/main.js"></script>
   </body>
 </html>

@@ -15,4 +15,4 @@ MAIL_SERVER = "mailhost"
 SITE_URL = "https://mysite.url"
 
 # where svelte/esbuild writes it's js/css files in the static folder
-ASSET_FOLDER = 'assets'
+ASSET_FOLDER = "assets"

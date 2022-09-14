@@ -6,6 +6,7 @@ from os.path import isabs
 from os.path import join
 from os.path import normpath
 from pathlib import Path
+from random import random
 from typing import Any
 
 import toml
@@ -14,7 +15,8 @@ from flask import Flask
 from flask import Markup
 from flask import render_template
 from flask import Response
-from flask import stream_with_context, url_for
+from flask import stream_with_context
+from flask import url_for
 from flask.config import Config
 from flask.scaffold import find_package
 from jinja2 import FileSystemBytecodeCache
@@ -163,10 +165,12 @@ def register_filters(app: Flask) -> None:
     assets = app.config["ASSET_FOLDER"]
 
     def svelte_css(mod: str) -> str:
-        return url_for("static", filename=join(assets, f"{mod}.css"))
+        v = {"v": f"v{random()}"} if app.debug else {}
+        return url_for("static", filename=join(assets, f"{mod}.css"), **v)  # type: ignore
 
     def svelte_js(mod: str) -> str:
-        return url_for("static", filename=join(assets, f"{mod}.js"))
+        v = {"v": f"v{random()}"} if app.debug else {}
+        return url_for("static", filename=join(assets, f"{mod}.js"), **v)  # type: ignore
 
     # for nunjucks includes
     app.jinja_env.globals["include_raw"] = include_raw
