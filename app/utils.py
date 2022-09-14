@@ -2,13 +2,10 @@ from __future__ import annotations
 
 import math
 import subprocess
-from datetime import datetime
-from io import TextIOWrapper
+
 from pathlib import Path
 from shutil import which
 from typing import Any
-from typing import Iterator
-from typing import NamedTuple
 
 from markupsafe import escape
 
@@ -29,16 +26,6 @@ def git_version() -> str | None:
     if r.returncode or not r.stdout:
         return None
     return r.stdout.decode("ascii")[:-1]
-
-
-def protein_turnover_version() -> str | None:
-
-    from importlib import metadata  # type: ignore
-
-    try:
-        return metadata.version("protein_turnover")  # type: ignore
-    except metadata.PackageNotFoundError:  # type: ignore
-        return None
 
 
 def attrstr(kwargs: dict[str, Any]) -> str:
@@ -73,44 +60,3 @@ def rmfiles(files: list[str]) -> None:
         except OSError:
             pass
 
-
-class LogRecord(NamedTuple):
-    time: datetime
-    level: str
-    worker: int
-    msg: str
-
-
-def read_log_lines(
-    logfile: Path,
-    start: int = 0,
-    encoding: str = "utf-8",
-) -> Iterator[str]:
-    with logfile.open("rb") as f:
-        if start != 0:
-            st = logfile.stat()
-            if start > 0:
-                start = min(start, st.st_size)
-                f.seek(start)
-            else:
-                start = max(start, -st.st_size)
-                f.seek(start, 2)
-            for c in iter(lambda: f.read(1), b""):
-                if c == b"\n":
-                    break
-        with TextIOWrapper(f, encoding=encoding) as fp:
-            for line in fp:
-                line = line[:-1]
-                yield line
-
-
-def read_log(
-    logfile: Path,
-    start=0,
-    encoding="utf-8",
-) -> Iterator[LogRecord]:
-    for line in read_log_lines(logfile, start, encoding):
-        level, time, worker, *msg = line.split("|")
-        time = time[1:-1]
-        dttime = datetime.strptime(time, "%Y-%m-%d %H:%M:%S,%f")
-        yield LogRecord(dttime, level.strip(), int(worker), "|".join(msg).strip())

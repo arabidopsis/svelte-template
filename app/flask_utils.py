@@ -14,7 +14,7 @@ from flask import Flask
 from flask import Markup
 from flask import render_template
 from flask import Response
-from flask import stream_with_context
+from flask import stream_with_context, url_for
 from flask.config import Config
 from flask.scaffold import find_package
 from jinja2 import FileSystemBytecodeCache
@@ -119,7 +119,8 @@ def register_bytecode_cache(app: Flask, directory="bytecode_cache") -> None:
 def register_filters(app: Flask) -> None:
     """Register page not found filters cdn_js, cdn_css methods."""
 
-    CDN = toml.load(join(app.root_path, "cdn.toml"))
+    with app.open_resource("cdn.toml", "rt") as fp:
+        CDN = toml.load(fp)
 
     def include_raw(filename: str) -> Markup:
         loader: FileSystemLoader = app.jinja_loader  # type: ignore
@@ -159,10 +160,20 @@ def register_filters(app: Flask) -> None:
             {integrity} {attrs}crossorigin="anonymous">""",
         )
 
+    assets = app.config["ASSET_FOLDER"]
+
+    def svelte_css(mod: str) -> str:
+        return url_for("static", filename=join(assets, f"{mod}.css"))
+
+    def svelte_js(mod: str) -> str:
+        return url_for("static", filename=join(assets, f"{mod}.js"))
+
     # for nunjucks includes
     app.jinja_env.globals["include_raw"] = include_raw
     app.jinja_env.globals["cdn_js"] = cdn_js
     app.jinja_env.globals["cdn_css"] = cdn_css
+    app.jinja_env.globals["svelte_css"] = svelte_css
+    app.jinja_env.globals["svelte_js"] = svelte_js
 
     app.template_filter("human")(human)
 

@@ -1,16 +1,16 @@
 {
   "name": "svelte-template",
-  "version": "1.0.0",
-  "description": "template for svelte with esbuild",
+  "version": "0.1.0",
+  "description": "template for svelte with esbuild and flask",
   "main": "src/main.js",
   "scripts": {
     "serve": "npx live-server",
-    "build": "node build.main.mjs",
-    "build-watch": "WATCH=1 node build.main.mjs"
+    "build": "node svelte-build/build.main.mjs",
+    "build-watch": "WATCH=1 node svelte-build/build.main.mjs"
   },
   "author": "ian castleden",
   "license": "ISC",
-  "dependencies": {
+  "devDependencies": {
     "esbuild": "^0.15.7",
     "esbuild-svelte": "^0.7.1",
     "svelte": "^3.50.1",

@@ -13,8 +13,6 @@ def index() -> str:
     return render_template("index.html")
 
 
-
-
 def init_app(app: Flask, url_prefix: str = "/") -> None:
 
     app.register_blueprint(view, url_prefix=url_prefix)
