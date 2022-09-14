@@ -125,4 +125,6 @@ node_modules/
 instance/
 app/static/assets/
 .~lock.*#
+# remove these if you want
 package-lock.json
+poetry.lock
