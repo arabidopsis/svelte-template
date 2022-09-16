@@ -2,10 +2,10 @@ import { Notyf } from 'notyf';
 import type { NotyfNotification } from 'notyf'
 import 'notyf/notyf.min.css';
 
-const notyf = new Notyf({
+export const notyf = new Notyf({
     position: { x: 'right', y: 'top' },
     types: [{
-        type: 'success',
+        type: 'success-toastr',
         icon: {
             className: 'fas fa-check',
             tagName: 'i', color: 'var(--bs-light)'
@@ -13,7 +13,7 @@ const notyf = new Notyf({
         background: 'var(--bs-success)'
     },
     {
-        type: 'error',
+        type: 'error-toastr',
         icon: {
             className: "fas fa-bomb",
             tagName: 'i', color: 'var(--bs-light)'
@@ -49,10 +49,10 @@ function open(type: string, message: string, options: { [key: string]: any }): N
 
 export const toastr = {
     success: function (msg: string, options: { [key: string]: any } = {}): NotyfNotification {
-        return open('success', msg, options)
+        return open('success-toastr', msg, options)
     },
     error: function (msg: string, options: { [key: string]: any } = {}): NotyfNotification {
-        return open('error', msg, options)
+        return open('error-toastr', msg, options)
     },
     warning: function (msg: string, options: { [key: string]: any } = {}): NotyfNotification {
         return open('warning', msg, options)
