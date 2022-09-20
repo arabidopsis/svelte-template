@@ -6,6 +6,7 @@ cd to this directory and run:
 * `npm install`
 * `poetry install`
 * `pre-commit install`
+* run `flask run` to run the flask app
 
 ## Development
 

@@ -3,7 +3,7 @@
             --footer-a-color: #66aaff;
             --app-dark: #222;
             --app-light: #999;
-            --gruppo: Gruppo, "Ubuntu", var(--bs-font-sans-serif);
+            --header-font: Gruppo, "Ubuntu", var(--bs-font-sans-serif);
         }
 
         #app-navbar {
@@ -39,7 +39,7 @@
                 var(--app-dark);
         }
 
-        #wrap {
+        body {
             display: flex;
             flex-direction: column;
             min-height: 100vh;
@@ -51,12 +51,12 @@
         .header-text {
             height: 100%;
             font-size: 4em;
-            font-family: var(--gruppo);
+            font-family: var(--header-font);
             color: var(--bs-white);
             text-shadow: 2px 2px black;
         }
         .header-font {
-            font-family: var(--gruppo);
+            font-family: var(--header-font);
         }
 
         a.offsite {

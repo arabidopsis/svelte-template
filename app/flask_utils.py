@@ -166,11 +166,13 @@ def register_filters(app: Flask) -> None:
 
     def svelte_css(mod: str) -> str:
         v = {"v": f"v{random()}"} if app.debug else {}
-        return url_for("static", filename=join(assets, f"{mod}.css"), **v)  # type: ignore
+        url = url_for("static", filename=join(assets, f"{mod}.css"), **v)  # type: ignore
+        return Markup(f'<link rel="stylesheet" href="{url}"/>')
 
     def svelte_js(mod: str) -> str:
         v = {"v": f"v{random()}"} if app.debug else {}
-        return url_for("static", filename=join(assets, f"{mod}.js"), **v)  # type: ignore
+        url = url_for("static", filename=join(assets, f"{mod}.js"), **v)  # type: ignore
+        return Markup(f'<script defer src="{url}"></script>')
 
     # for nunjucks includes
     app.jinja_env.globals["include_raw"] = include_raw

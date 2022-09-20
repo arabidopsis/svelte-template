@@ -36,126 +36,125 @@
     {# needs to be outside any effects divs #}
     {% block dialogs %}{% endblock dialogs %}
 
-    <div id="wrap">
 
-        {% block header %}
-        <header>
-            <div id="hero" class="d-none d-lg-block app-bg-dark text-white">
-                <span class="header-text">
-                    <span>{{config.APP_NAME}}</span>
-                </span>
+    {% block header %}
+    <header>
+        <div id="hero" class="d-none d-lg-block app-bg-dark text-white">
+            <span class="header-text">
+                <span>{{config.APP_NAME}}</span>
+            </span>
 
+        </div>
+
+        <div class="d-lg-none header-font text-white text-center bg-info"
+            style="height:2.5em;">
+            <div style="font-size:1.8em;">
+                {{config.APP_NAME}}
             </div>
+        </div>
 
-            <div class="d-lg-none header-font text-white text-center bg-info"
-                style="height:2.5em;">
-                <div style="font-size:1.8em;">
-                    {{config.APP_NAME}}
-                </div>
+    </header>
+    {% endblock header %}
+    {% block navbar %}
+    <nav id="app-navbar" class="navbar sticky-top navbar-expand-md navbar-dark app-bg-dark" id="top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="{{url_for('static', filename='img/svelte.svg')}}" style="height:1.1em; margin-top:-2px" alt="{{config.APP_NAME}} logo"/>
+                {{config.APP_NAME}}
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#app-navbar-collapse"
+                aria-controls="app-navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div id="app-navbar-collapse" class="collapse navbar-collapse" role="navigation">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a {{ nav_link('view.index') }} title="Home page">
+                            Home <span class="fas fa-home"></span>
+                        </a>
+                    </li>
+
+                    {% block navbar_left %}{% endblock %}
+
+                </ul>
+                <ul class="navbar-nav">
+                    {%- block navbar_right -%}
+                    {% endblock navbar_right %}
+                </ul>
             </div>
+        </div>
+    </nav>
+    {% endblock navbar %}
 
-        </header>
-        {% endblock header %}
-        {% block navbar %}
-        <nav id="app-navbar" class="navbar sticky-top navbar-expand-md navbar-dark app-bg-dark" id="top">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">
-                    <img src="{{url_for('static', filename='img/svelte.svg')}}" style="height:1.1em; margin-top:-2px" alt="{{config.APP_NAME}} logo"/>
-                    {{config.APP_NAME}}
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#app-navbar-collapse"
-                    aria-controls="app-navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+    {% block precontent %}{% endblock %}
 
-                <div id="app-navbar-collapse" class="collapse navbar-collapse" role="navigation">
-                    <ul class="navbar-nav me-auto">
-                        <li class="nav-item">
-                            <a {{ nav_link('view.index') }} title="Home page">
-                                Home <span class="fas fa-home"></span>
-                            </a>
+    <main id="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    {% block postcontent %}{% endblock %}
+
+    {% block footer %}
+    <footer id="app-footer" class="app-bg-dark text-light">
+        <div class="container">
+            <div class="d-flex justify-content-around">
+                <div>
+                    <ul class="list-inline text-center" style="padding-top:.5em">
+                        <li class="list-inline-item">
+                            <a class="offsite" href="https://plantenergy.edu.au"
+                                target="_blank">© 2022 Plant Energy Biology</a>
                         </li>
-
-                        {% block navbar_left %}{% endblock %}
-
-                    </ul>
-                    <ul class="navbar-nav">
-                        {%- block navbar_right -%}
-                        {% endblock navbar_right %}
+                        <li class="list-inline-item">|</li>
+                        <li class="list-inline-item">version:
+                            <span class="text-muted">
+                                {{ config['GIT_VERSION'][:7] }}</span>
+                        </li>
                     </ul>
                 </div>
             </div>
-        </nav>
-        {% endblock navbar %}
+            <div class="row">
 
-        {% block precontent %}{% endblock %}
+                <div class="col text-center">
+                    If you find this resource useful please cite the following:
+                </div>
+                <div class="col text-center">
 
-        <main id="main-content">
-            {% block content %}{% endblock %}
-        </main>
+                        Me and You
+                        <br/>
+                        PMID: <a target="pubmed" class="offsite"
+                            href="https://ncbi.nlm.nih.gov/pubmed/XXXXXX">PUBMED</a>
+                        doi: <a target="doi" class="offsite"
+                            href="https://doi.org/XXXXX">DOI</a>
 
-        {% block postcontent %}{% endblock %}
+                </div>
 
-        {% block footer %}
-        <footer id="app-footer" class="app-bg-dark text-light">
-            <div class="container">
+                <div class="col text-center">
+                    <img src="{{url_for('static', filename='img/svelte.svg')}}" style="margin-top:10px;height:4em"
+                        alt="Svelte logo" />
+                </div>
+
+            </div>
+
+            <div class="text-center mb-1">
+                <div class="d-none d-lg-flex justify-content-around">
+                    <img alt="Creative Commons License" style="border-width:0"
+                        src="https://i.creativecommons.org/l/by/4.0/88x31.png" />
+                </div>
                 <div class="d-flex justify-content-around">
-                    <div>
-                        <ul class="list-inline text-center" style="padding-top:.5em">
-                            <li class="list-inline-item">
-                                <a class="offsite" href="https://plantenergy.edu.au"
-                                    target="_blank">© 2022 Plant Energy Biology</a>
-                            </li>
-                            <li class="list-inline-item">|</li>
-                            <li class="list-inline-item">version:
-                                <span class="text-muted">
-                                    {{ config['GIT_VERSION'][:7] }}</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="row">
-
-                    <div class="col text-center">
-                        If you find this resource useful please cite the following:
-                    </div>
-                    <div class="col text-center">
-
-                            Me and You
-                            <br/>
-                            PMID: <a target="pubmed" class="offsite"
-                                href="https://ncbi.nlm.nih.gov/pubmed/XXXXXX">PUBMED</a>
-                            doi: <a target="doi" class="offsite"
-                                href="https://doi.org/XXXXX">DOI</a>
-
-                    </div>
-
-                    <div class="col text-center">
-                        <img src="{{url_for('static', filename='img/svelte.svg')}}" style="margin-top:10px;height:4em"
-                            alt="Svelte logo" />
-                    </div>
-
-                </div>
-
-                <div class="text-center mb-1">
-                    <div class="d-none d-lg-flex justify-content-around">
-                        <img alt="Creative Commons License" style="border-width:0"
-                            src="https://i.creativecommons.org/l/by/4.0/88x31.png" />
-                    </div>
-                    <div class="d-flex justify-content-around">
-                        <small>
-                        &copy; 2022.
-                        This work is licensed under a <a rel="license" class="offsite"
-                            href="https://creativecommons.org/licenses/by/4.0/">
-                            Creative Commons Attribution 4.0 International License</a>.
-                        <i class="fas fa-code"></i> with <i class="fas fa-heart"></i> by IRC.
-                        </small>
-                    </div>
+                    <small>
+                    &copy; 2022.
+                    This work is licensed under a <a rel="license" class="offsite"
+                        href="https://creativecommons.org/licenses/by/4.0/">
+                        Creative Commons Attribution 4.0 International License</a>.
+                    <i class="fas fa-code"></i> with <i class="fas fa-heart"></i> by IRC.
+                    </small>
                 </div>
             </div>
-        </footer>
-        {% endblock footer %}
-    </div> {# id=wrap #}
+        </div>
+    </footer>
+    {% endblock footer %}
+
     {# cdn_js("jquery") #}
     {{ cdn_js("bootstrap") }}
 

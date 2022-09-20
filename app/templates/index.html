@@ -3,7 +3,7 @@
 {% block title %}Welcome {{config.APP_NAME}}{% endblock %}
 
 {% block css %}
-<link rel="stylesheet" href="{{svelte_css('main')}}">
+{{ svelte_css('main') }}
 {% endblock css %}
 
 {% block content %}
@@ -14,5 +14,5 @@
 
 {% block js %}
 {{super()}}
-<script src="{{svelte_js('main')}}"></script>
+{{ svelte_js('main') }}
 {% endblock js %}
