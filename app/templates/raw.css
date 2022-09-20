@@ -58,7 +58,7 @@
         .header-font {
             font-family: var(--header-font);
         }
-
+        /*{#
         a.offsite {
             background-position: right center;
             background-repeat: no-repeat;
@@ -69,6 +69,16 @@
 
         .app-bg-dark a.offsite {
             background-image: url("{{offsite('#66aaff', '#000000')}}");
+        }
+        #}*/
+        a.offsite::after {
+            width: 1em;
+            height: 1em;
+            padding-left:.2em;
+            content: '\f35d';
+            font-family: 'Font Awesome 5 free';
+            font-weight: 600;
+            /* font: var(--fa-font-solid); */
         }
 
         #toast-container > .toast-error {

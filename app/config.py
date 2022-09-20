@@ -11,8 +11,8 @@ MAIL_SERVER = "mailhost"
 # don't send more than 1 error email message every 5 mins
 # LOG_ERROR_DELAY = 60 * 5
 
-# for html header <meta>
+# for html header <meta> see templates/fragments/meta.html
 SITE_URL = "https://mysite.url"
 
-# where svelte/esbuild writes it's js/css files in the static folder
+# where svelte/esbuild writes it's js/css/map files in the static folder
 ASSET_FOLDER = "assets"
