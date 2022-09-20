@@ -16,8 +16,7 @@ def create_init_app() -> Flask:
         instance_relative_config=True,
         template_folder="templates",
     )
-    # config_app is available to celery worker and celery beat
-    # so they can configure themselves properly too
+
     config_app(app.config)
 
     app.config["GIT_VERSION"] = git_version() or ""

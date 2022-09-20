@@ -71,14 +71,14 @@
             background-image: url("{{offsite('#66aaff', '#000000')}}");
         }
         #}*/
-        a.offsite::after {
-            width: 1em;
-            height: 1em;
+        a.offsite::after /*, a[href^="https://"]::after, a[href^="http://"]::after*/ {
             padding-left:.2em;
+            text-rendering: auto;
+            -webkit-font-smoothing: antialiased;
             content: '\f35d';
-            font-family: 'Font Awesome 5 free';
-            font-weight: 600;
-            /* font: var(--fa-font-solid); */
+            /* font-family: 'Font Awesome 5 free';
+            font-weight: 600; */
+            font: var(--fa-font-solid);
         }
 
         #toast-container > .toast-error {

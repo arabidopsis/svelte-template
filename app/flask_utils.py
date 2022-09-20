@@ -140,7 +140,7 @@ def register_filters(app: Flask) -> None:
 
         return Markup(src)
 
-    def cdn_js(key, **kwargs):
+    def cdn_js(key: str, **kwargs: dict[str, Any]) -> Markup:
         js = CDN[key]["js"]
         async_ = "async" if js.get("async", False) else ""
         attrs = attrstr(kwargs)
@@ -149,27 +149,27 @@ def register_filters(app: Flask) -> None:
 
         return Markup(
             f"""<script src="{js['src']}" {async_}
-            {integrity} {attrs}crossorigin="anonymous"></script>""",
+            {integrity} {attrs}crossorigin="anonymous" referrerpolicy="no-referrer"></script>""",
         )
 
-    def cdn_css(key, **kwargs):
+    def cdn_css(key: str, **kwargs: dict[str, Any]) -> Markup:
         css = CDN[key]["css"]
         attrs = attrstr(kwargs)
         integrity = css.get("integrity")
         integrity = f'integrity="{integrity}"' if integrity else ""
         return Markup(
             f"""<link rel="stylesheet" href="{css['href']}"
-            {integrity} {attrs}crossorigin="anonymous">""",
+            {integrity} {attrs}crossorigin="anonymous" referrerpolicy="no-referrer">""",
         )
 
     assets = app.config["ASSET_FOLDER"]
 
-    def svelte_css(mod: str) -> str:
+    def svelte_css(mod: str) -> Markup:
         v = {"v": f"v{random()}"} if app.debug else {}
         url = url_for("static", filename=join(assets, f"{mod}.css"), **v)  # type: ignore
         return Markup(f'<link rel="stylesheet" href="{url}"/>')
 
-    def svelte_js(mod: str) -> str:
+    def svelte_js(mod: str) -> Markup:
         v = {"v": f"v{random()}"} if app.debug else {}
         url = url_for("static", filename=join(assets, f"{mod}.js"), **v)  # type: ignore
         return Markup(f'<script defer src="{url}"></script>')

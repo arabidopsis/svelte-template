@@ -2,19 +2,19 @@
 {%- from "fragments/macros.html" import offsite, nav_link -%}
 <html lang="en">
 <head>
-    {% include "fragments/meta.html" %}
+    {%- include "fragments/meta.html" %}
     <title>{% block title %}{{config.APP_NAME}}{% endblock %}</title>
     {% block meta %}{% endblock meta %}
     <link rel="icon" href="{{url_for('static', filename='img/svelte.svg')}}" />
     <link rel="apple-touch-icon" href="{{url_for('static', filename='img/svelte.svg')}}" />
+    {% include "fragments/google.html" %}
 
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Gruppo" />
-    {% include "fragments/google.html" %}
     {{ cdn_css("bootstrap") }}
 
     {% if config.FONT_ICONS %}
 
-        {{ cdn_css("fontawesome") }}
+        {{ cdn_css("fontawesome6") }}
 
     {% endif %}
 
@@ -25,7 +25,6 @@
     {% block css %}{% endblock css %}
 
     {% block header_js %}{% endblock %}
-    {# PEB greens clockwise darkest to lightest #768d28 #a6bd28 #becf5a #dee5a2 #}
 
 </head>
 
@@ -71,7 +70,7 @@
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
                         <a {{ nav_link('view.index') }} title="Home page">
-                            Home <span class="fas fa-home"></span>
+                            Home <i class="fas fa-home"></i>
                         </a>
                     </li>
 
@@ -160,7 +159,7 @@
 
     {% if not config.FONT_ICONS %}
 
-    {{ cdn_js("fontawesome") }}
+    {{ cdn_js("fontawesome6") }}
 
     {% endif %}
     {% block js %}{% endblock js %}
