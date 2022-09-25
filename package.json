@@ -2,18 +2,21 @@
   "name": "svelte-template",
   "version": "0.1.0",
   "description": "template for svelte with esbuild and flask",
+  "author": "ian castleden",
+  "license": "ISC",
   "main": "src/main.js",
   "scripts": {
     "serve": "npx live-server",
     "build": "node svelte-build/build.main.mjs",
-    "build-watch": "WATCH=1 node svelte-build/build.main.mjs"
+    "build-watch": "WATCH=1 node svelte-build/build.main.mjs",
+    "check": "svelte-check --tsconfig ./tsconfig.json"
   },
-  "author": "ian castleden",
-  "license": "ISC",
   "devDependencies": {
+    "@tsconfig/svelte": "^3.0.0",
     "esbuild": "^0.15.7",
     "esbuild-svelte": "^0.7.1",
     "svelte": "^3.50.1",
+    "svelte-check": "^2.9.0",
     "svelte-preprocess": "^4.10.7",
     "typescript": "^4.8.3"
   },
