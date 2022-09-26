@@ -49,6 +49,8 @@ flask run
 
 See [here](https://docs.github.com/en/get-started/importing-your-projects-to-github/importing-source-code-to-github/adding-locally-hosted-code-to-github).
 
+First remove anything you don't want or need (e.g nunjucks).
+
 ```bash
 # create a new repo
 git init -b main

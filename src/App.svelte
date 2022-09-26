@@ -20,7 +20,7 @@
     </a>
     <a href="https://palletsprojects.com/p/flask/" target="_blank">
       <img
-        src="https://flask.palletsprojects.com/en/2.2.x/_images/flask-logo.png"
+        src="https://flask.palletsprojects.com/en/2.2.x/_static/flask-icon.png"
         class="logo flask"
         alt="Flask Logo"
       />
@@ -32,8 +32,15 @@
         alt="Bootstrap Logo"
       />
     </a>
+    <a href="https://fontawesome.com/" target="_blank">
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Font_Awesome_logomark_blue.svg"
+        class="logo fontawesome"
+        alt="FontAwesome Logo"
+      />
+    </a>
   </div>
-  <h1>ESBuild + Svelte + Flask + Bootstrap!</h1>
+  <h2>ESBuild + Svelte + Flask + Bootstrap + FontAwesome!</h2>
   <p>
     Current url is {url} and the path is {window.location.pathname}
   </p>
