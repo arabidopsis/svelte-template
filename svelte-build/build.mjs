@@ -2,6 +2,7 @@ import esbuild from "esbuild";
 import sveltePlugin from "esbuild-svelte";
 import sveltePreprocess from "svelte-preprocess";
 import dotenv from 'dotenv'
+import { nunjucksImporterPlugin } from './nunjucks-plugin.mjs'
 dotenv.config({ path: '.env' })
 
 const watch = process.env.WATCH === '1';
@@ -16,8 +17,9 @@ const baseconfig = {
   watch: watch,
   minify: production,
   target: 'es6',
-  plugins: [sveltePlugin({ preprocess: sveltePreprocess() })],
+  plugins: [sveltePlugin({ preprocess: sveltePreprocess() }), nunjucksImporterPlugin()],
   logLevel: "info",
+  external: ['nunjucks']
 }
 async function build(config) {
   return esbuild.build({ ...baseconfig, ...config })//.catch(() => process.exit(1))

@@ -1,6 +1,4 @@
 import fs from 'fs'
-import path from 'path';
-import nunjucks from 'nunjucks'
 import build from './build.mjs'
 import { nunjucksOnLoadPlugin } from './nunjucks-plugin.mjs';
 

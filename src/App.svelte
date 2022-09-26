@@ -1,6 +1,8 @@
 <script>
+  // @ts-ignore
+  import svelteLogo from "../app/static/img/svelte.svg";
   import Counter from "./lib/Counter.svelte";
-  import Nunjucks from "./lib/nunjucks/Nunjucks.svelte";
+  // import Nunjucks from "./lib/nunjucks/Nunjucks.svelte";
   const url = window.location.href;
 </script>
 
@@ -14,7 +16,7 @@
       />
     </a>
     <a href="https://svelte.dev" target="_blank">
-      <img src="/static/img/svelte.svg" class="logo svelte" alt="Svelte Logo" />
+      <img src={svelteLogo} class="logo svelte" alt="Svelte Logo" />
     </a>
     <a href="https://palletsprojects.com/p/flask/" target="_blank">
       <img
@@ -42,8 +44,6 @@
   <p class="read-the-docs">
     Click on the ESbuild and Svelte logos to learn more
   </p>
-
-  <Nunjucks />
 </main>
 
 <style>

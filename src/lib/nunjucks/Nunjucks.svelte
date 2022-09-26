@@ -1,4 +1,7 @@
 <script>
+    // this import (together with the nunjucksImporterPlugin)
+    // means that the compiled template will be bundled with this code
+    import "../../../app/templates/nunjucks/fragment.html";
     import { render as nunjucks } from "./nunjucks";
 
     let html = nunjucks("fragment.html", {
@@ -7,10 +10,4 @@
     });
 </script>
 
-
 {@html html}
-
-<p>
-    Remember to compile the templates. Run <code>npm run numjucks</code>
-    and look at the build script in <code>svelte/numjucks.main.mjs</code>.
-</p>

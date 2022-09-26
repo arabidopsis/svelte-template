@@ -6,5 +6,5 @@
 </ol>
 
 {% for a in somestring|split %}
-    <code>{{a}}</code>{% if not loop.last %},{% endif %}
+    <code>{{a}}</code>{% if not loop.last %}, {% endif %}
 {% endfor %}
