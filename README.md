@@ -65,15 +65,20 @@ git push -u origin main
 ## Development
 
 * run `python -m app` to generate an `index.html` file from your flask templates
-* run `npm run serve` to run a [hot reloading server](https://www.npmjs.com/package/live-server) or `flask run`
+* run `npm run serve` to run a [hot reloading server](https://www.npmjs.com/package/live-server)
 * then run (in another terminal) `npm run build-watch` to run a live esbuild
+
+You can also just run `flask run` instead of `npm run serve` but you
+will have to refresh the page in the browser.
 
 
 ### Loading svelte bundles
 
-There are two global jinja2 functions `svelte_css` and `sevlte_js` which
+There are two global jinja2 functions `svelte_css` and `svelte_js` which
 use an `ASSET_FOLDER = 'assets` configuration value to load css and js generated
-from the build process. Typically from the static folder. This should be the folder that the esbuild scripts specify e.g: `outdir: "app/static/assets"`
+from the build process. Typically from the static folder. This should be the folder that the esbuild scripts specify e.g: `outdir: "app/static/assets"`.
+If you change `ASSET_FOLDER` in python then change the value in `.env` file
+for `esbuild`.
 
 Along with that there are `cdn_css` and `cdn_js` that can be used to
 reference css and javascript from CDNs specified in `app/cdn.toml`
@@ -99,7 +104,7 @@ export const another_app = new AnotherApp({
 ```
 This, I think, gives me the best of both worlds.
 
-Also `esbuild` allows me to create build scripts (see `svelte-build/build.main.mjs`)
+Also `esbuild` allows me to create build scripts (see say: `svelte-build/build.main.mjs`)
 to create multiple bundles, one for each page if necessary.
 
 You can run jinja2 macros with:
@@ -133,19 +138,4 @@ And deal with them simply as
 <div on:click={monitor}>
   {@html html}
 </div>
-```
-
-### nunjucks
-
-* https://mozilla.github.io/nunjucks/
-
-```jinja
-
-{{ cdn_js("nunjucks") }}
-<script>
-const env = nunjucks.configure();
-const template = nunjucks.compile(`{{ include_raw("circos-info.html")}}`, env)
-
-const html = template.render(json)
-</script>
 ```

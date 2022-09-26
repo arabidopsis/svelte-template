@@ -14,5 +14,7 @@
 
 {% block js %}
 {{super()}}
+{{ cdn_js('nunjucks-slim') }}
 {{ svelte_js('main') }}
+{{ nunjucks_js('main') }}
 {% endblock js %}

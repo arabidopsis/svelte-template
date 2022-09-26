@@ -1,9 +1,9 @@
 {
     "extends": "@tsconfig/svelte/tsconfig.json",
     "compilerOptions": {
-        "target": "ESNext",
+        "target": "es6",
         "useDefineForClassFields": true, // switch to the upcoming ECMA runtime behavior of class fields.
-        "module": "ESNext",
+        "module": "es6",
         "resolveJsonModule": true, // allow importing of json modules
         /**
        * Typecheck JS in `.svelte` and `.js` files by default.

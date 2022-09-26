@@ -176,12 +176,18 @@ def register_filters(app: Flask) -> None:
         url = url_for("static", filename=join(assets, f"{mod}.js"), **v)  # type: ignore
         return Markup(f'<script defer src="{url}"></script>')
 
+    def nunjucks_js(mod: str) -> Markup:
+        v = {"v": f"v{random()}" if app.debug else version}
+        url = url_for("static", filename=join(assets, f"nunjucks-{mod}.js"), **v)  # type: ignore
+        return Markup(f'<script src="{url}"></script>')
+
     # for nunjucks includes
     app.jinja_env.globals["include_raw"] = include_raw
     app.jinja_env.globals["cdn_js"] = cdn_js
     app.jinja_env.globals["cdn_css"] = cdn_css
     app.jinja_env.globals["svelte_css"] = svelte_css
     app.jinja_env.globals["svelte_js"] = svelte_js
+    app.jinja_env.globals["nunjucks_js"] = nunjucks_js
 
     app.template_filter("human")(human)
 

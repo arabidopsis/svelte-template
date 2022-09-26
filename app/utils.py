@@ -50,11 +50,3 @@ def human(num: int, suffix: str = "B", scale: int = 1) -> str:
     if not e:
         return f"{int(num)}{suffix}"
     return f"{val:3.1f}{e}{suffix}"
-
-
-def rmfiles(files: list[str]) -> None:
-    for f in files:
-        try:
-            Path(f).unlink()
-        except OSError:
-            pass

@@ -49,6 +49,10 @@ integrity = "sha256-l3FykDBm9+58ZcJJtzcFvWjBZNJO40HmvebhpHXEhC0="
 src = "https://cdnjs.cloudflare.com/ajax/libs/nunjucks/3.0.1/nunjucks.min.js"
 integrity = "sha256-sh9FYQZVVLprCQB3/IcNyCRrZwu9hZ+xLHhUszDfsK4="
 
+[nunjucks-slim.js]
+# src = "https://mozilla.github.io/nunjucks/files/nunjucks-slim.js"
+src = "https://unpkg.com/nunjucks@3.2.3/browser/nunjucks-slim.min.js"
+
 [select2.js]  # at 4.0.13
 src = "https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.12/js/select2.min.js"
 integrity = "sha256-wfVTTtJ2oeqlexBsfa3MmUoB77wDNRPqT1Q1WA2MMn4="
