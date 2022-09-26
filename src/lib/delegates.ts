@@ -12,16 +12,17 @@ export class Delegate {
     constructor(selector: string) {
         this.selector = selector;
         this.handlers = [];
+        // check if selector is valid
         document.documentElement.querySelector(selector);
     }
 
-    add(handler: (e: MouseEvent) => any) {
+    add(handler: (e: MouseEvent) => any): this {
         this.handlers.push(handler);
         return this;
     }
     // on:click={delegate.on}
-    on = (e: MouseEvent) => {
-        if (e.currentTarget === null) return
+    on = (e: MouseEvent): void => {
+        if (e.currentTarget === null || this.handlers.length === 0) return
         const elems = aselem(e.currentTarget).querySelectorAll(
             this.selector
         );
@@ -29,6 +30,9 @@ export class Delegate {
         for (let i = 0; i < elems.length; i++) {
             if (elems[i] === e.target) {
                 this.handlers.forEach((handler) => {
+                    // hanlder may be async so res is a Promise
+                    // we can't stop propagation of an event from
+                    // this type of function so we don't need to await it...
                     const res = handler.apply(e.target, [e]);
                     if (res === false) {
                         e.preventDefault();
@@ -46,6 +50,8 @@ export class Delegate {
 // <div on:click={func} >
 //  {@html html}
 // </div>
+// **REM**: use :scope to scope to the childen e.g. ":scope > div"
+// https://developer.mozilla.org/en-US/docs/Web/API/Element/querySelector#get_direct_descendants_using_the_scope_pseudo-class
 export function delegate(selector: string, handler: (e: MouseEvent) => any) {
     // check that selector is valid
     document.documentElement.querySelector(selector);
@@ -55,6 +61,9 @@ export function delegate(selector: string, handler: (e: MouseEvent) => any) {
         if (elems === null) return;
         for (let i = 0; i < elems.length; i++) {
             if (elems[i] === e.target) {
+                // hanlder may be async so res is a Promise
+                // we can't stop propagation of an event from
+                // this type of function so we don't need to await it...
                 const res = handler.apply(e.target, arguments);
                 if (res === false) {
                     e.preventDefault();
@@ -65,3 +74,4 @@ export function delegate(selector: string, handler: (e: MouseEvent) => any) {
         }
     };
 }
+export const scoped_delegate = (selector: string, handler: (e: MouseEvent) => any) => delegate(':scope ' + selector, handler)

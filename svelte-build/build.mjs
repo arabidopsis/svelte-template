@@ -1,7 +1,8 @@
 import esbuild from "esbuild";
 import sveltePlugin from "esbuild-svelte";
 import sveltePreprocess from "svelte-preprocess";
-
+import dotenv from 'dotenv'
+dotenv.config({ path: '.env' })
 
 const watch = process.env.WATCH === '1';
 const production = process.env.PRODUCTION === '1';

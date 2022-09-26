@@ -23,8 +23,15 @@
         alt="Flask Logo"
       />
     </a>
+    <a href="getbootstrap.com" target="_blank">
+      <img
+        src="https://getbootstrap.com/docs/5.2/assets/brand/bootstrap-logo-shadow.png"
+        class="logo bootstrap"
+        alt="Bootstrap Logo"
+      />
+    </a>
   </div>
-  <h1>ESBuild + Svelte + Flask</h1>
+  <h1>ESBuild + Svelte + Flask + Bootstrap!</h1>
   <p>
     Current url is {url} and the path is {window.location.pathname}
   </p>

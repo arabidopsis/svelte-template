@@ -1,12 +1,15 @@
 from __future__ import annotations
 
 APP_NAME = "Svelte App"
+# update version for js/css cache busting
+VERSION = 1
 # use fontawesome css fonts
 FONT_ICONS = True
 # unexpected bugs that result in Internal Server Error 50x
 # will be emailed to here if set:
 # ADMINS = ['your.email@gmail.com']
 MAIL_SUBJECT = "svelte website"
+# SMTP mailserver
 MAIL_SERVER = "mailhost"
 # don't send more than 1 error email message every 5 mins
 # LOG_ERROR_DELAY = 60 * 5
@@ -15,4 +18,5 @@ MAIL_SERVER = "mailhost"
 SITE_URL = "https://mysite.url"
 
 # where svelte/esbuild writes it's js/css/map files in the static folder
+# see .env file
 ASSET_FOLDER = "assets"

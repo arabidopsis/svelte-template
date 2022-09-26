@@ -6,13 +6,14 @@
   "license": "ISC",
   "main": "src/main.js",
   "scripts": {
-    "serve": "npx live-server",
+    "serve": "npx live-server --mount=/static:app/static index.html",
     "build": "node svelte-build/build.main.mjs",
     "build-watch": "WATCH=1 node svelte-build/build.main.mjs",
     "check": "svelte-check --tsconfig ./tsconfig.json"
   },
   "devDependencies": {
     "@tsconfig/svelte": "^3.0.0",
+    "dotenv": "^16.0.2",
     "esbuild": "^0.15.7",
     "esbuild-svelte": "^0.7.1",
     "svelte": "^3.50.1",
