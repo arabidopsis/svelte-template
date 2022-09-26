@@ -139,3 +139,12 @@ And deal with them simply as
   {@html html}
 </div>
 ```
+
+
+## Nunjucks
+
+There is also support for [nunjucks](https://mozilla.github.io/nunjucks/),
+an implementation of the jinja2 templating engine in javascript. So
+you can render jinja2 templates in the browser.
+
+See the `src/lib/nunjucks/Nunjucks.svelte` file.

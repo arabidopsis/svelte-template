@@ -11,11 +11,3 @@ await build({
     plugins: [nunjucksOnLoadPlugin(PATH)]
 
 })
-
-
-
-
-
-// const ret = nunjucks.precompile('app/templates/views/', { env: env, include: [/.*\.html/] });
-
-// fs.writeFileSync('app/static/assets/nunjucks-main.js', ret)

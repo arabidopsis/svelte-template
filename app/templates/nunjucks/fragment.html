@@ -1,10 +1,18 @@
+{% extends "main.html" %}
+
+{% macro extra(a) %}
+    This is {{a}}
+{% endmacro %}
+
+{% block frag %}
 <h2> Example of a jinja2/nunjucks template <a href="{{NUNJUCKS}}">see here</a></h2>
 <ol>
 {% for a in somelist[2:] %}
-<li>{{a}}</li>
+<li>{{extra(a)}}</li>
 {% endfor %}
 </ol>
 
 {% for a in somestring|split %}
     <code>{{a}}</code>{% if not loop.last %}, {% endif %}
 {% endfor %}
+{% endblock frag %}
