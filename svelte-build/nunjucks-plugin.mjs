@@ -31,7 +31,13 @@ export const nunjucksOnLoadPlugin = (directory) => {
         },
     }
 }
-export const nunjucksImporterPlugin = () => {
+export const nunjucksImporterPlugin = (baseDir) => {
+    function getname(fullname) {
+        if (!baseDir) {
+            return path.basename(fullname)
+        }
+        return path.relative(baseDir, fullname)
+    }
     return {
         name: 'nunjucks-importer',
 
@@ -44,8 +50,7 @@ export const nunjucksImporterPlugin = () => {
 
             build.onLoad({ filter: filter }, async (args) => {
                 const template = await fs.promises.readFile(args.path, { encoding: 'utf8' })
-                // let ret = nunjucks.precompile(args.path, { name: path.basename(args.path), env: env, include: [filter] });
-                let ret = nunjucks.precompileString(template, { name: path.basename(args.path), env: env, include: [filter] });
+                const ret = nunjucks.precompileString(template, { name: getname(args.path), env: env, include: [filter] });
 
                 return {
                     contents: ret,

@@ -1,23 +1,29 @@
 from __future__ import annotations
 
-import os
+from typing import BinaryIO
 
 import click
 
-os.environ["FLASK_DEBUG"] = "0"
-
 
 @click.command()
+@click.option("--debug", is_flag=True, help="generate debug version of page")
 @click.option("--page", default="/", help="page to generate", show_default=True)
-@click.option("--out", default="index.html", help="file to write", show_default=True)
-def generate(page: str, out: str):
+@click.option(
+    "--out",
+    default="index.html",
+    help="file to write",
+    show_default=True,
+    type=click.File("wb"),
+)
+def generate(page: str, out: BinaryIO, debug: bool):
     from .wsgi import application
 
+    application.debug = debug
     client = application.test_client()
     resp = client.get(page)
     txt = resp.data
-    with open(out, "wb") as fp:
-        fp.write(txt)
+    click.secho(f"writing: {out.name}", fg="green")
+    out.write(txt)
 
 
 if __name__ == "__main__":

@@ -1,44 +1,9 @@
-        /*{# from https://www.smashingmagazine.com/2015/11/using-system-ui-fonts-practical-guide/ #}*/
         :root {
-            --footer-a-color: #66aaff;
-            --app-dark: #222;
-            --app-light: #999;
+            --app-bg: #222;
+            --app-fg: var(--bs-light);
+            --app-a-hover: #66aaff;
             --header-font: Gruppo, "Ubuntu", var(--bs-font-sans-serif);
         }
-
-        #app-navbar {
-            z-index:500;
-        }
-        .app-bg-dark {
-            background-color: var(--app-dark);
-            color: var(--bs-light);
-        }
-        .app-bg-light {
-            background-color: var(--app-light);
-            color: var(--bs-dark);
-        }
-        .app-bg-dark a {
-            color: var(--bs-light);
-        }
-
-        .app-bg-dark .dropdown-menu  {
-            background-color: var(--app-dark);
-        }
-
-        #app-footer.app-bg-dark a:hover {
-            color: var(--bs-white);
-        }
-
-        #app-footer.app-bg-dark a {
-            color: var(--footer-a-color);
-        }
-        #hero {
-            width:100%;
-            height:150px;
-            background: bottom / contain no-repeat url("{{url_for('static', filename='img/svelte.svg')}}"),
-                var(--app-dark);
-        }
-
         body {
             display: flex;
             flex-direction: column;
@@ -48,37 +13,51 @@
             flex-grow: 1;
         }
 
+        #app-navbar {
+            z-index:500;
+        }
+        .app-bg {
+            background-color: var(--app-bg);
+            color: var(--app-fg);
+        }
+        .app-bg a {
+            color: var(--app-fg);
+        }
+        .app-bg a:hover {
+            color: var(--app-a-hover);
+        }
+        .app-bg .dropdown-menu  {
+            background-color: var(--app-bg);
+        }
+
+
+        #hero {
+            width:100%;
+            height:150px;
+            background: bottom / contain no-repeat url("{{url_for('static', filename='img/svelte.svg')}}"),
+                var(--app-bg);
+        }
+
         .header-text {
             height: 100%;
             font-size: 4em;
-            font-family: var(--header-font);
             color: var(--bs-white);
             text-shadow: 2px 2px black;
         }
         .header-font {
             font-family: var(--header-font);
         }
-        /*{#
-        a.offsite {
-            background-position: right center;
-            background-repeat: no-repeat;
-            padding-right: 12px;
-            background-image: url("{{offsite('#007bff', '#ffffff')}}");
-        }
 
-
-        .app-bg-dark a.offsite {
-            background-image: url("{{offsite('#66aaff', '#000000')}}");
-        }
-        #}*/
-        a.offsite::after /*, a[href^="https://"]::after, a[href^="http://"]::after*/ {
-            padding-left:.2em;
+        a.offsite::after {
+            padding-left:.4em;
             text-rendering: auto;
             -webkit-font-smoothing: antialiased;
             content: '\f35d';
             /* font-family: 'Font Awesome 5 free';
             font-weight: 600; */
             font: var(--fa-font-solid);
+            font-size:.6em;
+            vertical-align: top;
         }
 
         #toast-container > .toast-error {

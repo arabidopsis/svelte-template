@@ -21,14 +21,14 @@ run (see [degit](https://github.com/Rich-Harris/degit)):
 
 ```bash
 # grab a copy of this repo
-degit arabidopsis/svelte-template my-new-website
+npx degit arabidopsis/svelte-template my-new-website
 # *OR*
 # git clone --depth=1 https://github.com/arabidopsis/svelte-template my-new-website && \
 #     (cd my-new-website; rm -rf .git)
 cd my-new-website
 # install javascript dependencies
 npm install
-# build the code
+# build the javascript bundles
 npm run build
 # activate a suitable python
 conda activate py39
@@ -68,7 +68,7 @@ git push -u origin main
 
 * run `python -m app` to generate an `index.html` file from your flask templates
 * run `npm run serve` to run a [hot reloading server](https://www.npmjs.com/package/live-server)
-* then run (in another terminal) `npm run build-watch` to run a live esbuild
+* then run (in another terminal) `npm run build-watch` to run a live (re)esbuild. Now editing (svelte/js/ts) files will prompt an immediate reload
 
 You can also just run `flask run` instead of `npm run serve` but you
 will have to refresh the page in the browser.

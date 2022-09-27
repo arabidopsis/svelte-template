@@ -44,12 +44,13 @@
   <p>
     Current url is {url} and the path is {window.location.pathname}
   </p>
-  <div class="card">
-    <Counter count={48} />
+  <div class="card w-25 mx-auto">
+    <Counter count={0} />
   </div>
 
   <p class="read-the-docs">
-    Click on the ESbuild and Svelte logos to learn more
+    Click on the ESbuild/Svelte/Flask/Bootstrap or FontAwesome logos to learn
+    more
   </p>
 </main>
 
