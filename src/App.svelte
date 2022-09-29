@@ -42,7 +42,7 @@
   </div>
   <h2>ESBuild + Svelte + Flask + Bootstrap + FontAwesome!</h2>
   <p>
-    Current url is {url} and the path is {window.location.pathname}
+    <code>&lt;Counter count=&lcub;0&rcub;&gt;</code>
   </p>
   <div class="card w-25 mx-auto">
     <Counter count={0} />

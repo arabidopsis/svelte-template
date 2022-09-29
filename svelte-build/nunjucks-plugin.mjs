@@ -2,7 +2,7 @@ import fs from 'fs'
 import path from 'path';
 import nunjucks from 'nunjucks'
 
-export const nunjucksOnLoadPlugin = (directory) => {
+export const nunjucksOnLoadPlugin = (baseDir) => {
     return {
         name: 'nunjucks',
 
@@ -14,7 +14,7 @@ export const nunjucksOnLoadPlugin = (directory) => {
             // REM: async filters must be known at compile-time
 
             build.onResolve({ filter: filter }, args => {
-                return { path: path.join(args.resolveDir, directory, args.path) }
+                return { path: path.join(args.resolveDir, baseDir, args.path) }
             })
 
             build.onLoad({ filter: filter }, async (args) => {
@@ -25,7 +25,7 @@ export const nunjucksOnLoadPlugin = (directory) => {
                 return {
                     contents: ret,
                     loader: 'js',
-                    watchDirs: [directory]
+                    watchDirs: [baseDir]
                 }
             })
         },
@@ -43,7 +43,7 @@ export const nunjucksImporterPlugin = (baseDir) => {
 
         setup(build) {
             nunjucks.installJinjaCompat()
-            const env = new nunjucks.configure();
+            const env = nunjucks.configure();
             const filter = /\.html$/
 
             // REM: async filters must be known at compile-time
