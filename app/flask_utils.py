@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import gzip
+from itertools import chain
 from os.path import abspath
 from os.path import isabs
 from os.path import join
@@ -127,19 +128,27 @@ def register_filters(app: Flask) -> None:
     version = app.config["VERSION"]
 
     def include_raw(filename: str) -> Markup:
-        loader: FileSystemLoader = app.jinja_loader  # type: ignore
-        if loader is None:
-            raise TemplateNotFound(filename)
-        if filename.endswith((".gz", ".svgz")):
+        def markup(loader: FileSystemLoader | None) -> Markup | None:
+            if loader is None:
+                return None
             for path in loader.searchpath:
                 f = Path(path).joinpath(filename)
                 if f.is_file():
                     with gzip.open(f, "rt", encoding="utf8") as fp:
                         return Markup(fp.read())
+            return None
+
+        if filename.endswith((".gz", ".svgz")):
+            for loader in chain(
+                [app.jinja_env.loader],
+                (bp.jinja_loader for bp in app.blueprints.values()),
+            ):
+                ret = markup(loader)
+                if ret is not None:
+                    return ret
             raise TemplateNotFound(filename)
 
-        src = loader.get_source(app.jinja_env, filename)[0]
-
+        src = app.jinja_env.loader.get_source(app.jinja_env, filename)[0]
         return Markup(src)
 
     def cdn_js(key: str, **kwargs: dict[str, Any]) -> Markup:
