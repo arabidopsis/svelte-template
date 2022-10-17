@@ -19,7 +19,7 @@ const baseconfig = {
   target: 'es6',
   plugins: [sveltePlugin({ preprocess: sveltePreprocess() }), nunjucksImporterPlugin()],
   logLevel: "info",
-  external: ['nunjucks']
+  external: ['nunjucks', 'bootstrap']
 }
 async function build(config) {
   return esbuild.build({ ...baseconfig, ...config })//.catch(() => process.exit(1))
