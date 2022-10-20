@@ -45,7 +45,7 @@ export class Delegate {
     };
 }
 // const func = delegate('.class ol li', (e) => {
-//     /* do something with e.target */
+//     /* do something with e.target === this */
 // })
 // <div on:click={func} >
 //  {@html html}

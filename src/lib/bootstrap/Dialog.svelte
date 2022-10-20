@@ -1,5 +1,5 @@
 <script type="ts">
-    import { onMount, onDestroy } from "svelte";
+    import { onMount } from "svelte";
     import bootstrap from "bootstrap";
 
     export let size: string = "xl";
@@ -8,8 +8,9 @@
     let modal: bootstrap.Modal;
     onMount(() => {
         modal = new bootstrap.Modal(dialog_dom);
+        return () => modal.dispose();
     });
-    onDestroy(() => modal.dispose());
+    // onDestroy(() => modal.dispose());
 
     export function show() {
         modal.show();
