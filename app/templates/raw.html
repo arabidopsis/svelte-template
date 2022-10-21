@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 {%- from "fragments/macros.html" import nav_link -%}
 <html lang="en">
+
 <head>
     <title>{% block title %}{{config.APP_NAME}}{% endblock %}</title>
     {%- include "fragments/meta.html" %}
@@ -14,13 +15,13 @@
 
     {% if config.FONT_ICONS %}
 
-        {{ cdn_css("fontawesome6") }}
+    {{ cdn_css("fontawesome6") }}
 
     {% endif %}
 
     {% block cdn_css %}{% endblock %}
     <style>
-    {% include "raw.css" %}
+        {% include "raw.css" %}
     </style>
     {% block css %}{% endblock css %}
 
@@ -45,8 +46,7 @@
 
         </div>
 
-        <div class="d-lg-none header-font text-white text-center bg-info"
-            style="height:2.5em;">
+        <div class="d-lg-none header-font text-white text-center bg-info" style="height:2.5em;">
             <div style="font-size:1.8em;">
                 {{config.APP_NAME}}
             </div>
@@ -59,7 +59,8 @@
     <nav id="app-navbar" class="navbar sticky-top navbar-expand-md navbar-dark app-bg" id="top">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
-                <img src="{{url_for('static', filename='img/svelte.svg')}}" style="height:1.1em" alt="{{config.APP_NAME}} logo"/>
+                <img src="{{url_for('static', filename='img/svelte.svg')}}" style="height:1.1em"
+                    alt="{{config.APP_NAME}} logo" />
                 {{config.APP_NAME}}
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#app-navbar-collapse"
@@ -107,8 +108,8 @@
                 <div>
                     <ul class="list-inline text-center" style="padding-top:.5em">
                         <li class="list-inline-item">
-                            <a class="offsite" href="https://plantenergy.edu.au"
-                                target="_blank">© 2022 Millar Lab</a>
+                            <a class="offsite" href="https://plantenergy.edu.au" target="_blank" rel="noreferrer">© 2022
+                                Millar Lab</a>
                         </li>
                         <li class="list-inline-item">|</li>
                         <li class="list-inline-item">version:
@@ -125,12 +126,10 @@
                 </div>
                 <div class="col text-center">
 
-                        Me and You
-                        <br/>
-                        PMID: <a target="pubmed" class="offsite"
-                            href="https://ncbi.nlm.nih.gov/pubmed/XXXXXX">PUBMED</a>
-                        doi: <a target="doi" class="offsite"
-                            href="https://doi.org/XXXXX">DOI</a>
+                    Me and You
+                    <br />
+                    PMID: <a target="pubmed" class="offsite" href="https://ncbi.nlm.nih.gov/pubmed/XXXXXX">PUBMED</a>
+                    doi: <a target="doi" class="offsite" href="https://doi.org/XXXXX">DOI</a>
 
                 </div>
 
@@ -148,11 +147,11 @@
                 </div>
                 <div class="d-flex justify-content-around">
                     <small>
-                    &copy; 2022.
-                    This work is licensed under a <a rel="license" class="offsite"
-                        href="https://creativecommons.org/licenses/by/4.0/">
-                        Creative Commons Attribution 4.0 International License</a>.
-                    <i class="fas fa-code"></i> with <i class="fas fa-heart"></i> by IRC.
+                        &copy; 2022.
+                        This work is licensed under a <a rel="license" class="offsite"
+                            href="https://creativecommons.org/licenses/by/4.0/">
+                            Creative Commons Attribution 4.0 International License</a>.
+                        <i class="fas fa-code"></i> with <i class="fas fa-heart"></i> by IRC.
                     </small>
                 </div>
             </div>
@@ -170,4 +169,5 @@
     {% endif %}
     {% block js %}{% endblock js %}
 </body>
+
 </html>

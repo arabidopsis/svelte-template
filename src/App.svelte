@@ -8,31 +8,35 @@
 
 <main>
   <div>
-    <a href="https://esbuild.github.io/" target="_blank">
+    <a href="https://esbuild.github.io/" target="_blank" rel="noreferrer">
       <img
         src="https://esbuild.github.io/favicon.svg"
         class="logo"
         alt="ESbuild Logo"
       />
     </a>
-    <a href="https://svelte.dev" target="_blank">
+    <a href="https://svelte.dev" target="_blank" rel="noreferrer">
       <img src={svelteLogo} class="logo svelte" alt="Svelte Logo" />
     </a>
-    <a href="https://palletsprojects.com/p/flask/" target="_blank">
+    <a
+      href="https://palletsprojects.com/p/flask/"
+      target="_blank"
+      rel="noreferrer"
+    >
       <img
         src="https://flask.palletsprojects.com/en/2.2.x/_static/flask-icon.png"
         class="logo flask"
         alt="Flask Logo"
       />
     </a>
-    <a href="getbootstrap.com" target="_blank">
+    <a href="getbootstrap.com" target="_blank" rel="noreferrer">
       <img
         src="https://getbootstrap.com/docs/5.2/assets/brand/bootstrap-logo-shadow.png"
         class="logo bootstrap"
         alt="Bootstrap Logo"
       />
     </a>
-    <a href="https://fontawesome.com/" target="_blank">
+    <a href="https://fontawesome.com/" target="_blank" rel="noreferrer">
       <img
         src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Font_Awesome_logomark_blue.svg"
         class="logo fontawesome"

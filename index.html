@@ -1,24 +1,27 @@
-<!DOCTYPE html><html lang="en">
-<head><meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<!DOCTYPE html>
+<html lang="en">
 
-<meta name="copyright" content="Your Name, Your Department" />
-<meta name="author" content="Your Name" />
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-<meta name="description" content="Svelte App" />
-<link rel="canonical" href="https://mysite.url" />
+    <meta name="copyright" content="Your Name, Your Department" />
+    <meta name="author" content="Your Name" />
+
+    <meta name="description" content="Svelte App" />
+    <link rel="canonical" href="https://mysite.url" />
 
 
-<meta name="twitter:card" content="summary" />
-<meta name="twitter:description" content="Svelte App" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:description" content="Svelte App" />
 
 
-<meta property='og:locale' content='en_US' />
-<meta property='og:title' content='Svelte App' />
-<meta property='og:description' content='Svelte App' />
-<meta property='og:url' content='https://mysite.url' />
-<meta property='og:site_name' content='Svelte App' />
+    <meta property='og:locale' content='en_US' />
+    <meta property='og:title' content='Svelte App' />
+    <meta property='og:description' content='Svelte App' />
+    <meta property='og:url' content='https://mysite.url' />
+    <meta property='og:site_name' content='Svelte App' />
     <title>Welcome Svelte App</title>
 
     <link rel="icon" href="/static/img/svelte.svg" />
@@ -28,18 +31,20 @@
 
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Gruppo" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
-            integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous" referrerpolicy="no-referrer">
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous"
+        referrerpolicy="no-referrer">
 
 
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
-            integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
 
 
 
 
     <style>
-            /**/
+        /**/
         :root {
             --footer-a-color: #66aaff;
             --app-dark: #222;
@@ -48,21 +53,24 @@
         }
 
         #app-navbar {
-            z-index:500;
+            z-index: 500;
         }
+
         .app-bg-dark {
             background-color: var(--app-dark);
             color: var(--bs-light);
         }
+
         .app-bg-light {
             background-color: var(--app-light);
             color: var(--bs-dark);
         }
+
         .app-bg-dark a {
             color: var(--bs-light);
         }
 
-        .app-bg-dark .dropdown-menu  {
+        .app-bg-dark .dropdown-menu {
             background-color: var(--app-dark);
         }
 
@@ -73,9 +81,10 @@
         #app-footer.app-bg-dark a {
             color: var(--footer-a-color);
         }
+
         #hero {
-            width:100%;
-            height:150px;
+            width: 100%;
+            height: 150px;
             background: bottom / contain no-repeat url("/static/img/svelte.svg"),
                 var(--app-dark);
         }
@@ -85,6 +94,7 @@
             flex-direction: column;
             min-height: 100vh;
         }
+
         main {
             flex-grow: 1;
         }
@@ -96,12 +106,17 @@
             color: var(--bs-white);
             text-shadow: 2px 2px black;
         }
+
         .header-font {
             font-family: var(--header-font);
         }
+
         /**/
-        a.offsite::after /*, a[href^="https://"]::after, a[href^="http://"]::after*/ {
-            padding-left:.2em;
+        a.offsite::after
+
+        /*, a[href^="https://"]::after, a[href^="http://"]::after*/
+            {
+            padding-left: .2em;
             text-rendering: auto;
             -webkit-font-smoothing: antialiased;
             content: '\f35d';
@@ -110,21 +125,24 @@
             font: var(--fa-font-solid);
         }
 
-        #toast-container > .toast-error {
+        #toast-container>.toast-error {
             background-color: var(--bs-danger) !important;
         }
-        #toast-container > .toast-warning {
+
+        #toast-container>.toast-warning {
             background-color: var(--bs-warning) !important;
         }
-        #toast-container > .toast-success {
+
+        #toast-container>.toast-success {
             background-color: var(--bs-success) !important;
         }
-        #toast-container > .toast-info {
+
+        #toast-container>.toast-info {
             background-color: var(--bs-info) !important;
         }
     </style>
 
-<link rel="stylesheet" href="/static/assets/main.css?v=1"/>
+    <link rel="stylesheet" href="/static/assets/main.css?v=1" />
 
 
 
@@ -148,8 +166,7 @@
 
         </div>
 
-        <div class="d-lg-none header-font text-white text-center bg-info"
-            style="height:2.5em;">
+        <div class="d-lg-none header-font text-white text-center bg-info" style="height:2.5em;">
             <div style="font-size:1.8em;">
                 Svelte App
             </div>
@@ -161,7 +178,7 @@
     <nav id="app-navbar" class="navbar sticky-top navbar-expand-md navbar-dark app-bg-dark" id="top">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
-                <img src="/static/img/svelte.svg" style="height:1.1em; margin-top:-2px" alt="Svelte App logo"/>
+                <img src="/static/img/svelte.svg" style="height:1.1em; margin-top:-2px" alt="Svelte App logo" />
                 Svelte App
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#app-navbar-collapse"
@@ -186,19 +203,13 @@
         </div>
     </nav>
 
-
-
-
     <main id="main-content">
 
-<div class="container mt-5 mb-5">
-    <div id="app"></div>
-</div>
+        <div class="container mt-5 mb-5">
+            <div id="app"></div>
+        </div>
 
     </main>
-
-
-
 
     <footer id="app-footer" class="app-bg-dark text-light">
         <div class="container">
@@ -206,8 +217,8 @@
                 <div>
                     <ul class="list-inline text-center" style="padding-top:.5em">
                         <li class="list-inline-item">
-                            <a class="offsite" href="https://plantenergy.edu.au"
-                                target="_blank">© 2022 Millar Lab</a>
+                            <a class="offsite" href="https://plantenergy.edu.au" target="_blank" rel="noreferrer">© 2022
+                                Miller Lab</a>
                         </li>
                         <li class="list-inline-item">|</li>
                         <li class="list-inline-item">version:
@@ -224,18 +235,15 @@
                 </div>
                 <div class="col text-center">
 
-                        Me and You
-                        <br/>
-                        PMID: <a target="pubmed" class="offsite"
-                            href="https://ncbi.nlm.nih.gov/pubmed/XXXXXX">PUBMED</a>
-                        doi: <a target="doi" class="offsite"
-                            href="https://doi.org/XXXXX">DOI</a>
+                    Me and You
+                    <br />
+                    PMID: <a target="pubmed" class="offsite" href="https://ncbi.nlm.nih.gov/pubmed/XXXXXX">PUBMED</a>
+                    doi: <a target="doi" class="offsite" href="https://doi.org/XXXXX">DOI</a>
 
                 </div>
 
                 <div class="col text-center">
-                    <img src="/static/img/svelte.svg" style="margin-top:10px;height:4em"
-                        alt="Svelte logo" />
+                    <img src="/static/img/svelte.svg" style="margin-top:10px;height:4em" alt="Svelte logo" />
                 </div>
 
             </div>
@@ -247,11 +255,11 @@
                 </div>
                 <div class="d-flex justify-content-around">
                     <small>
-                    &copy; 2022.
-                    This work is licensed under a <a rel="license" class="offsite"
-                        href="https://creativecommons.org/licenses/by/4.0/">
-                        Creative Commons Attribution 4.0 International License</a>.
-                    <i class="fas fa-code"></i> with <i class="fas fa-heart"></i> by IRC.
+                        &copy; 2022.
+                        This work is licensed under a <a rel="license" class="offsite"
+                            href="https://creativecommons.org/licenses/by/4.0/">
+                            Creative Commons Attribution 4.0 International License</a>.
+                        <i class="fas fa-code"></i> with <i class="fas fa-heart"></i> by IRC.
                     </small>
                 </div>
             </div>
@@ -261,14 +269,16 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"
+        referrerpolicy="no-referrer"></script>
 
 
 
 
 
-<script defer src="/static/assets/main.js?v=1"></script>
+    <script defer src="/static/assets/main.js?v=1"></script>
 
 
 </body>
+
 </html>
