@@ -77,7 +77,7 @@ will have to refresh the page in the browser.
 ### Loading svelte bundles
 
 There are two global jinja2 functions `svelte_css` and `svelte_js` which
-use an `ASSET_FOLDER = 'assets` configuration value to load css and js generated
+use an `ASSET_FOLDER = 'assets'` configuration value to load css and js generated
 from the build process. Typically from the static folder. This should be the folder that the esbuild scripts specify e.g: `outdir: "app/static/assets"`.
 If you change `ASSET_FOLDER` in python then change the value in `.env` file
 for `esbuild`.
