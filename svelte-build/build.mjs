@@ -4,7 +4,7 @@ import sveltePreprocess from "svelte-preprocess";
 import dotenv from 'dotenv'
 import { nunjucksImporterPlugin } from './nunjucks-plugin.mjs'
 dotenv.config({ path: '.env' })
-
+const TEMPLATE_FOLDER = process.env.TEMPLATE_FOLDER || 'app/templates'
 const watch = process.env.WATCH === '1';
 const production = process.env.PRODUCTION === '1';
 const baseconfig = {
@@ -17,7 +17,7 @@ const baseconfig = {
   watch: watch,
   minify: production,
   target: 'es6',
-  plugins: [sveltePlugin({ preprocess: sveltePreprocess() }), nunjucksImporterPlugin()],
+  plugins: [sveltePlugin({ preprocess: sveltePreprocess() }), nunjucksImporterPlugin(TEMPLATE_FOLDER)],
   logLevel: "info",
   external: ['nunjucks', 'bootstrap']
 }

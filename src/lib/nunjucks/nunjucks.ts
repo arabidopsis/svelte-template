@@ -20,6 +20,7 @@ interface Nunjucks {
 nunjucks.installJinjaCompat()
 const env = new nunjucks.Environment();
 
+// add all globals and extra filters here....
 env.addGlobal('NUNJUCKS', "https://mozilla.github.io/nunjucks/")
 env.addFilter('split', function (s: string, match: string | RegExp): string[] {
     match = match ? match : /\s+/g;

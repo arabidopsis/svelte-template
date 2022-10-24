@@ -10,8 +10,7 @@
     "build": "node svelte-build/build.main.mjs",
     "production": "PRODUCTION=1 node svelte-build/build.main.mjs",
     "build-watch": "WATCH=1 node svelte-build/build.main.mjs",
-    "check": "svelte-check --tsconfig ./tsconfig.json",
-    "nunjucks": "node svelte-build/nunjucks.main.mjs"
+    "check": "svelte-check --tsconfig ./tsconfig.json"
   },
   "devDependencies": {
     "@tsconfig/svelte": "^3.0.0",
