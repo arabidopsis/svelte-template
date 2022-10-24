@@ -30,6 +30,8 @@ cd my-new-website
 npm install
 # build the javascript bundles
 npm run build
+# **OR** for minified versions
+npm run production
 # activate a suitable python
 conda activate py39
 # create an isolated virtual environment

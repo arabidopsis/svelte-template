@@ -23,6 +23,8 @@ function importstr(path) {
 }
 
 export const nunjucksImporterPlugin = (baseDir = null, filter = /.html$/) => {
+    // importing .html files into javascript/svelte here means
+    // we are using a nunjucks template
     if (baseDir) {
         baseDir = path.resolve(baseDir)
     }
@@ -64,6 +66,7 @@ export const nunjucksImporterPlugin = (baseDir = null, filter = /.html$/) => {
                 return {
                     contents: ret,
                     loader: 'js',
+                    watchDirs: baseDir ? [baseDir] : []
                 }
             })
         },
