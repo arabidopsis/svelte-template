@@ -3,6 +3,7 @@ import sveltePlugin from "esbuild-svelte";
 import sveltePreprocess from "svelte-preprocess";
 import dotenv from 'dotenv'
 import { nunjucksImporterPlugin } from './nunjucks-plugin.mjs'
+// grab e.g. TEMPLATE_FOLDER, ASSET_FOLDER from .env
 dotenv.config({ path: '.env' })
 const TEMPLATE_FOLDER = process.env.TEMPLATE_FOLDER || 'app/templates'
 const watch = process.env.WATCH === '1';

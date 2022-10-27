@@ -66,7 +66,8 @@ export const nunjucksImporterPlugin = (baseDir = null, filter = /.html$/) => {
                 return {
                     contents: ret,
                     loader: 'js',
-                    watchDirs: baseDir ? [baseDir] : []
+                    watchDirs: baseDir ? [baseDir] : [],
+                    resolveDir: baseDir ? baseDir : undefined
                 }
             })
         },

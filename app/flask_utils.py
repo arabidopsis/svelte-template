@@ -125,8 +125,6 @@ def register_filters(app: Flask) -> None:
     with app.open_resource("cdn.toml", "rt") as fp:
         CDN = toml.load(fp)
 
-    version = app.config["VERSION"]
-
     def include_raw(filename: str) -> Markup:
         def markup(loader: FileSystemLoader | None) -> Markup | None:
             if loader is None:
@@ -174,20 +172,21 @@ def register_filters(app: Flask) -> None:
         )
 
     assets = app.config["ASSET_FOLDER"]
+    version = app.config["VERSION"]
+
+    def getversion():
+        return {"v": f"v{random()}" if app.debug else version}
 
     def svelte_css(mod: str) -> Markup:
-        v = {"v": f"v{random()}" if app.debug else version}
-        url = url_for("static", filename=join(assets, f"{mod}.css"), **v)  # type: ignore
+        url = url_for("static", filename=join(assets, f"{mod}.css"), **getversion())  # type: ignore
         return Markup(f'<link rel="stylesheet" href="{url}"/>')
 
     def svelte_js(mod: str) -> Markup:
-        v = {"v": f"v{random()}" if app.debug else version}
-        url = url_for("static", filename=join(assets, f"{mod}.js"), **v)  # type: ignore
+        url = url_for("static", filename=join(assets, f"{mod}.js"), **getversion())  # type: ignore
         return Markup(f'<script defer src="{url}"></script>')
 
     def nunjucks_js(mod: str) -> Markup:
-        v = {"v": f"v{random()}" if app.debug else version}
-        url = url_for("static", filename=join(assets, f"nunjucks-{mod}.js"), **v)  # type: ignore
+        url = url_for("static", filename=join(assets, f"nunjucks-{mod}.js"), **getversion())  # type: ignore
         return Markup(f'<script src="{url}"></script>')
 
     # for nunjucks includes
