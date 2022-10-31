@@ -21,18 +21,20 @@ function find_template_dependencies(src) {
 function importstr(path) {
     return `import ${JSON.stringify(path)};`
 }
+const defaults = { templateDir: undefined, filter: /.html$/ }
+export const nunjucksImporterPlugin = (options = {}) => {
+    const { templateDir, filter } = { ...defaults, ...options }
 
-export const nunjucksImporterPlugin = (baseDir = null, filter = /.html$/) => {
     // importing .html files into javascript/svelte here means
     // we are using a nunjucks template
-    if (baseDir) {
-        baseDir = path.resolve(baseDir)
+    if (templateDir) {
+        templateDir = path.resolve(templateDir)
     }
     function getname(fullname) {
-        if (!baseDir) {
+        if (!templateDir) {
             return path.basename(fullname)
         }
-        return path.relative(baseDir, fullname)
+        return path.relative(templateDir, fullname)
     }
 
     return {
@@ -42,9 +44,9 @@ export const nunjucksImporterPlugin = (baseDir = null, filter = /.html$/) => {
             nunjucks.installJinjaCompat()
             const env = nunjucks.configure();
 
-            if (baseDir) {
+            if (templateDir) {
                 build.onResolve({ filter: filter }, args => {
-                    return { path: path.isAbsolute(args.path) ? args.path : path.join(baseDir, args.path) }
+                    return { path: path.isAbsolute(args.path) ? args.path : path.join(templateDir, args.path) }
                 })
             }
             // REM: async filters must be known at compile-time
@@ -58,7 +60,7 @@ export const nunjucksImporterPlugin = (baseDir = null, filter = /.html$/) => {
                 if (dependencies.length > 0) {
                     // add import statements to top of js
                     // so they will be loaded too..
-                    const dirname = baseDir ? baseDir : path.dirname(args.path)
+                    const dirname = templateDir ? templateDir : path.dirname(args.path)
 
                     ret = dependencies.map(name => importstr(path.join(dirname, name))).join("\n") + '\n' + ret
                 }
@@ -66,8 +68,8 @@ export const nunjucksImporterPlugin = (baseDir = null, filter = /.html$/) => {
                 return {
                     contents: ret,
                     loader: 'js',
-                    watchDirs: baseDir ? [baseDir] : [],
-                    resolveDir: baseDir ? baseDir : undefined
+                    watchDirs: templateDir ? [templateDir] : [],
+                    resolveDir: templateDir ? templateDir : undefined
                 }
             })
         },

@@ -62,7 +62,7 @@ git add . && git commit -m "initial commit"
 
 # To avoid errors, do not initialize the new repository with README, license, or gitignore
 # files. You can add these files after your project has been pushed to GitHub.
-git remote add origin git@github.com:user/my-new-website.git
+git remote add origin git@github.com:{user}/my-new-website.git
 git remote -v
 git push -u origin main
 ```

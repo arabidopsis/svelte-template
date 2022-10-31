@@ -8,7 +8,7 @@
   "scripts": {
     "serve": "npx live-server --mount=/static:app/static index.html",
     "build": "node svelte-build/build.main.mjs",
-    "production": "PRODUCTION=1 node svelte-build/build.main.mjs",
+    "production": "NODE_ENV=production node svelte-build/build.main.mjs",
     "build-watch": "WATCH=1 node svelte-build/build.main.mjs",
     "check": "svelte-check --tsconfig ./tsconfig.json"
   },
