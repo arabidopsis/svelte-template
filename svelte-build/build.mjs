@@ -6,7 +6,6 @@ import { nunjucksImporterPlugin } from './nunjucks-plugin.mjs'
 // grab e.g. TEMPLATE_FOLDER, ASSET_FOLDER from .env
 dotenv.config({ path: '.env' })
 const TEMPLATE_FOLDER = process.env.TEMPLATE_FOLDER || 'app/templates'
-const watch = process.env.WATCH === '1';
 const production = process.env.NODE_ENV === 'production';
 const baseconfig = {
   mainFields: ["svelte", "browser", "module", "main"],
@@ -15,7 +14,7 @@ const baseconfig = {
   bundle: true,
   charset: 'utf8',
   sourcemap: true,
-  watch: watch,
+  watch: process.argv.includes('--watch'),
   minify: production,
   target: 'es6',
   plugins: [sveltePlugin({ preprocess: [sveltePreprocess()] }), nunjucksImporterPlugin({ templateDir: TEMPLATE_FOLDER })],
@@ -23,6 +22,7 @@ const baseconfig = {
   external: ['nunjucks', 'bootstrap']
 }
 async function build(config) {
-  return esbuild.build({ ...baseconfig, ...config })//.catch(() => process.exit(1))
+  return esbuild.build({ ...baseconfig, ...config })
+  //.catch(({error,location}) => { console.warn('Errors: ", error, location); process.exit(1)) }
 }
 export default build;
