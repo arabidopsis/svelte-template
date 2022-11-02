@@ -10,6 +10,7 @@ from markupsafe import escape
 
 
 def git_version() -> str | None:
+    """return git version of this repo -- if any"""
 
     git = which("git")
     if git is None:
@@ -39,6 +40,7 @@ def attrstr(kwargs: dict[str, Any]) -> str:
 
 
 def human(num: int, suffix: str = "B", scale: int = 1) -> str:
+    """human readable version of a file size"""
     if not num:
         return f"0{suffix}"
     num *= scale

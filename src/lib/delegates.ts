@@ -64,7 +64,7 @@ export function delegate(selector: string, handler: (e: MouseEvent) => any) {
                 // hanlder may be async so res is a Promise
                 // we can't stop propagation of an event from
                 // this type of function so we don't need to await it...
-                const res = handler.apply(e.target, arguments);
+                const res = handler.apply(e.target, [e]);
                 if (res === false) {
                     e.preventDefault();
                     e.stopPropagation();

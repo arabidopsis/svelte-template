@@ -12,7 +12,7 @@ The reason I like this setup is that I can create server side
 templates using jinja2, generate server side html fragments using
 jinja2 macros in the [HTML over the web way](https://hotwired.dev, https://qwik.builder.io/) (without the websockets :).
 So creation of static and semi-static html pages is simple.
-And *also* create an "app" with multiple target points per page, viz `main.js`:
+And *also* create an "app" with multiple target points per page, viz `src/main.js`:
 
 
 ## To instantiate
@@ -54,17 +54,13 @@ See [here](https://docs.github.com/en/get-started/importing-your-projects-to-git
 First remove anything you don't want or need (e.g nunjucks).
 
 ```bash
-# create a new repo
-git init -b main
+# create a empty new repo on github
+git clone git@github.com:{user}/my-new-repo.git
+# copy everything including hidden files
+cp -rT /path/to/my-new-website/ my-new-repo/
+cd my-new-repo
 git add . && git commit -m "initial commit"
-
-# Create a repo on github.com called my-new-website.
-
-# To avoid errors, do not initialize the new repository with README, license, or gitignore
-# files. You can add these files after your project has been pushed to GitHub.
-git remote add origin git@github.com:{user}/my-new-website.git
-git remote -v
-git push -u origin main
+git push
 ```
 ## Development
 
@@ -76,15 +72,15 @@ You can also just run `flask run` instead of `npm run serve` but you
 will have to refresh the page in the browser.
 
 
-### Loading svelte bundles
+### Loading svelte bundles in flask
 
 There are two global jinja2 functions `svelte_css` and `svelte_js` which
 use an `ASSET_FOLDER = 'assets'` configuration value to load css and js generated
 from the build process. Typically from the static folder. This should be the folder that the esbuild scripts specify e.g: `outdir: "app/static/assets"`.
-If you change `ASSET_FOLDER` in python then change the value in `.env` file
+If you change `ASSET_FOLDER` in python (`app/config.py`) then change the value in `.env` file
 for `esbuild`.
 
-Along with that there are `cdn_css` and `cdn_js` that can be used to
+Along with that there are `cdn_css` and `cdn_js` jinja2 functions that can be used to
 reference css and javascript from CDNs specified in `app/cdn.toml`
 
 
@@ -111,7 +107,7 @@ This, I think, gives me the best of both worlds.
 Also `esbuild` allows me to create build scripts (see say: `svelte-build/build.main.mjs`)
 to create multiple bundles, one for each page if necessary.
 
-You can run jinja2 macros with:
+You can run jinja2 macros with e.g.:
 
 ```python
 @app.route('/fragment/<dataid>')
@@ -151,4 +147,4 @@ There is also support for [nunjucks](https://mozilla.github.io/nunjucks/),
 an implementation of the jinja2 templating engine in javascript. So
 you can render jinja2 templates in the browser.
 
-See coments in the `src/lib/nunjucks/Nunjucks.svelte` file.
+See comments in the `src/lib/nunjucks/Nunjucks.svelte` file.

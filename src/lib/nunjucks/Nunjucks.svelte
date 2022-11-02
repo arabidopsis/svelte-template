@@ -3,7 +3,7 @@
 
     // This import (together with the nunjucksImporterPlugin)
     // means that the compiled template (and dependencies) will be bundled with this code.
-    // The filename is relative to template folder (see .env file)
+    // The filename is relative to template folder (see TEMPLATE_FOLDER in  the .env file)
 
     import "nunjucks/fragment.html";
 

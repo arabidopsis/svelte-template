@@ -4,11 +4,13 @@
     export let height: number = 5;
     export let width: number = 25;
     export let delta: number = 2.5;
+    export let color: string = "bg-danger";
+
     let w: number = 0;
     $: margin_left = `${w}%`;
     const mx = 100 - width;
 
-    let interval = null;
+    let interval: number | null = null;
     let display: string = "none";
 
     export function start() {
@@ -33,11 +35,11 @@
     onDestroy(stop);
 </script>
 
-<div class="progress" style="height: {height}px;" style:display>
+<div class="progress" style:height="{height}px" style:display>
     <div
-        class="progress-bar progress-bar-striped bg-danger"
+        class="progress-bar progress-bar-striped {color}"
         role="progressbar"
-        style="width:{width}%"
+        style:width="{width}%"
         style:margin-left={margin_left}
     />
 </div>
