@@ -27,7 +27,7 @@ env.addFilter('split', function (s: string, match: string | RegExp): string[] {
     if (s) return s.split(match);
     return [];
 });
-export function nunjucks_render(id: string, template: string, content: Record<string, any>): string {
+export function nunjucks_render(id: string, template: string, content: Record<string, any>): void {
     const elem = document.getElementById(id)
     if (elem === null) return
     const html = env.render(template, content)
