@@ -66,7 +66,7 @@ git push
 
 * run `python -m app` to generate an `index.html` file from your flask templates
 * run `npm run serve` to run a [hot reloading server](https://www.npmjs.com/package/live-server)
-* then run (in another terminal) `npm run build --watch` to run a live (re)esbuild. Now editing (svelte/js/ts) files will prompt an immediate reload
+* then run (in another terminal) `npm run build -- --watch` to run a live (re)esbuild. Now editing (svelte/js/ts) files will prompt an immediate reload
 
 You can also just run `flask run` instead of `npm run serve` but you
 will have to refresh the page in the browser.
