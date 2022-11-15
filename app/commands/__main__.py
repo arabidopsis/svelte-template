@@ -5,6 +5,7 @@ from datetime import datetime
 
 
 def main():
+    # test sub process executable....
     try:
         print("called main()")
         for i in range(50):

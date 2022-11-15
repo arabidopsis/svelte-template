@@ -1,11 +1,13 @@
 <script lang="ts">
   import { tick } from "svelte";
+
+  export let url: string = "/runcommand";
+  export let maxHeight: number = 200;
+
   let logarea: HTMLElement;
   let logs: string[] = [];
   let currentState: string = "PENDING";
   let cancel = false;
-  export let url: string = "/runcommand";
-  export let maxHeight: number = 200;
 
   function run() {
     const es = new EventSource(url);
