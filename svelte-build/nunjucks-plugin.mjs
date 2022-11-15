@@ -23,7 +23,7 @@ function importstr(path) {
 }
 const defaults = { templateDir: undefined, filter: /.html$/ }
 export const nunjucksImporterPlugin = (options = {}) => {
-    const { templateDir, filter } = { ...defaults, ...options }
+    let { templateDir, filter } = { ...defaults, ...options }
 
     // importing .html files into javascript/svelte here means
     // we are using a nunjucks template
