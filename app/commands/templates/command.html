@@ -1,0 +1,15 @@
+{% extends "raw.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="{{url_for('command.static', filename='cmd.css', v=1)}}" />
+{% endblock css %}
+
+{% block content %}
+<div class="container mt-5 mb-5 w-50">
+    <h1 class="text-center">Run a Process</h1>
+    <div id="app"></div>
+</div>
+{% endblock content %}
+{% block js %}
+<script src="{{url_for('command.static', filename='cmd.js', v=1)}}"></script>
+{% endblock js %}

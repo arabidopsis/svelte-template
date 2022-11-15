@@ -48,6 +48,10 @@ def init_full_app(app: Flask) -> None:
 
     init_index(app)
 
+    from .commands.view import init_app as init_cmd
+
+    init_cmd(app)
+
     register_filters(app)
 
     register_bytecode_cache(app)
