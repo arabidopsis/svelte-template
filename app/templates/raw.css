@@ -58,6 +58,7 @@
             font: var(--fa-font-solid);
             font-size:.6em;
             vertical-align: top;
+            text-decoration: none !important;
         }
 
         #toast-container > .toast-error {

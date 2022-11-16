@@ -124,8 +124,8 @@ node_modules/
 .vscode/
 instance/
 app/static/assets/
+app/commands/static/assets/
 .~lock.*#
 # remove these if you want
 package-lock.json
 poetry.lock
-app/commands/static/
