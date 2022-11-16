@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 import sys
 
 from flask import Blueprint
@@ -24,7 +25,16 @@ def index():
 
 @cmd.route("/runcommand")
 def publish():
+    # -u for unbuffered IO
     return command_iterator([sys.executable, "-u", "-m", "app.commands"])
+
+
+@cmd.route("/runcommand/kill/<int:pid>")
+def kill(pid: int):
+    from signal import SIGINT
+
+    os.kill(pid, SIGINT)
+    return "KILLED"
 
 
 def init_app(app: Flask) -> None:

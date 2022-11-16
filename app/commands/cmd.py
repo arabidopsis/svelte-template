@@ -28,9 +28,8 @@ class Command:
             environ.update(env)
         kwargs: dict[str, Any] = {"cwd": cwd, "env": environ}
         if silent:
-            self.devnull = open(os.devnull, "rb+")
-            kwargs["stdout"] = self.devnull
-            kwargs["stderr"] = self.devnull
+            kwargs["stdout"] = subprocess.DEVNULL
+            kwargs["stderr"] = subprocess.DEVNULL
             capture = False
         elif capture:
             kwargs["stdout"] = subprocess.PIPE
@@ -43,8 +42,6 @@ class Command:
 
     def wait(self) -> int:
         returncode = self._cmd.wait()
-        if hasattr(self, "devnull"):
-            self.devnull.close()
         return returncode
 
     @property
@@ -107,6 +104,10 @@ class Command:
     def output(self) -> Iterator[str]:
         return self.safe_iter()
 
+    @property
+    def pid(self) -> int:
+        return self._cmd.pid
+
 
 def eventstream(f):
     def new_func(*args, **kwargs):
@@ -128,6 +129,7 @@ def command_iterator(argline: list[str]):
     def generator():
         try:
             cmd = Command(argline)
+            yield {"pid": cmd.pid}
             for event in cmd.output:
                 yield {"msg": event}
             # print(f"retcode: {cmd.returncode}")
