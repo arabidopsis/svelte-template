@@ -6,6 +6,7 @@ import sys
 from flask import Blueprint
 from flask import Flask
 from flask import render_template
+from flask import Response
 
 from .cmd import command_iterator
 
@@ -24,13 +25,14 @@ def index():
 
 
 @cmd.route("/runcommand")
-def publish():
+def publish() -> Response:
     # -u for unbuffered IO
     return command_iterator([sys.executable, "-u", "-m", "app.commands"])
 
 
 @cmd.route("/runcommand/kill/<int:pid>")
-def kill(pid: int):
+def kill(pid: int) -> str:
+    # very dangerous!
     from signal import SIGINT
 
     os.kill(pid, SIGINT)

@@ -31,7 +31,9 @@
     es.addEventListener("message", async (event) => {
       const data = JSON.parse(event.data);
       if (data === null || cancel) {
-        currentState = cancel ? "CANCELLED" : "DONE";
+        if (currentState != "KILLED") {
+          currentState = cancel ? "CANCELLED" : "DONE";
+        }
         pid = 0;
         es.close();
       } else if (data.pid) {
@@ -63,7 +65,7 @@
     disabled={currentState !== "STARTED"}>Kill Process</button
   >
   {#if pid !== 0}PID:{pid}{/if}
-  {#if ["CANCELLED", "DONE"].includes(currentState)}
+  {#if ["CANCELLED", "DONE", "KILLED"].includes(currentState)}
     <button class="btn btn-warning" on:click={reset}>Reset</button>
   {/if}
 {/if}

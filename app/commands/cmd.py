@@ -5,7 +5,7 @@ import queue
 import select
 import subprocess
 import threading
-from functools import update_wrapper
+from functools import wraps
 from itertools import chain
 from typing import Any
 from typing import Iterator
@@ -110,7 +110,8 @@ class Command:
 
 
 def eventstream(f):
-    def new_func(*args, **kwargs):
+    @wraps(f)
+    def new_func(*args, **kwargs) -> Response:
         def generate():
             for event in chain(f(*args, **kwargs), (None,)):
                 yield ("data: %s\n\n" % json.dumps(event)).encode()
@@ -121,10 +122,10 @@ def eventstream(f):
             direct_passthrough=True,
         )
 
-    return update_wrapper(new_func, f)
+    return new_func
 
 
-def command_iterator(argline: list[str]):
+def command_iterator(argline: list[str]) -> Response:
     @eventstream
     def generator():
         try:

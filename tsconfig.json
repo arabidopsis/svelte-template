@@ -19,7 +19,9 @@
         "forceConsistentCasingInFileNames": true,
         "strict": true,
         // "skipLibCheck": true,
-        "types": ["svelte"]
+        "types": [
+            "svelte"
+        ]
     },
     "include": [
         // "src/**/*.d.ts",

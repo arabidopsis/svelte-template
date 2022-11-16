@@ -1,5 +1,7 @@
 {% extends "raw.html" %}
 
+{%block title %}Command{% endblock %}
+
 {% block css %}
 {#
 <link rel="stylesheet" href="{{url_for('command.static', filename='assets/cmd.css', v=1)}}" />
@@ -10,9 +12,11 @@
 {% block content %}
 <div class="container mt-5 mb-5 w-50">
     <h1 class="text-center">Run a Process</h1>
-    A small svelte app to show how to run a process on the server and
-    deliver the output to the browser using <a
-        href="https://developer.mozilla.org/en-US/docs/Web/API/EventSource">EventSource</a>.
+    <p>
+        A small svelte/flask app to show how to run a process on the server and
+        <i>progressively</i> deliver the output to the browser using <a
+            href="https://developer.mozilla.org/en-US/docs/Web/API/EventSource">EventSource</a>.
+    </p>
     <div id="app">{# Command.svelte goes here via cmd.js #}</div>
 </div>
 {% endblock content %}
