@@ -12,6 +12,7 @@ from typing import Iterator
 
 from flask import json
 from flask import Response
+from flask import session
 
 
 class Command:
@@ -125,16 +126,22 @@ def eventstream(f):
     return new_func
 
 
-def command_iterator(argline: list[str]) -> Response:
+def command_iterator(
+    argline: list[str],
+    cwd: str | None = None,
+    env: dict[str, str] | None = None,
+) -> Response:
+    cmd = Command(argline, env=env, cwd=cwd)
+    session["pid"] = cmd.pid
+
     @eventstream
     def generator():
         try:
-            cmd = Command(argline)
-            yield {"pid": cmd.pid}
+            yield {"kind": "pid", "pid": cmd.pid}
             for event in cmd.output:
-                yield {"msg": event}
-            # print(f"retcode: {cmd.returncode}")
+                yield {"kind": "line", "line": event}
+            yield {"kind": "retcode", "retcode": cmd.returncode}
         except Exception as e:
-            yield {"msg": "Error: %s" % e, "error": True}
+            yield {"kind": "error", "msg": f"Error: {e}"}
 
     return generator()

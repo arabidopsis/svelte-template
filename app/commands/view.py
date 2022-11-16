@@ -3,10 +3,12 @@ from __future__ import annotations
 import os
 import sys
 
+from flask import abort
 from flask import Blueprint
 from flask import Flask
 from flask import render_template
 from flask import Response
+from flask import session
 
 from .cmd import command_iterator
 
@@ -35,8 +37,13 @@ def kill(pid: int) -> str:
     # very dangerous!
     from signal import SIGINT
 
-    os.kill(pid, SIGINT)
-    return "KILLED"
+    if pid == session.get("pid"):
+
+        os.kill(pid, SIGINT)
+        del session["pid"]
+        return "KILLED"
+    else:
+        abort(404)
 
 
 def init_app(app: Flask) -> None:

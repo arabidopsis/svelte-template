@@ -10,12 +10,16 @@
   let currentState: string = "PENDING";
   let cancel = false;
   let pid: number = 0;
+  let retcode: number | null = null;
+  let error: string | null = null;
 
   function reset() {
     logs = [];
     currentState = "PENDING";
     cancel = false;
     pid = 0;
+    retcode = null;
+    error = null;
   }
 
   async function kill() {
@@ -29,22 +33,26 @@
   function run() {
     const es = new EventSource(url);
     es.addEventListener("message", async (event) => {
-      const data = JSON.parse(event.data);
+      const data: Message = JSON.parse(event.data);
       if (data === null || cancel) {
         if (currentState != "KILLED") {
           currentState = cancel ? "CANCELLED" : "DONE";
         }
         pid = 0;
         es.close();
-      } else if (data.pid) {
+      } else if (data.kind === "pid") {
         pid = data.pid;
-      } else {
-        logs.push(data.msg + "\n");
+      } else if (data.kind === "retcode") {
+        retcode = data.retcode;
+      } else if (data.kind === "line") {
+        logs.push(data.line + "\n");
         logs = logs; // svelte signal
         await tick();
         // scroll to bottom
         logarea!.scrollTop = logarea!.scrollHeight;
         // logarea!.scroll({ top: logarea.scrollHeight, behavior: "smooth" });
+      } else {
+        error = data.msg;
       }
     });
     currentState = "STARTED";
@@ -65,6 +73,7 @@
     disabled={currentState !== "STARTED"}>Kill Process</button
   >
   {#if pid !== 0}PID:{pid}{/if}
+  {retcode === null ? "" : `retcode: ${retcode}`}
   {#if ["CANCELLED", "DONE", "KILLED"].includes(currentState)}
     <button class="btn btn-warning" on:click={reset}>Reset</button>
   {/if}
@@ -75,7 +84,7 @@
   style:max-height="{maxHeight}em"
   style:height="{maxHeight}em">{#each logs as log}{log}{/each}</pre>
 
-<h3>status: <code>{currentState}</code></h3>
+<h3>status: <code>{currentState}</code> {error ? error : ""}</h3>
 
 <style>
   .build-log {
