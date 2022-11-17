@@ -27,7 +27,7 @@ def index():
 
 
 @cmd.route("/runcommand")
-def publish() -> Response:
+def runcommand() -> Response:
     # -u for unbuffered IO
     return command_iterator([sys.executable, "-u", "-m", "app.commands"])
 

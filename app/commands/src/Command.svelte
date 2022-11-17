@@ -1,13 +1,18 @@
+<script context="module" lang="ts">
+  // generated in command.html page
+  declare const Config: ConfigType;
+</script>
+
 <script lang="ts">
   import { tick } from "svelte";
-
-  export let url: string = "/runcommand";
+  type State = "PENDING" | "DONE" | "STARTED" | "KILLED" | "CANCELLED";
+  export let url: string = Config.url;
   export let maxHeight: number = 20;
 
   let logarea: HTMLElement;
 
   let logs: string[] = [];
-  let currentState: string = "PENDING";
+  let currentState: State = "PENDING";
   let cancel = false;
   let pid: number = 0;
   let retcode: number | null = null;
@@ -26,7 +31,7 @@
     if (pid !== 0) {
       const res = await fetch(`${url}/kill/${pid}`);
       const txt = await res.text();
-      currentState = txt;
+      if (txt === "KILLED") currentState = "KILLED";
     }
   }
 
@@ -72,8 +77,10 @@
     on:click={kill}
     disabled={currentState !== "STARTED"}>Kill Process</button
   >
-  {#if pid !== 0}PID:{pid}{/if}
-  {retcode === null ? "" : `retcode: ${retcode}`}
+  {#if pid !== 0}<code>PID:{pid}</code>{/if}
+  {#if retcode !== null}
+    <span class="r" class:retcode>retcode: {retcode}</span>
+  {/if}
   {#if ["CANCELLED", "DONE", "KILLED"].includes(currentState)}
     <button class="btn btn-warning" on:click={reset}>Reset</button>
   {/if}
@@ -99,5 +106,11 @@
   }
   h3 {
     text-align: center;
+  }
+  .r {
+    color: var(--bs-success, green);
+  }
+  .r.retcode {
+    color: var(--bs-danger, red);
   }
 </style>

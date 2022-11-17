@@ -25,5 +25,11 @@
 {#
 <script src="{{url_for('command.static', filename='assets/cmd.js', v=1)}}"></script>
 #}
+<script>
+    // of type ConfigType
+    const Config = {
+        url: "{{url_for('command.runcommand') }}"
+    }
+</script>
 {{svelte_js('cmd', 'command.static')}}
 {% endblock js %}
