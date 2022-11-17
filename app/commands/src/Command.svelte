@@ -106,6 +106,7 @@
   }
   h3 {
     text-align: center;
+    background-color: var(--bg-status-color, white);
   }
   .r {
     color: var(--bs-success, green);
