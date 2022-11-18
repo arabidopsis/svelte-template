@@ -48,10 +48,27 @@
   <p>
     <code>&lt;Counter count=&lcub;0&rcub;&gt;</code>
   </p>
-  <div class="card w-25 mx-auto">
-    <Counter count={0} />
+  <Counter count={0} />
+  <div
+    class="card w-50 mx-auto"
+    style="text-align: justify; text-justify: inter-word;"
+  >
+    <p>
+      The javascript kiddy universe has recently backpeddled from delivering
+      websites as javascript blobs and now are full of "SSR" (server-side
+      rendering) and "hydration" ("SSR" and then rerunning the javascript on the
+      client -- ugh!).
+    </p>
+    <p>
+      We boring old farts are ahead of the game: we have always used SSR -- with
+      flask and jinja2! This template repo is a way of adding super cool <code
+        >svelte</code
+      >
+      and -- if you want --
+      <code><a href="https://mozilla.github.io/nunjucks/">nunjucks</a></code> (jinja2
+      templates in javascript!)
+    </p>
   </div>
-
   <p class="read-the-docs">
     Click on the ESbuild/Svelte/Flask/Bootstrap or FontAwesome logos to learn
     more
