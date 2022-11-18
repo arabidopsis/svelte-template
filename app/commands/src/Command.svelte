@@ -17,6 +17,8 @@
   let pid: number = 0;
   let retcode: number | null = null;
   let error: string | null = null;
+  let start: number = 0;
+  let elapsed: number = 0;
 
   function reset() {
     logs = [];
@@ -36,6 +38,7 @@
   }
 
   function run() {
+    start = Date.now();
     const es = new EventSource(url);
     es.addEventListener("message", async (event) => {
       const data: Message = JSON.parse(event.data);
@@ -56,6 +59,7 @@
         // scroll to bottom
         logarea!.scrollTop = logarea!.scrollHeight;
         // logarea!.scroll({ top: logarea.scrollHeight, behavior: "smooth" });
+        elapsed = Date.now() - start;
       } else {
         error = data.msg;
       }
@@ -77,6 +81,7 @@
     on:click={kill}
     disabled={currentState !== "STARTED"}>Kill Process</button
   >
+  {(elapsed / 1000).toFixed(2)} seconds
   {#if pid !== 0}<code>PID:{pid}</code>{/if}
   {#if retcode !== null}
     <span class="r" class:retcode>retcode: {retcode}</span>
