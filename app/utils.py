@@ -52,3 +52,14 @@ def human(num: int, suffix: str = "B", scale: int = 1) -> str:
     if not e:
         return f"{int(num)}{suffix}"
     return f"{val:3.1f}{e}{suffix}"
+
+
+def mtime(filename: str) -> float:
+    path = Path(filename)
+    if path.exists():
+        return path.stat().st_mtime
+    return 0.0
+
+
+def isfileupdated(filename: str, time: float) -> bool:
+    return mtime(filename) > time
