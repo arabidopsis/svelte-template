@@ -34,8 +34,6 @@ main {
 #hero {
     width:100%;
     height:150px;
-    background: bottom / contain no-repeat url("{{url_for('static', filename='img/svelte.svg')}}"),
-        var(--app-bg);
 }
 
 .header-text {
