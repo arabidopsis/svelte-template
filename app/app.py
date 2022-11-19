@@ -36,6 +36,32 @@ def create_app() -> Flask:
     return app
 
 
+def init_blueprints(app: Flask) -> None:
+    import importlib
+    import os
+
+    name = app.name.split(".")[0]
+
+    for d in os.listdir(os.path.join(app.root_path, "blueprints")):
+        if d in {"__init__.py", "__pycache__"}:
+            continue
+        try:
+            m = importlib.import_module(f"{name}.blueprints.{d}.view")
+            init_app = getattr(m, "init_app", None)
+            if init_app is not None:
+                init_app(app)
+        except ImportError:
+            pass
+
+    # from .blueprints.commands.view import init_app as init_cmd
+
+    # init_cmd(app)
+
+    # from .blueprints.delay.view import init_app as init_delay
+
+    # init_delay(app)
+
+
 def init_full_app(app: Flask) -> None:
 
     init_email_logger(app)  # email logger requires config.ADMINS = [email]
@@ -48,9 +74,7 @@ def init_full_app(app: Flask) -> None:
 
     init_index(app)
 
-    from .commands.view import init_app as init_cmd
-
-    init_cmd(app)
+    init_blueprints(app)
 
     register_filters(app)
 

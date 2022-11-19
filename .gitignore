@@ -124,7 +124,7 @@ node_modules/
 .vscode/
 instance/
 app/static/assets/
-app/commands/static/assets/
+app/blueprints/*/static/assets/
 .~lock.*#
 # remove these if you want
 package-lock.json
