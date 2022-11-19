@@ -29,7 +29,7 @@ def index():
 @cmd.route("/runcommand")
 def runcommand() -> Response:
     # -u for unbuffered IO
-    return command_iterator([sys.executable, "-u", "-m", "app.commands"])
+    return command_iterator([sys.executable, "-u", "-m", "app.blueprints.commands"])
 
 
 @cmd.route("/runcommand/kill/<int:pid>")
