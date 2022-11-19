@@ -1,11 +1,11 @@
-/* app/commands/src/style.css */
+/* app/blueprints/commands/src/style.css */
 :root {
 }
 body {
   background-color: #eee;
 }
 
-/* fakecss:/home/ianc/github/svelte-template/app/commands/src/Command.esbuild-svelte-fake-css */
+/* fakecss:/home/ianc/github/svelte-template/app/blueprints/commands/src/Command.esbuild-svelte-fake-css */
 .build-log.svelte-p02cmh {
   overflow: auto;
   width: 100%;

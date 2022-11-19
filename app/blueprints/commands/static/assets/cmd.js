@@ -308,7 +308,7 @@
     }
   };
 
-  // app/commands/src/Command.svelte
+  // app/blueprints/commands/src/Command.svelte
   function get_each_context(ctx, list, i) {
     const child_ctx = ctx.slice();
     child_ctx[17] = list[i];
@@ -831,7 +831,7 @@
   };
   var Command_default = Command;
 
-  // app/commands/src/cmd.js
+  // app/blueprints/commands/src/cmd.js
   var app = new Command_default({
     target: document.getElementById("app"),
     props: {
