@@ -19,4 +19,5 @@ type Message = Line | Retcode | Pid | Error
 
 type ConfigType = {
     url: string
+    kill_url: string
 }

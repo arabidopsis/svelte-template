@@ -31,7 +31,9 @@
 
   async function kill() {
     if (pid !== 0) {
-      const res = await fetch(`${url}/kill/${pid}`);
+      const res = await fetch(
+        Config.kill_url + "?" + new URLSearchParams({ pid: `${pid}` })
+      );
       const txt = await res.text();
       if (txt === "KILLED") currentState = "KILLED";
     }

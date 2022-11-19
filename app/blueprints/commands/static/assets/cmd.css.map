@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["../../src/style.css", "Command.svelte"],
-  "sourcesContent": [":root {\n    /* --bg-status-color: #aaa; */\n}\nbody {\n    background-color: #eee;\n}\n", null],
-  "mappings": ";AAAA;AAAA;AAGA;AACI;AAAA;;;ACiGF;AACE;AACA;AACA;AACA;AACA;AACA;AACA;AACA;;AAEF;AACE;AACA;;AAEF;AACE;;AAEF;AACE;;",
-  "names": []
-}

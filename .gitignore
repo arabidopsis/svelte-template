@@ -129,3 +129,4 @@ app/blueprints/*/static/assets/
 # remove these if you want
 package-lock.json
 poetry.lock
+*.swp

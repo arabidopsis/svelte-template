@@ -7,6 +7,7 @@ from flask import abort
 from flask import Blueprint
 from flask import Flask
 from flask import render_template
+from flask import request
 from flask import Response
 from flask import session
 
@@ -32,11 +33,12 @@ def runcommand() -> Response:
     return command_iterator([sys.executable, "-u", "-m", "app.blueprints.commands"])
 
 
-@cmd.route("/runcommand/kill/<int:pid>")
-def kill(pid: int) -> str:
+@cmd.route("/runcommand/kill")
+def kill() -> str:
     # very dangerous!
     from signal import SIGINT
 
+    pid: int = request.values.get("pid", type=int)  # type: ignore
     if pid == session.get("pid"):
 
         os.kill(pid, SIGINT)

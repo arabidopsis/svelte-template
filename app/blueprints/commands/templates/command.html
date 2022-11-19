@@ -28,7 +28,8 @@
 <script>
     // of type ConfigType
     const Config = {
-        url: "{{url_for('command.runcommand') }}"
+        url: "{{url_for('command.runcommand') }}",
+        kill_url: "{{url_for('command.kill') }}"
     }
 </script>
 {{svelte_js('cmd', 'command.static')}}
