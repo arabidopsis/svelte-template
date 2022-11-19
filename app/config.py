@@ -17,8 +17,8 @@ LOG_ERROR_DELAY = 60 * 5
 # for html header <meta> see templates/fragments/meta.html and errors/404.html
 SITE_URL = "https://mysite.url"
 
-# where svelte/esbuild writes it's js/css/map files in the static folder
-# see also the .env file
+# where svelte/esbuild writes its js/css/map files in the static folder
+# see also the .env file.
 ASSET_FOLDER = "assets"
 
 # debug reloader for svelte javascript. Only used in DEBUG mode.
