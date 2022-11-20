@@ -17,7 +17,6 @@
   let pid: number = 0;
   let retcode: number | null = null;
   let error: string | null = null;
-  let start: number = 0;
   let elapsed: number = 0;
 
   function reset() {
@@ -40,7 +39,7 @@
   }
 
   function run() {
-    start = Date.now();
+    let start = Date.now();
     const es = new EventSource(url);
     es.addEventListener("message", async (event) => {
       const data: Message = JSON.parse(event.data);
