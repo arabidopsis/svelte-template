@@ -7,7 +7,7 @@
   const dispatch = createEventDispatcher();
 
   function tags(node: HTMLSelectElement) {
-    let tags = new Tags(node);
+    const tags = new Tags(node);
     return {
       destroy: () => {
         tags.dispose();
@@ -18,13 +18,7 @@
 </script>
 
 see <a href="https://github.com/lekoala/bootstrap5-tags">repo</a>
-<select
-  class="form-select"
-  size="3"
-  multiple
-  use:tags
-  data-badge-style="info"
->
+<select class="form-select" size="3" multiple use:tags data-badge-style="info">
   <option disabled hidden value="">Choose a tag...</option>
   {#each options as option (option)}
     <option value={option}>{option}</option>
