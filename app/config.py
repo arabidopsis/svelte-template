@@ -26,3 +26,5 @@ ASSET_FOLDER = "assets"
 # Set to 0 to turn off the reload.
 # Otherwise number of milliseconds to wait test for reload....
 RELOADER = 0
+
+BASE_TEMPLATE = "base.html"

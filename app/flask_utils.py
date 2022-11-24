@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import gzip
-from itertools import chain
 from os.path import abspath
 from os.path import isabs
 from os.path import join
@@ -9,6 +8,8 @@ from os.path import normpath
 from pathlib import Path
 from random import random
 from typing import Any
+from typing import Callable
+from typing import Iterator
 
 import toml
 from flask import current_app
@@ -120,6 +121,36 @@ def register_bytecode_cache(app: Flask, directory="bytecode_cache") -> None:
     )
 
 
+def create_reloader(app: Flask) -> Callable[[str, str], str]:
+
+    jstxt = ""
+
+    def reloader(mod: str, endpoint: str = "static"):
+        if "." not in endpoint:
+            folder = app.static_folder
+        else:
+            endpoint = endpoint.split(".")[0]
+            if endpoint not in app.blueprints:
+                return ""
+            folder = app.blueprints[endpoint].static_folder
+        if folder is None:
+            return ""
+        jsfile = join(folder, assets, f"{mod}.js")
+        m = mtime(jsfile)
+        u = url_for("view.checkjs")
+        return f'<script>window._DEBUG_ = {{url:"{u}", path:"{jsfile}", mtime: {m}, reloader: {interval}}};{jstxt}</script>'
+
+    def noop(mod: str, endpoint: str = "static"):
+        return ""
+
+    assets = app.config["ASSET_FOLDER"]
+    interval = app.config["RELOADER"]
+    if app.debug and app.template_folder and interval > 0:
+        jstxt = app.jinja_env.get_template("fragments/debug_reloader.js").render()
+        return reloader
+    return noop
+
+
 def register_filters(app: Flask) -> None:  # noqa: C901
     """Register page not found filters cdn_js, cdn_css methods."""
 
@@ -137,11 +168,18 @@ def register_filters(app: Flask) -> None:  # noqa: C901
                         return Markup(fp.read())
             return None
 
+        def get_loaders() -> Iterator[FileSystemLoader]:
+            loader: FileSystemLoader = app.jinja_loader  # type: ignore
+            if loader is not None:
+                yield loader
+
+            for blueprint in app.iter_blueprints():
+                loader = blueprint.jinja_loader
+                if loader is not None:
+                    yield loader
+
         if filename.endswith((".gz", ".svgz")):
-            for loader in chain(
-                [app.jinja_env.loader],
-                (bp.jinja_loader for bp in app.blueprints.values()),
-            ):
+            for loader in get_loaders():
                 ret = markup(loader)
                 if ret is not None:
                     return ret
@@ -174,34 +212,8 @@ def register_filters(app: Flask) -> None:  # noqa: C901
 
     assets = app.config["ASSET_FOLDER"]
     version = app.config["VERSION"]
-    reloader = app.config["RELOADER"]
 
-    if app.debug and app.template_folder and reloader > 0:
-        jstxt = app.jinja_env.get_template("fragments/debug_reloader.js").render()
-
-        def extrajs(mod: str, endpoint: str = "static"):
-            if "." not in endpoint:
-                folder = app.static_folder
-            else:
-                endpoint = endpoint.split(".")[0]
-
-                if endpoint not in app.blueprints:
-                    return ""
-
-                folder = app.blueprints[endpoint].static_folder
-
-            if folder is None:
-                return ""
-
-            jsfile = join(folder, assets, f"{mod}.js")
-            m = mtime(jsfile)
-            u = url_for("view.checkjs")
-            return f'<script>window._DEBUG_ = {{url:"{u}", path:"{jsfile}", mtime: {m}, reloader: {reloader}}};{jstxt}</script>'
-
-    else:
-
-        def extrajs(mod: str, endpoint: str = "static"):
-            return ""
+    reloader = create_reloader(app)
 
     def getversion():
         return {"v": f"v{random()}" if app.debug else version}
@@ -213,7 +225,7 @@ def register_filters(app: Flask) -> None:  # noqa: C901
     def svelte_js(mod: str, endpoint: str = "static") -> Markup:
         filename = join(assets, f"{mod}.js")
         url = url_for(endpoint, filename=filename, **getversion())  # type: ignore
-        e = extrajs(mod, endpoint)
+        e = reloader(mod, endpoint)
         return Markup(f'<script defer src="{url}"></script>{e}')
 
     def nunjucks_js(mod: str, endpoint: str = "static") -> Markup:

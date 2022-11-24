@@ -27,6 +27,10 @@ def create_init_app() -> Flask:
     if app.config.get("PROXY_FIX", False):
         app.wsgi_app = ProxyFix(app.wsgi_app)  # type: ignore[assignment]
 
+    @app.context_processor
+    def base():
+        return dict(base_template=app.config["BASE_TEMPLATE"])
+
     return app
 
 

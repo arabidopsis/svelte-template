@@ -24,6 +24,7 @@ def init_app(app: Flask, url_prefix: str = "/") -> None:
             if "path" not in a or "mtime" not in a:
                 abort(404)
             path, mtime = a["path"], a["mtime"]
-            return jsonify({"status": "OK", "needsupdate": isfileupdated(path, mtime)})
+            needsupdate = isfileupdated(path, mtime)
+            return jsonify({"status": "OK", "needsupdate": needsupdate})
 
     app.register_blueprint(view, url_prefix=url_prefix)

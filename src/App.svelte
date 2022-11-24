@@ -2,7 +2,6 @@
   // @ts-ignore
   import svelteLogo from "../app/static/img/svelte.svg";
   import Counter from "./lib/Counter.svelte";
-  // import Nunjucks from "./lib/nunjucks/Nunjucks.svelte";
   const url = window.location.href;
 </script>
 
