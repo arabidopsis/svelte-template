@@ -38,9 +38,8 @@ def kill() -> str:
     # very dangerous!
     from signal import SIGINT
 
-    pid: int = request.values.get("pid", type=int)  # type: ignore
-    if pid == session.get("pid"):
-
+    pid: int | None = request.values.get("pid", type=int)
+    if pid is not None and pid == session.get("pid"):
         os.kill(pid, SIGINT)
         del session["pid"]
         return "KILLED"
