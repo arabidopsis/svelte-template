@@ -13,7 +13,7 @@ const baseconfig = {
   // assetNames: 'public/assets/[name]-[hash]',
   bundle: true,
   charset: 'utf8',
-  sourcemap: true,
+  sourcemap: production,
   watch: process.argv.includes('--watch'),
   minify: production,
   target: 'es6',

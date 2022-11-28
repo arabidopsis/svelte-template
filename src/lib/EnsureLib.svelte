@@ -2,7 +2,7 @@
 	import { createEventDispatcher } from "svelte";
 
 	export let src: string;
-	export let loaded = false;
+	let loaded = false;
 	const dispatch = createEventDispatcher();
 
 	function onload() {
@@ -12,15 +12,17 @@
 </script>
 
 <!--
-	<EnsureLib src="https://cdn.plot.ly/plotly-2.16.1.min.js">
-		<Plotly />
-		<Plotly />
+	<EnsureLib src="https://cdn.plot.ly/plotly-2.16.1.min.js" let:loaded>
+		{#if loaded}
+			<Plotly />
+			<Plotly />
+		{:else}
+			Loading...
+		{/if}
 	</EnsureLib>
 -->
 <svelte:head>
 	<script {src} on:load={onload}></script>
 </svelte:head>
 
-{#if loaded}
-	<slot />
-{/if}
+<slot {loaded} />
