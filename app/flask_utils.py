@@ -219,17 +219,21 @@ def register_filters(app: Flask) -> None:  # noqa: C901
         return {"v": f"v{random()}" if app.debug else version}
 
     def svelte_css(mod: str, endpoint: str = "static") -> Markup:
-        url = url_for(endpoint, filename=join(assets, f"{mod}.css"), **getversion())  # type: ignore
+        url = url_for(endpoint, filename=join(assets, f"{mod}.css"), **getversion())
         return Markup(f'<link rel="stylesheet" href="{url}"/>')
 
     def svelte_js(mod: str, endpoint: str = "static") -> Markup:
         filename = join(assets, f"{mod}.js")
-        url = url_for(endpoint, filename=filename, **getversion())  # type: ignore
+        url = url_for(endpoint, filename=filename, **getversion())
         e = reloader(mod, endpoint)
         return Markup(f'<script defer src="{url}"></script>{e}')
 
     def nunjucks_js(mod: str, endpoint: str = "static") -> Markup:
-        url = url_for(endpoint, filename=join(assets, f"nunjucks-{mod}.js"), **getversion())  # type: ignore
+        url = url_for(
+            endpoint,
+            filename=join(assets, f"nunjucks-{mod}.js"),
+            **getversion(),
+        )
         return Markup(f'<script src="{url}"></script>')
 
     # for nunjucks includes

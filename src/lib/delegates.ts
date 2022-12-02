@@ -52,7 +52,7 @@ export class Delegate {
 // </div>
 // **REM**: use :scope to scope to the childen e.g. ":scope > div"
 // https://developer.mozilla.org/en-US/docs/Web/API/Element/querySelector#get_direct_descendants_using_the_scope_pseudo-class
-export function delegate(selector: string, handler: (e: MouseEvent) => any) {
+export function delegate(selector: string, handler: (this: HTMLElement, e: MouseEvent) => any) {
     // check that selector is valid
     document.documentElement.querySelector(selector);
     return function (e: MouseEvent) {
@@ -64,7 +64,7 @@ export function delegate(selector: string, handler: (e: MouseEvent) => any) {
                 // hanlder may be async so res is a Promise
                 // we can't stop propagation of an event from
                 // this type of function so we don't need to await it...
-                const res = handler.apply(e.target, [e]);
+                const res = handler.apply(e.target as HTMLElement, [e]);
                 if (res === false) {
                     e.preventDefault();
                     e.stopPropagation();
@@ -74,4 +74,4 @@ export function delegate(selector: string, handler: (e: MouseEvent) => any) {
         }
     };
 }
-export const scoped_delegate = (selector: string, handler: (e: MouseEvent) => any) => delegate(':scope ' + selector, handler)
+export const scoped_delegate = (selector: string, handler: (this: HTMLElement, e: MouseEvent) => any) => delegate(':scope ' + selector, handler)
