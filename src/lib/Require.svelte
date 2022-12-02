@@ -48,7 +48,7 @@
 		{:else}
 			Loading...
 		{/if}
-	</EnsureLib>
+	</Require>
 -->
 {#if needsloading}
     <EnsureLib {src} on:load={onload} let:loaded>
