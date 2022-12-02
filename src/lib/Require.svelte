@@ -4,20 +4,31 @@
 </script>
 
 <script lang="ts">
+    import { createEventDispatcher, tick } from "svelte";
     import EnsureLib from "./EnsureLib.svelte";
 
     export let src: string;
 
     let needsloading = false;
     let loaded = false;
+    const dispatch = createEventDispatcher();
+
+    function load() {
+        loaded = true;
+        try {
+            dispatch("load", src);
+        } catch (e) {
+            console.log(`load error: ${src}`, e);
+        }
+    }
 
     if (beenloaded.has(src)) {
-        loaded = true;
+        tick().then(load);
     } else if (pending.has(src)) {
-        pending.get(src)!.push(() => (loaded = true));
+        pending.get(src)!.push(load);
     } else {
         needsloading = true;
-        pending.set(src, []);
+        pending.set(src, [load]);
     }
 
     function onload() {
