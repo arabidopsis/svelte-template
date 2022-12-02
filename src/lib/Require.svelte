@@ -1,6 +1,7 @@
 <script context="module" lang="ts">
-    const pending = new Map<string, (() => void)[]>();
-    const beenloaded = new Map<string, boolean>();
+    type loader = () => void;
+    const pending = new Map<string, loader[]>();
+    const beenloaded = new Set<string>();
 </script>
 
 <script lang="ts">
@@ -32,7 +33,7 @@
     }
 
     function onload() {
-        beenloaded.set(src, true);
+        beenloaded.add(src);
         const funcs = pending.get(src);
         pending.delete(src);
         funcs?.forEach((f) => f());
