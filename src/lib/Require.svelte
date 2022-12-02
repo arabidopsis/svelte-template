@@ -10,18 +10,10 @@
 
     export let src: string;
 
-    let needsloading = false;
-    let loaded = false;
     const dispatch = createEventDispatcher();
 
-    function load() {
-        loaded = true;
-        try {
-            dispatch("load", src);
-        } catch (e) {
-            console.log(`load error: ${src}`, e);
-        }
-    }
+    let needsloading = false;
+    let loaded = false;
 
     if (beenloaded.has(src)) {
         tick().then(load);
@@ -37,6 +29,15 @@
         const funcs = pending.get(src);
         pending.delete(src);
         funcs?.forEach((f) => f());
+    }
+
+    function load() {
+        loaded = true;
+        try {
+            dispatch("load", src);
+        } catch (e) {
+            console.log(`load error: ${src}`, e);
+        }
     }
 </script>
 
