@@ -45,6 +45,9 @@
   </div>
   <h2>ESBuild + Svelte + Flask + Bootstrap + FontAwesome!</h2>
   <p>
+    <a href="https://github.com/arabidopsis/svelte-template.git">GitHub Repo</a>
+  </p>
+  <p>
     <code>&lt;Counter count=&lcub;0&rcub;&gt;</code>
   </p>
   <Counter count={0} />
@@ -52,6 +55,9 @@
     class="card w-50 mx-auto"
     style="text-align: justify; text-justify: inter-word;"
   >
+    <p>
+      <code> npx degit arabidopsis/svelte-template my-new-website </code>
+    </p>
     <p>
       The javascript kiddy universe has recently backpeddled from delivering
       websites as javascript blobs and now are full of "SSR" (server-side
