@@ -3,16 +3,22 @@
     let form: HTMLFormElement;
     let multi: HTMLSelectElement;
     let json = "";
+
+    function atleast(min: number = 1): boolean {
+        if (multi.selectedOptions.length < min) {
+            multi.classList.add("is-invalid");
+            return false;
+        } else {
+            multi.classList.remove("is-invalid");
+            return true;
+        }
+    }
     function submit(event: SubmitEvent) {
         console.log(Array.from(multi.selectedOptions).map((v) => v.value));
-        if (!form.checkValidity() || multi.selectedOptions.length === 0) {
+        if (!form.checkValidity() || !atleast()) {
             event.preventDefault();
             event.stopPropagation();
-            if (multi.selectedOptions.length === 0)
-                multi.classList.add("is-invalid");
         }
-        if (multi.selectedOptions.length !== 0)
-            multi.classList.remove("is-invalid");
         form.classList.add("was-validated");
         const fd = new FormData(form);
         json = JSON.stringify(Array.from(fd.entries()));
@@ -30,11 +36,7 @@
     on:submit={submit}
     on:change={() => {
         form.classList.remove("was-validated");
-        if (multi.selectedOptions.length !== 0) {
-            multi.classList.remove("is-invalid");
-        } else {
-            multi.classList.add("is-invalid");
-        }
+        atleast();
     }}
     bind:this={form}
 >
