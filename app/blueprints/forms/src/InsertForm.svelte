@@ -6,22 +6,22 @@
     let current: InsertForm | null = null;
     const table = document.getElementById("stufftable");
     if (table) {
-        const func = scoped_delegate("tr > td", function (e) {
+        const func = scoped_delegate("tr[data-pubmed] > td", function (e) {
             if (current !== null) {
                 current.$destroy();
                 current = null;
             }
             // console.log(self.parentNode);
             const tr = this.parentNode as HTMLElement;
-            if (tr === row) {
+            if (tr === row || tr === null) {
                 row = null;
                 return;
             }
             row = tr;
-            const table = tr?.parentNode as HTMLElement;
+            const table = tr.parentNode as HTMLElement;
             const anchor = (tr?.nextSibling as HTMLElement) || undefined;
-            const pubmed = tr?.dataset?.pubmed;
-            if (!tr || !table || !pubmed) return;
+            const pubmed = tr.dataset.pubmed;
+            if (!table || !pubmed) return;
             const colspan = tr.childElementCount;
             current = new InsertForm({
                 target: table,
@@ -45,7 +45,7 @@
 <tr><td {colspan} class="mx-auto"><div><Forms {pubmed} /></div></td></tr>
 
 <style>
-    tr > td > div {
+    :global(#stufftable > tbody > tr > td) {
         font-size: 1em;
         cursor: pointer;
     }

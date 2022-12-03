@@ -19,9 +19,9 @@ def index():
     return render_template("forms.html")
 
 
-@forms.route("/forms1")
-def forms1():
-    return render_template("forms1.html")
+@forms.route("/insertform")
+def insertform():
+    return render_template("insertform.html")
 
 
 def init_app(app: Flask) -> None:
