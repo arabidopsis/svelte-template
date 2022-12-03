@@ -1,0 +1,24 @@
+{% extends base_template %}
+
+{%block title %}Plotly Plots{% endblock %}
+
+{% block css %}
+{{ svelte_css('plots', 'plots.static') }}
+{% endblock css %}
+
+{% block content %}
+<div class="container mt-5 mb-5 w-50">
+    <h1 class="text-center">Plots</h1>
+    <div id="app">{# Plots.svelte goes here via plots.js #}</div>
+</div>
+{% endblock content %}
+
+{% block js %}
+<script>
+    const PlotConfig = {
+        data_url: "{{url_for('.data')}}",
+        google_url: "{{url_for('.google')}}"
+    }
+</script>
+{{ svelte_js('plots', 'plots.static') }}
+{% endblock js %}

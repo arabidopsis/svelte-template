@@ -1,0 +1,70 @@
+from __future__ import annotations
+
+from flask import Blueprint
+from flask import Flask
+from flask import jsonify
+from flask import render_template
+
+
+plots = Blueprint(
+    "plots",
+    __name__,
+    template_folder="templates",
+    static_folder="static",
+    static_url_path="/plots/static",
+)
+
+
+@plots.route("/data")
+def data():
+    import time
+
+    data = [
+        {
+            "values": [22, 26, 52],
+            "labels": ["Residential", "Non-Residential", "Utility"],
+            "type": "pie",
+        },
+    ]
+    time.sleep(5)
+    return jsonify(dict(data=data))
+
+
+@plots.route("/google")
+def google():
+    import time
+
+    data = [
+        ["Task", "Hours per Day"],
+        ["Work", 11],
+        ["Eat", 2],
+        ["Commute", 2],
+        ["Watch TV", 2],
+        ["Sleep", 7],
+    ]
+    options = {
+        "title": "My Weekly Activities",
+    }
+    time.sleep(5)
+    return jsonify(dict(data=data, options=options))
+
+
+@plots.route("/plots")
+def index():
+    return render_template("plots.html")
+
+
+@plots.route("/myjs.js")
+def myjs():
+    import time
+
+    time.sleep(3)
+    return (
+        "console.log('running myjs'); window.myjs = 222;",
+        200,
+        {"ContentType": "application/javascript"},
+    )
+
+
+def init_app(app: Flask) -> None:
+    app.register_blueprint(plots)
