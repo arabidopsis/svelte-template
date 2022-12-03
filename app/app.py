@@ -57,14 +57,6 @@ def init_blueprints(app: Flask) -> None:
         except ImportError:
             pass
 
-    # from .blueprints.commands.view import init_app as init_cmd
-
-    # init_cmd(app)
-
-    # from .blueprints.delay.view import init_app as init_delay
-
-    # init_delay(app)
-
 
 def init_full_app(app: Flask) -> None:
 

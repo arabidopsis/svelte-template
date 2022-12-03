@@ -106,3 +106,6 @@ integrity = "sha256-UnlpkMLasaTx2ZqovxBXUcQ5jq3oKXaZZ1aWENNFETE="
 [notyf.css]
 href = "https://cdn.jsdelivr.net/npm/notyf@3.10.0/notyf.min.css"
 integrity = "sha256-IwkvZNRC/3S26O1gWwjBINmrPZ4zYvPX4z/98OKWHkQ="
+
+[plotly.js]
+src = "https://cdn.plot.ly/plotly-2.16.1.min.js"
