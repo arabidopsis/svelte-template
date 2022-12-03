@@ -1,0 +1,29 @@
+{% extends base_template %}
+
+{%block title %}Forms{% endblock %}
+
+{% block css %}
+{{ svelte_css('forms', 'forms.static') }}
+{% endblock css %}
+
+{% block content %}
+<div class="container mt-5 mb-5 w-50">
+    <h1 class="text-center">Forms test</h1>
+    <table id="stufftable" class="table">
+        <tr>
+            <th>Stuff</th>
+            <th>Stuff2</th>
+        </tr>
+        {% for i in range(20)%}
+        <tr data-pubmed="pubmed{{i}}">
+            <td>{{i}}</td>
+            <td>extra {{i}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock content %}
+
+{% block js %}
+{{ svelte_js('forms', 'forms.static') }}
+{% endblock js %}
