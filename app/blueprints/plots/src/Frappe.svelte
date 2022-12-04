@@ -1,9 +1,6 @@
 <script lang="ts">
     import { fade } from "svelte/transition";
-    let loaded = false;
-    function onload() {
-        loaded = true;
-    }
+    import Require from "../../../../src/lib/Require.svelte";
     const data = {
         labels: [
             "12am-3am",
@@ -29,11 +26,9 @@
         ],
     };
     const config = {
-        // or a DOM element,
-        // new Chart() in case of ES6 module with above usage
         title: "My Awesome Chart",
         data: data,
-        type: "percentage", // or 'bar', 'line', 'scatter', 'pie', 'percentage'
+        type: "pie", // or 'bar', 'line', 'scatter', 'pie', 'percentage'
         height: 400,
         colors: ["#7cd6fd", "#743ee2"],
     };
@@ -41,22 +36,24 @@
     function frappe(node: HTMLElement, config) {
         const chart = new window.frappe.Chart(node, config);
         return {
-            update(data) {
-                chart.update(data)
-            }
-        }
+            update(config) {
+                chart.update(config);
+            },
+        };
     }
 </script>
 
-<svelte:head>
-    <script
-        src="https://cdn.jsdelivr.net/npm/frappe-charts@1.2.4/dist/frappe-charts.min.iife.js"
-        on:load={onload}
-    ></script>
-</svelte:head>
+<h2 class="text-center">
+    <a href="https://github.com/frappe/charts">Frappe</a> Plots
+</h2>
 
-{#if loaded}
-    <div use:frappe={config} transition:fade />
-{:else}
-    Loading...
-{/if}
+<Require
+    src="https://cdn.jsdelivr.net/npm/frappe-charts@1.2.4/dist/frappe-charts.min.iife.js"
+    let:loaded
+>
+    {#if loaded}
+        <div use:frappe={config} transition:fade />
+    {:else}
+        Loading...
+    {/if}
+</Require>
