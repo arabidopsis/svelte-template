@@ -18,6 +18,7 @@
   let retcode: number | null = null;
   let error: string | null = null;
   let elapsed: number = 0;
+  $: canreset = ["CANCELLED", "DONE", "KILLED"].includes(currentState);
 
   function reset() {
     logs = [];
@@ -69,7 +70,7 @@
   }
 </script>
 
-{#if currentState == "PENDING"}
+{#if currentState === "PENDING"}
   <button class="btn btn-info" on:click={run}>Start Process</button>
 {:else}
   <button
@@ -87,7 +88,7 @@
   {#if retcode !== null}
     <span class="r" class:retcode>retcode: {retcode}</span>
   {/if}
-  {#if ["CANCELLED", "DONE", "KILLED"].includes(currentState)}
+  {#if canreset}
     <button class="btn btn-warning" on:click={reset}>Reset</button>
   {/if}
 {/if}
