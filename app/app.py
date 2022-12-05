@@ -1,11 +1,15 @@
 from __future__ import annotations
 
+import importlib
+import os
+
 from flask import Flask
 from werkzeug.middleware.proxy_fix import ProxyFix
 
 from .flask_utils import config_app
 from .flask_utils import register_bytecode_cache
 from .flask_utils import register_filters
+from .index_view import init_app as init_index
 from .logger import init_email_logger
 from .utils import git_version
 
@@ -41,8 +45,6 @@ def create_app() -> Flask:
 
 
 def init_blueprints(app: Flask) -> None:
-    import importlib
-    import os
 
     name = app.name.split(".")[0]
 
@@ -65,8 +67,6 @@ def init_full_app(app: Flask) -> None:
     # agg, cairo, pdf, pgf, ps, svg, template
 
     # matplotlib.use(app.config["BACKEND"], force=True)
-
-    from .index_view import init_app as init_index
 
     init_index(app)
 
