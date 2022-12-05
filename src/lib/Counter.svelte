@@ -1,6 +1,6 @@
 <script type="ts">
   import { toastr } from "./toastr";
-  export let count: number;
+  export let count: number = 0;
   const increment = () => {
     count += 1;
     toastr.success(`count ${count}`);
