@@ -222,11 +222,19 @@ def register_filters(app: Flask) -> None:  # noqa: C901
         url = url_for(endpoint, filename=join(assets, f"{mod}.css"), **getversion())
         return Markup(f'<link rel="stylesheet" href="{url}"/>')
 
-    def svelte_js(mod: str, endpoint: str = "static") -> Markup:
+    def svelte_js(
+        mod: str,
+        endpoint: str = "static",
+        type: str | None = None,
+        **kwargs: dict[str, Any],
+    ) -> Markup:
         filename = join(assets, f"{mod}.js")
         url = url_for(endpoint, filename=filename, **getversion())
         e = reloader(mod, endpoint)
-        return Markup(f'<script defer src="{url}"></script>{e}')
+        if type is not None:  # should be 'module'
+            kwargs["type"] == type
+        attrs = attrstr(kwargs)
+        return Markup(f'<script defer {attrs}src="{url}"></script>{e}')
 
     def nunjucks_js(mod: str, endpoint: str = "static") -> Markup:
         url = url_for(
