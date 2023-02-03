@@ -31,13 +31,11 @@ export function keepInView(
 
 export function wait(ms: number): Promise<void> {
     return new Promise<void>((resolve) => {
-        setTimeout(() => {
-            resolve();
-        }, ms);
+        setTimeout(resolve, ms);
     });
 }
 
-export function atend(elem:HTMLElement): boolean {
+export function atend(elem: HTMLElement): boolean {
     // https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollHeight
     return elem.scrollHeight - Math.round(elem.scrollTop) === elem.clientHeight
 }
