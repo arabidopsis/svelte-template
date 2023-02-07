@@ -1,148 +1,72 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Welcome Svelte App</title><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-    <meta name="copyright" content="Your Name, Your Department" />
-    <meta name="author" content="Your Name" />
+<meta name="copyright" content="Your Name, Your Department" />
+<meta name="author" content="Your Name" />
 
-    <meta name="description" content="Svelte App" />
-    <link rel="canonical" href="https://mysite.url" />
-
-
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:description" content="Svelte App" />
+<meta name="description" content="Svelte App" />
+<link rel="canonical" href="https://mysite.url" />
 
 
-    <meta property='og:locale' content='en_US' />
-    <meta property='og:title' content='Svelte App' />
-    <meta property='og:description' content='Svelte App' />
-    <meta property='og:url' content='https://mysite.url' />
-    <meta property='og:site_name' content='Svelte App' />
-    <title>Welcome Svelte App</title>
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:description" content="Svelte App" />
 
-    <link rel="icon" href="/static/img/svelte.svg" />
-    <link rel="apple-touch-icon" href="/static/img/svelte.svg" />
+
+<meta property='og:locale' content='en_US' />
+<meta property='og:title' content='Svelte App' />
+<meta property='og:description' content='Svelte App' />
+<meta property='og:url' content='https://mysite.url' />
+<meta property='og:site_name' content='Svelte App' />
+
+    <link rel="icon" href="/static/img/svelte-blue.svg" />
+    <link rel="apple-touch-icon" href="/static/img/svelte-blue.svg" />
 
 
 
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Gruppo" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
-        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous"
-        referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+            integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous" referrerpolicy="no-referrer">
 
 
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
-        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
-        crossorigin="anonymous" referrerpolicy="no-referrer">
+            integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer">
 
 
 
 
+    <link rel="stylesheet" type="text/css" href="/static/css/global.css" />
     <style>
-        /**/
-        :root {
-            --footer-a-color: #66aaff;
-            --app-dark: #222;
-            --app-light: #999;
-            --header-font: Gruppo, "Ubuntu", var(--bs-font-sans-serif);
-        }
-
-        #app-navbar {
-            z-index: 500;
-        }
-
-        .app-bg-dark {
-            background-color: var(--app-dark);
-            color: var(--bs-light);
-        }
-
-        .app-bg-light {
-            background-color: var(--app-light);
-            color: var(--bs-dark);
-        }
-
-        .app-bg-dark a {
-            color: var(--bs-light);
-        }
-
-        .app-bg-dark .dropdown-menu {
-            background-color: var(--app-dark);
-        }
-
-        #app-footer.app-bg-dark a:hover {
-            color: var(--bs-white);
-        }
-
-        #app-footer.app-bg-dark a {
-            color: var(--footer-a-color);
-        }
-
         #hero {
-            width: 100%;
-            height: 150px;
             background: bottom / contain no-repeat url("/static/img/svelte.svg"),
-                var(--app-dark);
-        }
-
-        body {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        main {
-            flex-grow: 1;
-        }
-
-        .header-text {
-            height: 100%;
-            font-size: 4em;
-            font-family: var(--header-font);
-            color: var(--bs-white);
-            text-shadow: 2px 2px black;
-        }
-
-        .header-font {
-            font-family: var(--header-font);
-        }
-
-        /**/
-        a.offsite::after
-
-        /*, a[href^="https://"]::after, a[href^="http://"]::after*/
-            {
-            padding-left: .2em;
-            text-rendering: auto;
-            -webkit-font-smoothing: antialiased;
-            content: '\f35d';
-            /* font-family: 'Font Awesome 5 free';
-            font-weight: 600; */
-            font: var(--fa-font-solid);
-        }
-
-        #toast-container>.toast-error {
-            background-color: var(--bs-danger) !important;
-        }
-
-        #toast-container>.toast-warning {
-            background-color: var(--bs-warning) !important;
-        }
-
-        #toast-container>.toast-success {
-            background-color: var(--bs-success) !important;
-        }
-
-        #toast-container>.toast-info {
-            background-color: var(--bs-info) !important;
+            var(--app-bg);
         }
     </style>
 
-    <link rel="stylesheet" href="/static/assets/main.css?v=1" />
+<link rel="stylesheet" href="/static/assets/main.css?v=1"/>
+<style>
+    .logo {
+        height: 6em;
+        padding: 1.5em;
+        will-change: filter;
+    }
+
+    .logo:hover {
+        filter: drop-shadow(0 0 2em #646cffaa);
+    }
+
+    .logo.svelte:hover {
+        filter: drop-shadow(0 0 2em #ff3e00aa);
+    }
+
+    .read-the-docs {
+        color: #888;
+    }
+</style>
 
 
 
@@ -158,9 +82,9 @@
 
 
 
-    <header>
-        <div id="hero" class="d-none d-lg-block app-bg-dark text-white">
-            <span class="header-text">
+    <header id="app-header">
+        <div id="hero" class="d-none d-lg-block app-bg">
+            <span class="header-text header-font">
                 <span>Svelte App</span>
             </span>
 
@@ -175,10 +99,12 @@
     </header>
 
 
-    <nav id="app-navbar" class="navbar sticky-top navbar-expand-md navbar-dark app-bg-dark" id="top">
+
+    <nav id="app-navbar" class="navbar sticky-top navbar-expand-md navbar-dark app-bg" id="top">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
-                <img src="/static/img/svelte.svg" style="height:1.1em; margin-top:-2px" alt="Svelte App logo" />
+                <img src="/static/img/svelte.svg" style="height:1.1em"
+                    alt="Svelte App logo" />
                 Svelte App
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#app-navbar-collapse"
@@ -189,7 +115,7 @@
             <div id="app-navbar-collapse" class="collapse navbar-collapse" role="navigation">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link active " href="/" title="Home page">
+                        <a class=""nav-link active " href="/"" title="Home page">
                             Home <i class="fas fa-home"></i>
                         </a>
                     </li>
@@ -197,33 +123,101 @@
 
 
                 </ul>
-                <ul class="navbar-nav">
+                <ul class="navbar-nav"><li class="nav-item">
+                        <a class=""nav-link active " href="/"" title="My Other Site">
+                            See my other site <i class="fas fa-chevron-right"></i>
+                        </a>
+                    </li>
+
                 </ul>
             </div>
         </div>
     </nav>
 
+
+
+
     <main id="main-content">
 
-        <div class="container mt-5 mb-5">
-            <div id="app"></div>
+<div class="container mt-5 mb-5">
+    <main>
+        <div class="w-75 mx-auto" style="text-align: center; text-justify: inter-word;">
+
+            <div>
+                <a href="https://esbuild.github.io/" target="_blank" rel="noreferrer">
+                    <img src="https://esbuild.github.io/favicon.svg" class="logo" alt="ESbuild Logo" />
+                </a>
+                <a href="https://svelte.dev" target="_blank" rel="noreferrer">
+                    <img src="/static/img/svelte.svg" class=" logo svelte"
+                        alt="Svelte Logo" />
+                </a>
+                <a href="https://palletsprojects.com/p/flask/" target="_blank" rel="noreferrer">
+                    <img src="https://flask.palletsprojects.com/en/2.2.x/_static/flask-icon.png" class="logo flask"
+                        alt="Flask Logo" />
+                </a>
+                <a href="https://getbootstrap.com" target="_blank" rel="noreferrer">
+                    <img src="https://getbootstrap.com/docs/5.2/assets/brand/bootstrap-logo-shadow.png"
+                        class="logo bootstrap" alt="Bootstrap Logo" />
+                </a>
+                <a href="https://fontawesome.com/" target="_blank" rel="noreferrer">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Font_Awesome_logomark_blue.svg"
+                        class="logo fontawesome" alt="FontAwesome Logo" />
+                </a>
+            </div>
+            <h2>ESBuild + Svelte + Flask + Bootstrap + FontAwesome!</h2>
+
+            <p>
+                <a href="https://github.com/arabidopsis/svelte-template.git">GitHub Repo</a>
+            </p>
+            <p>
+                <code>&lt;Counter count=&lcub;0&rcub;&gt;</code>
+            </p>
         </div>
+        <div id="app"></div>
+        <div class="card w-50 mx-auto" style="text-align: justify; text-justify: inter-word;">
+            <p>
+                <code> npx degit arabidopsis/svelte-template my-new-website </code>
+            </p>
+            <p>
+                The javascript kiddy universe has recently backpeddled from delivering
+                websites as javascript blobs and now are full of "SSR" (server-side
+                rendering) and "hydration" ("SSR" and then rerunning the javascript on the
+                client -- ugh!).
+            </p>
+            <p>
+                We boring old farts are ahead of the game: we have always used SSR -- with
+                flask and jinja2! This template repo is a way of adding super cool <code>svelte</code>
+                and -- if you want --
+                <code><a href="https://mozilla.github.io/nunjucks/">nunjucks</a></code> (jinja2
+                templates in javascript!)
+            </p>
+            <p class="read-the-docs">
+                Click on the ESbuild/Svelte/Flask/Bootstrap or FontAwesome logos to learn
+                more
+            </p>
+        </div>
+    </main>
+
+</div>
 
     </main>
 
-    <footer id="app-footer" class="app-bg-dark text-light">
+
+
+
+    <footer id="app-footer" class="app-bg">
         <div class="container">
             <div class="d-flex justify-content-around">
                 <div>
                     <ul class="list-inline text-center" style="padding-top:.5em">
                         <li class="list-inline-item">
                             <a class="offsite" href="https://plantenergy.edu.au" target="_blank" rel="noreferrer">© 2022
-                                Miller Lab</a>
+                                Millar Lab</a>
                         </li>
                         <li class="list-inline-item">|</li>
                         <li class="list-inline-item">version:
                             <span class="text-muted">
-                                88ad65c</span>
+                                de6fe7d</span>
                         </li>
                     </ul>
                 </div>
@@ -243,7 +237,8 @@
                 </div>
 
                 <div class="col text-center">
-                    <img src="/static/img/svelte.svg" style="margin-top:10px;height:4em" alt="Svelte logo" />
+                    <img src="/static/img/svelte.svg" style="margin-top:10px;height:4em"
+                        alt="Svelte logo" />
                 </div>
 
             </div>
@@ -268,16 +263,14 @@
 
 
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"
-        referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 
 
 
 
-    <script defer src="/static/assets/main.js?v=1"></script>
-
+<script defer src="/static/assets/main.js?v=1"></script>
 
 </body>
 
