@@ -52,6 +52,7 @@ export class Delegate {
 // </div>
 // **REM**: use :scope to scope to the childen e.g. ":scope > div"
 // https://developer.mozilla.org/en-US/docs/Web/API/Element/querySelector#get_direct_descendants_using_the_scope_pseudo-class
+// https://www.typescriptlang.org/docs/handbook/2/functions.html#declaring-this-in-a-function
 export function delegate(selector: string, handler: (this: HTMLElement, e: MouseEvent) => any) {
     // check that selector is valid
     document.documentElement.querySelector(selector);
