@@ -53,7 +53,7 @@ export class Delegate {
 // **REM**: use :scope to scope to the childen e.g. ":scope > div"
 // https://developer.mozilla.org/en-US/docs/Web/API/Element/querySelector#get_direct_descendants_using_the_scope_pseudo-class
 // https://www.typescriptlang.org/docs/handbook/2/functions.html#declaring-this-in-a-function
-export function delegate(selector: string, handler: (this: HTMLElement, e: MouseEvent) => any) {
+export function delegate<T>(selector: string, handler: (this: HTMLElement, e: MouseEvent, ...args: T[]) => any, ...args: T[]) {
     // check that selector is valid
     document.documentElement.querySelector(selector);
     return function (e: MouseEvent) {
@@ -65,7 +65,7 @@ export function delegate(selector: string, handler: (this: HTMLElement, e: Mouse
                 // hanlder may be async so res is a Promise
                 // we can't stop propagation of an event from
                 // this type of function so we don't need to await it...
-                const res = handler.apply(e.target as HTMLElement, [e]);
+                const res = handler.apply(e.target as HTMLElement, [e, ...args]);
                 if (res === false) {
                     e.preventDefault();
                     e.stopPropagation();

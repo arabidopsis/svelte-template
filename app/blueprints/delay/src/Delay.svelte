@@ -1,5 +1,14 @@
+<script context="module" lang="ts">
+    type ConfigType = {
+        DELTA: number;
+    };
+    // pick up  const Config from delay.html
+    declare global {
+        var Config: ConfigType;
+    }
+</script>
+
 <script lang="ts">
-    // import { onMount } from "svelte";
     import { tick } from "svelte";
     import { keepInView, wait } from "./lib";
     let total = 0;
@@ -10,6 +19,9 @@
     // let quota = 0;
     // let where = "";
     $: keepInView(current, viewport);
+
+    const config = Config;
+    const delta = Config.DELTA;
 
     const pubmedids = [
         100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113,
@@ -32,8 +44,6 @@
     }
 
     async function start() {
-        const delta = 1000;
-
         let start = Date.now();
         for (let i = 0; i < pubmedids.length; ++i) {
             if (cancel_pending) break;
@@ -65,7 +75,9 @@
 </script>
 
 {#if running_idx < 0}
-    <button class="btn btn-primary" on:click={start}>Start</button>
+    <button class="btn btn-primary" on:click={start}
+        >Start (delay={config.DELTA}ms)</button
+    >
 {:else}
     <button
         class="btn btn-warning btn-sm"

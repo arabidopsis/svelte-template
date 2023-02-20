@@ -16,7 +16,7 @@ delay = Blueprint(
 
 @delay.route("/delay")
 def index():
-    return render_template("delay.html")
+    return render_template("delay.html", delay=3000)
 
 
 def init_app(app: Flask) -> None:

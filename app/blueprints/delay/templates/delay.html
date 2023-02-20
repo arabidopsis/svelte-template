@@ -14,5 +14,13 @@
 {% endblock content %}
 
 {% block js %}
+{# render global configuration for this page
+note that window.Config will not be defined...
+#}
+<script>
+    const Config = {
+        DELTA: {{ delay }}
+    }
+</script>
 {{ svelte_js('delay', 'delay.static') }}
 {% endblock js %}
