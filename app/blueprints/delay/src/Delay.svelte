@@ -1,10 +1,10 @@
 <script context="module" lang="ts">
-    type ConfigType = {
+    type Config = Readonly<{
         DELTA: number;
-    };
+    }>;
     // pick up  const Config from delay.html
     declare global {
-        var Config: ConfigType;
+        var Config: Config;
     }
 </script>
 
@@ -16,9 +16,14 @@
     let current: HTMLElement | null = null;
     let viewport: HTMLElement | null = null;
     let cancel_pending = false;
+
     // let quota = 0;
     // let where = "";
     $: keepInView(current, viewport);
+    $: restart = pubmedids.reduce(
+        (acc, { status }) => acc || status === "done",
+        false
+    );
 
     const config = Config;
     const delta = Config.DELTA;
@@ -76,7 +81,7 @@
 
 {#if running_idx < 0}
     <button class="btn btn-primary" on:click={start}
-        >Start (delay={config.DELTA}ms)</button
+        >{#if restart}Re {/if}Start (delay={config.DELTA}ms)</button
     >
 {:else}
     <button
@@ -84,7 +89,7 @@
         on:click={stop}
         disabled={cancel_pending}>Cancel</button
     >
-    {((100 * (running_idx + 1)) / pubmedids.length).toFixed(0)}%
+    {((100 * (running_idx + 1)) / pubmedids.length).toFixed(0)}% completed
 {/if}
 <code>
     {total}

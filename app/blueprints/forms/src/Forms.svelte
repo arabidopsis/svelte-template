@@ -24,6 +24,26 @@
         json = JSON.stringify(Array.from(fd.entries()));
         event.preventDefault();
     }
+    function serializeForm(form: HTMLFormElement): Record<string, any> {
+        var obj: Record<string, any> = {};
+        var formData = new FormData(form);
+        for (const [key, value] of formData.entries()) {
+            const v = obj[key]
+            if (v === undefined) {
+                obj[key] = value
+            } else if (Array.isArray(v)) {
+                v.push(value)
+            } else {
+                obj[key] = [v, value]
+            }
+            return obj
+
+        }
+        // for (const key of formData.keys()) {
+        //     obj[key] = formData.get(key);
+        // }
+        return obj;
+    }
 </script>
 
 <pre>
