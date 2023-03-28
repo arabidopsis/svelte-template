@@ -10,7 +10,9 @@ from itertools import chain
 from typing import Any
 from typing import Iterator
 
+from flask import abort
 from flask import json
+from flask import request
 from flask import Response
 from flask import session
 
@@ -113,15 +115,24 @@ class Command:
 def eventstream(f):
     @wraps(f)
     def new_func(*args, **kwargs) -> Response:
+        if "text/event-stream" not in request.accept_mimetypes:
+            abort(400)
+
         def generate():
             for event in chain(f(*args, **kwargs), (None,)):
                 yield ("data: %s\n\n" % json.dumps(event)).encode()
 
-        return Response(
+        resp = Response(
             generate(),
             mimetype="text/event-stream",
             direct_passthrough=True,
+            headers={
+                "Cache-Control": "no-cache",
+                #           'Transfer-Encoding': 'chunked'
+            },
         )
+        # resp.timeout = None
+        return resp
 
     return new_func
 

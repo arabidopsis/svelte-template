@@ -148,3 +148,13 @@ an implementation of the jinja2 templating engine in javascript. So
 you can render jinja2 templates in the browser.
 
 See comments in the `src/lib/nunjucks/Nunjucks.svelte` file.
+
+
+## jQuery
+
+To add jQuery as an external dependency with `{{cdn_js('jquery')}}` in the page template
+just add
+
+```bash
+pnpm install -D  @types/jquery jquery
+```
