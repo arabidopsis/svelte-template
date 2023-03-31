@@ -4,6 +4,10 @@
   "description": "template for svelte with esbuild and flask",
   "author": "ian castleden",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/arabidopsis/svelte-template.git"
+  },
   "main": "src/main.js",
   "scripts": {
     "serve": "npx live-server --mount=/static:app/static index.html",
