@@ -188,26 +188,35 @@ def register_filters(app: Flask) -> None:  # noqa: C901
         src = app.jinja_env.loader.get_source(app.jinja_env, filename)[0]
         return Markup(src)
 
-    def cdn_js(key: str, **kwargs: dict[str, Any]) -> Markup:
+    def cdn_js(key: str, **kwargs: str) -> Markup:
         js = CDN[key]["js"]
         async_ = "async" if js.get("async", False) else ""
-        attrs = attrstr(kwargs)
+
         integrity = js.get("integrity")
-        integrity = f'integrity="{integrity}"' if integrity else ""
+        if integrity:
+            kwargs.setdefault("integrity", integrity)
+
+        kwargs.setdefault("crossorigin", "anonymous")
+        kwargs.setdefault("referrerpolicy", "no-referrer")
+
+        attrs = attrstr(kwargs)
 
         return Markup(
-            f"""<script src="{js['src']}" {async_}
-            {integrity} {attrs}crossorigin="anonymous" referrerpolicy="no-referrer"></script>""",
+            f"""<script src="{js['src']}" {async_} {attrs}></script>""",
         )
 
-    def cdn_css(key: str, **kwargs: dict[str, Any]) -> Markup:
+    def cdn_css(key: str, **kwargs: str) -> Markup:
         css = CDN[key]["css"]
-        attrs = attrstr(kwargs)
         integrity = css.get("integrity")
-        integrity = f'integrity="{integrity}"' if integrity else ""
+        if integrity:
+            kwargs.setdefault("integrity", integrity)
+
+        kwargs.setdefault("crossorigin", "anonymous")
+        kwargs.setdefault("referrerpolicy", "no-referrer")
+        attrs = attrstr(kwargs)
         return Markup(
             f"""<link rel="stylesheet" href="{css['href']}"
-            {integrity} {attrs}crossorigin="anonymous" referrerpolicy="no-referrer">""",
+            {integrity} {attrs}>""",
         )
 
     assets = app.config["ASSET_FOLDER"]
@@ -226,7 +235,7 @@ def register_filters(app: Flask) -> None:  # noqa: C901
         mod: str,
         endpoint: str = "static",
         type: str | None = None,
-        **kwargs: dict[str, Any],
+        **kwargs: str,
     ) -> Markup:
         filename = join(assets, f"{mod}.js")
         url = url_for(endpoint, filename=filename, **getversion())
@@ -234,7 +243,7 @@ def register_filters(app: Flask) -> None:  # noqa: C901
         if type is not None:  # should be 'module'
             kwargs["type"] == type
         attrs = attrstr(kwargs)
-        return Markup(f'<script defer {attrs}src="{url}"></script>{e}')
+        return Markup(f'<script defer {attrs} src="{url}"></script>{e}')
 
     def nunjucks_js(mod: str, endpoint: str = "static") -> Markup:
         url = url_for(

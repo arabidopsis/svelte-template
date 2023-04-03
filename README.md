@@ -12,7 +12,11 @@ The reason I like this setup is that I can create server side
 templates using jinja2, generate server side html fragments using
 jinja2 macros in the [HTML over the web way](https://hotwired.dev, https://qwik.builder.io/) (without the websockets :).
 So creation of static and semi-static html pages is simple.
-And *also* create an "app" with multiple target points per page, viz `src/main.js`:
+And *also* create an "app" with multiple target points per page, viz `src/main.js`.
+
+Also, SvelteKit is awesome but I still need my backend to have access to
+`sqlalchemy`/`pandas`/`pytorch`/`celery` etc. Maybe one day we will all be
+using Rust/wasm but we are not there yet.
 
 
 ## To instantiate
