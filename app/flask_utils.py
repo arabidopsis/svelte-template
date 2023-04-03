@@ -215,8 +215,7 @@ def register_filters(app: Flask) -> None:  # noqa: C901
         kwargs.setdefault("referrerpolicy", "no-referrer")
         attrs = attrstr(kwargs)
         return Markup(
-            f"""<link rel="stylesheet" href="{css['href']}"
-            {integrity} {attrs}>""",
+            f"""<link rel="stylesheet" href="{css['href']}" {attrs}>""",
         )
 
     assets = app.config["ASSET_FOLDER"]
@@ -240,7 +239,7 @@ def register_filters(app: Flask) -> None:  # noqa: C901
         filename = join(assets, f"{mod}.js")
         url = url_for(endpoint, filename=filename, **getversion())
         e = reloader(mod, endpoint)
-        if type is not None:  # should be 'module'
+        if type is not None:  # should only be 'module'
             kwargs["type"] == type
         attrs = attrstr(kwargs)
         return Markup(f'<script defer {attrs} src="{url}"></script>{e}')
