@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import importlib
-import os
+from pathlib import Path
 
 from flask import Flask
 from werkzeug.middleware.proxy_fix import ProxyFix
@@ -46,13 +46,16 @@ def create_app() -> Flask:
 
 def init_blueprints(app: Flask) -> None:
 
-    name = app.name.split(".")[0]
+    blueprints = Path(app.root_path) / "blueprints"
+    if not blueprints.is_dir():
+        return
 
-    for d in os.listdir(os.path.join(app.root_path, "blueprints")):
-        if d in {"__init__.py", "__pycache__"}:
+    name = app.name.split(".")[0]
+    for d in blueprints.iterdir():
+        if not d.is_dir():
             continue
         try:
-            m = importlib.import_module(f"{name}.blueprints.{d}.view")
+            m = importlib.import_module(f"{name}.blueprints.{d.name}.view")
             init_app = getattr(m, "init_app", None)
             if init_app is not None:
                 init_app(app)
