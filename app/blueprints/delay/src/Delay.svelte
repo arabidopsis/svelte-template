@@ -24,6 +24,7 @@
         (acc, { status }) => acc || status === "done",
         false
     );
+    $: percent = ((100 * (running_idx + 1)) / pubmedids.length).toFixed(0)
 
     const config = Config;
     const delta = Config.DELTA;
@@ -48,7 +49,14 @@
         cancel_pending = false;
     }
 
+    async function getpubmed(pubmed:number):Promise<number> {
+        const resp = await fetch(`/fetch/${pubmed}`)
+        const result = await resp.json()
+        return result.result as number
+    }
+
     async function start() {
+        let result:number
         let start = Date.now();
         for (let i = 0; i < pubmedids.length; ++i) {
             if (cancel_pending) break;
@@ -64,9 +72,12 @@
                 await wait(dt);
             }
             total += pmid * 2;
+
+            // do work here
+            result = await getpubmed(pmid)
             pubmedids[i] = {
                 pmid,
-                msg: `done ${pmid * 2} ${dt}`,
+                msg: `done ${result} ${dt}`,
                 status: "done",
             };
             start = Date.now();
@@ -89,7 +100,7 @@
         on:click={stop}
         disabled={cancel_pending}>Cancel</button
     >
-    {((100 * (running_idx + 1)) / pubmedids.length).toFixed(0)}% completed
+    {percent}% completed
 {/if}
 <code>
     {total}

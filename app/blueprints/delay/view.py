@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from flask import Blueprint
 from flask import Flask
+from flask import jsonify
 from flask import render_template
 
 
@@ -17,6 +18,11 @@ delay = Blueprint(
 @delay.route("/delay")
 def index():
     return render_template("delay.html", delay=1000)
+
+
+@delay.route("/fetch/<int:pubmed>")
+def fetch(pubmed: int):
+    return jsonify(dict(result=pubmed * 10))
 
 
 def init_app(app: Flask) -> None:
