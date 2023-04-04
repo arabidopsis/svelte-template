@@ -150,14 +150,15 @@ def command_iterator(
     def generator():
         try:
             yield {"kind": "pid", "pid": cmd.pid}
-            for event in cmd.output:
-                yield {"kind": "line", "line": event}
+            for line in cmd.output:
+                yield {"kind": "line", "line": line}
 
             yield {"kind": "retcode", "retcode": cmd.returncode}
         except Exception as e:
             yield {"kind": "error", "msg": f"Error: {e}"}
-        finally:
-            if "pid" in session:
-                del session["pid"]
+        # can't delete session[pid] here because we have no request context
+        # finally:
+        #     if "pid" in session:
+        #         del session["pid"]
 
     return generator()

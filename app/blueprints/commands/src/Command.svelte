@@ -6,7 +6,7 @@
 <script lang="ts">
   import { tick } from "svelte";
   type State = "PENDING" | "DONE" | "STARTED" | "KILLED" | "CANCELLED";
-  export let url: string = Config.url;
+  export let runcommand: string = Config.runcommand_url;
   export let maxHeight: number = 20;
 
   let logarea: HTMLElement;
@@ -41,7 +41,7 @@
 
   function run() {
     let start = Date.now();
-    const es = new EventSource(url);
+    const es = new EventSource(runcommand);
     es.addEventListener("message", async (event) => {
       const data: Message = JSON.parse(event.data);
       if (data === null || cancel) {

@@ -39,7 +39,10 @@ def killit(pid: int | None) -> None:
 
     if pid is None:
         return
-    os.kill(pid, SIGINT)
+    try:
+        os.kill(pid, SIGINT)
+    except ProcessLookupError:
+        pass
     if "pid" in session:
         del session["pid"]
 
