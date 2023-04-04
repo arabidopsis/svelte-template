@@ -66,7 +66,7 @@ class Command:
             q = queue.Queue()
 
             def reader(stream):
-                while 1:
+                while True:
                     line = stream.readline()
                     q.put(line)
                     if not line:
@@ -144,6 +144,7 @@ def command_iterator(
 ) -> Response:
     cmd = Command(argline, env=env, cwd=cwd)
     session["pid"] = cmd.pid
+    # see Message type in src/cmd.d.ts
 
     @eventstream
     def generator():
@@ -151,8 +152,12 @@ def command_iterator(
             yield {"kind": "pid", "pid": cmd.pid}
             for event in cmd.output:
                 yield {"kind": "line", "line": event}
+
             yield {"kind": "retcode", "retcode": cmd.returncode}
         except Exception as e:
             yield {"kind": "error", "msg": f"Error: {e}"}
+        finally:
+            if "pid" in session:
+                del session["pid"]
 
     return generator()

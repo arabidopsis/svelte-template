@@ -29,19 +29,28 @@ def index():
 
 @cmd.route("/runcommand")
 def runcommand() -> Response:
+    killit(session.get("pid"))
     # -u for unbuffered IO
     return command_iterator([sys.executable, "-u", "-m", "app.blueprints.commands"])
+
+
+def killit(pid: int | None) -> None:
+    from signal import SIGINT
+
+    if pid is None:
+        return
+    os.kill(pid, SIGINT)
+    if "pid" in session:
+        del session["pid"]
 
 
 @cmd.route("/runcommand/kill")
 def kill() -> str:
     # very dangerous!
-    from signal import SIGINT
 
     pid: int | None = request.values.get("pid", type=int)
     if pid is not None and pid == session.get("pid"):
-        os.kill(pid, SIGINT)
-        del session["pid"]
+        killit(pid)
         return "KILLED"
     else:
         abort(404)
