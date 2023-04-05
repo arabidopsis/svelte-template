@@ -15,6 +15,7 @@ from flask import json
 from flask import request
 from flask import Response
 from flask import session
+from flask import stream_with_context
 
 
 class Command:
@@ -112,18 +113,18 @@ class Command:
         return self._cmd.pid
 
 
-def eventstream(f):
-    @wraps(f)
+def eventstream(func):
+    @wraps(func)
     def new_func(*args, **kwargs) -> Response:
         if "text/event-stream" not in request.accept_mimetypes:
             abort(400)
 
-        def generate():
-            for event in chain(f(*args, **kwargs), (None,)):
+        def generate() -> Iterator[bytes]:
+            for event in chain(func(*args, **kwargs), (None,)):
                 yield ("data: %s\n\n" % json.dumps(event)).encode()
 
         resp = Response(
-            generate(),
+            stream_with_context(generate()),
             mimetype="text/event-stream",
             direct_passthrough=True,
             headers={
@@ -156,9 +157,22 @@ def command_iterator(
             yield {"kind": "retcode", "retcode": cmd.returncode}
         except Exception as e:
             yield {"kind": "error", "msg": f"Error: {e}"}
-        # can't delete session[pid] here because we have no request context
-        # finally:
-        #     if "pid" in session:
-        #         del session["pid"]
+        # can only delete session[pid] here because we have have stream_with_context
+        finally:
+            if "pid" in session:
+                del session["pid"]
 
     return generator()
+
+
+def killprocess(pid: int | None) -> None:
+    from signal import SIGINT
+
+    if pid is None:
+        return
+    try:
+        os.kill(pid, SIGINT)
+    except ProcessLookupError:
+        pass
+    if "pid" in session:
+        del session["pid"]

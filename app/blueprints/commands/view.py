@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import os
 import sys
 
 from flask import abort
@@ -12,6 +11,7 @@ from flask import Response
 from flask import session
 
 from .cmd import command_iterator
+from .cmd import killprocess
 
 cmd = Blueprint(
     "command",
@@ -29,22 +29,9 @@ def index():
 
 @cmd.route("/runcommand")
 def runcommand() -> Response:
-    killit(session.get("pid"))
+    # killprocess(session.get("pid"))
     # -u for unbuffered IO
     return command_iterator([sys.executable, "-u", "-m", "app.blueprints.commands"])
-
-
-def killit(pid: int | None) -> None:
-    from signal import SIGINT
-
-    if pid is None:
-        return
-    try:
-        os.kill(pid, SIGINT)
-    except ProcessLookupError:
-        pass
-    if "pid" in session:
-        del session["pid"]
 
 
 @cmd.route("/runcommand/kill")
@@ -53,7 +40,7 @@ def kill() -> str:
 
     pid: int | None = request.values.get("pid", type=int)
     if pid is not None and pid == session.get("pid"):
-        killit(pid)
+        killprocess(pid)
         return "KILLED"
     else:
         abort(404)
