@@ -21,7 +21,10 @@ function find_template_dependencies(src) {
 function importstr(path) {
     return `import ${JSON.stringify(path)};`
 }
-export const nunjucksImporterPlugin = ({ templateDir = undefined, filter = /.html$/ } = {}) => {
+
+
+
+export const nunjucksImporterPlugin = ({ templateDir = undefined, filter = /\.html$/ } = {}) => {
 
     // importing .html files into javascript/svelte here means
     // we are using a nunjucks template
