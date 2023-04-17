@@ -7,6 +7,7 @@ import { nunjucksImporterPlugin } from './nunjucks-plugin.mjs'
 dotenv.config({ path: '.env' })
 const TEMPLATE_FOLDER = process.env.TEMPLATE_FOLDER || 'app/templates'
 const production = process.env.NODE_ENV === 'production';
+//** @type {import('esbuild').BuildOptions} */
 const baseconfig = {
   mainFields: ["svelte", "browser", "module", "main"],
   loader: { '.svg': 'dataurl' },

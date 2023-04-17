@@ -130,3 +130,4 @@ app/blueprints/*/static/assets/
 package-lock.json
 poetry.lock
 *.swp
+pnpm-lock.yaml
