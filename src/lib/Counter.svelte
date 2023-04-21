@@ -1,4 +1,4 @@
-<script type="ts">
+<script lang="ts">
   import { toastr } from "./toastr";
   export let count: number = 0;
   const increment = () => {
