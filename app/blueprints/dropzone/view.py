@@ -21,10 +21,12 @@ def index():
 
 
 @dropzone.route("/dropzone-upload", methods=["POST"])
-def fetch():
+def upload():
     file = request.files["file"]
+
     print("found file", file)
-    return file.filename
+    size = len(file.read())
+    return f"file={file.filename} size={size}b content_length={file.content_length}"
 
 
 def init_app(app: Flask) -> None:

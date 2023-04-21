@@ -3,7 +3,7 @@
 {%block title %}Dropzone{% endblock %}
 
 {% block css %}
-{{ svelte_css('delay', 'delay.static') }}
+{{ svelte_css('dropzone', 'dropzone.static') }}
 {% endblock css %}
 
 {% block content %}
@@ -15,13 +15,5 @@
 {% endblock content %}
 
 {% block js %}
-{# render global configuration for this page
-note that window.Config will not be defined...
-#}
-<script>
-    const Config = {
-        DELTA: {{ delay }}
-    }
-</script>
 {{ svelte_js('dropzone', 'dropzone.static') }}
 {% endblock js %}
