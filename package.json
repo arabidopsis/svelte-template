@@ -18,9 +18,11 @@
   "devDependencies": {
     "@tsconfig/svelte": "^4.0.1",
     "@types/bootstrap": "^5.2.6",
+    "@types/dropzone": "^5.7.4",
     "@types/google.visualization": "^0.0.68",
     "@types/plotly.js": "^2.12.18",
     "dotenv": "^16.0.3",
+    "dropzone": "6.0.0-beta.2",
     "esbuild": "^0.17.17",
     "esbuild-svelte": "^0.7.3",
     "nunjucks": "^3.2.4",

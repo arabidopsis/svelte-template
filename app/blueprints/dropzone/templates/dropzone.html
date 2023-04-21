@@ -1,0 +1,27 @@
+{% extends base_template %}
+
+{%block title %}Dropzone{% endblock %}
+
+{% block css %}
+{{ svelte_css('delay', 'delay.static') }}
+{% endblock css %}
+
+{% block content %}
+<div class="container mt-5 mb-5 w-50">
+    <h1 class="text-center">Dropzone</h1>
+    <a href="https://docs.dropzone.dev/">See Documentation</a>
+    <div id="app">{# Dropzone.svelte goes here via dropzone.js #}</div>
+</div>
+{% endblock content %}
+
+{% block js %}
+{# render global configuration for this page
+note that window.Config will not be defined...
+#}
+<script>
+    const Config = {
+        DELTA: {{ delay }}
+    }
+</script>
+{{ svelte_js('dropzone', 'dropzone.static') }}
+{% endblock js %}
