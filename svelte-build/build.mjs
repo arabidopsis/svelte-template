@@ -1,15 +1,21 @@
-import * as esbuild from "esbuild";
+import * as esbuild from "esbuild"
+import path from 'path';
+// import { fileURLToPath } from 'url';
 import sveltePlugin from "esbuild-svelte";
 import sveltePreprocess from "svelte-preprocess";
 import dotenv from 'dotenv'
+
 import { nunjucksImporterPlugin } from './nunjucks-plugin.mjs'
+import { libDirPlugin } from './libdir-plugin.mjs'
 // grab e.g. TEMPLATE_FOLDER, ASSET_FOLDER from .env
 dotenv.config({ path: '.env' })
 const TEMPLATE_FOLDER = process.env.TEMPLATE_FOLDER || 'app/templates'
 const production = process.env.NODE_ENV === 'production';
 const watch = process.argv.includes('--watch')
+// const __dirname = path.dirname(fileURLToPath(import.meta.url));
 //** @type {import('esbuild').BuildOptions} */
 const baseconfig = {
+
   mainFields: ["svelte", "browser", "module", "main"],
   loader: { '.svg': 'dataurl' },
   // assetNames: 'public/assets/[name]-[hash]',
@@ -18,7 +24,7 @@ const baseconfig = {
   sourcemap: production,
   minify: production,
   target: 'es6',
-  plugins: [sveltePlugin({ preprocess: [sveltePreprocess()] }), nunjucksImporterPlugin({ templateDir: TEMPLATE_FOLDER })],
+  plugins: [libDirPlugin(), sveltePlugin({ preprocess: [sveltePreprocess()] }), nunjucksImporterPlugin({ templateDir: TEMPLATE_FOLDER })],
   logLevel: "info",
   external: ['nunjucks', 'bootstrap']
 }

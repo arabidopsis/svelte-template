@@ -19,16 +19,23 @@
         // "strict": true,
         "types": [
             "svelte"
-        ]
+        ],
+        // "baseUrl": ".",
+        // see svelte-build/lib-plugin.mjs
+        "paths": {
+            "$lib/*": [
+                "./src/lib/*"
+            ]
+        }
     },
     "include": [
         "src/**/*.ts",
         "src/**/*.svelte",
         "app/blueprints/**/*.svelte",
-        "app/blueprints/**/*.ts",
+        "app/blueprints/**/*.ts"
     ],
     "exclude": [
         "node_modules/**",
         "app/static/**"
-    ]
+    ],
 }
