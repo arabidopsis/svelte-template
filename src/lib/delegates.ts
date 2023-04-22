@@ -44,7 +44,7 @@ export class Delegate {
         }
     };
 }
-// const func = delegate('.class ol li', (e) => {
+// const func = delegate('.class ol li', function(e)  {
 //     /* do something with e.target === this */
 // })
 // <div on:click={func} >
@@ -75,4 +75,4 @@ export function delegate<T>(selector: string, handler: (this: HTMLElement, e: Mo
         }
     };
 }
-export const scoped_delegate = (selector: string, handler: (this: HTMLElement, e: MouseEvent) => any) => delegate(':scope ' + selector, handler)
+export const scoped_delegate = <T>(selector: string, handler: (this: HTMLElement, e: MouseEvent) => any, ...args: T[]) => delegate(':scope ' + selector, handler, ...args)
