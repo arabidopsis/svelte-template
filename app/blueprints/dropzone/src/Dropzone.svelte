@@ -11,6 +11,7 @@
     import Require from "$lib/Require.svelte"
     let dropzone: Dropzone
     let uploaded: string
+    let name: string
     const options: DropzoneOptions = {
         dictDefaultMessage: "Drop dem file here bro!",
     }
@@ -21,6 +22,10 @@
             console.log(file, response)
             uploaded = response
         })
+        dropzone.on("addedfile", (file: File) => {
+            name = file.name
+            console.log(file.name, file)
+        })
     }
     let form: HTMLFormElement
     let dragover = false
@@ -28,6 +33,10 @@
     function remove() {
         dropzone.removeAllFiles()
         uploaded = ""
+    }
+    function showchange() {
+        // form.elements['file']
+        console.log(form.elements["file"])
     }
 </script>
 
@@ -45,6 +54,7 @@
         on:dragover={() => (dragover = true)}
         on:dragleave={() => (dragover = false)}
         on:drop={() => (dragover = false)}
+        on:change={showchange}
     />
     Uploaded: {uploaded ?? "..."}
     {#if uploaded}

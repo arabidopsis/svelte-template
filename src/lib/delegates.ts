@@ -75,4 +75,4 @@ export function delegate<T>(selector: string, handler: (this: HTMLElement, e: Mo
         }
     };
 }
-export const scoped_delegate = <T>(selector: string, handler: (this: HTMLElement, e: MouseEvent) => any, ...args: T[]) => delegate(':scope ' + selector, handler, ...args)
+export const scoped_delegate = <T>(selector: string, handler: (this: HTMLElement, e: MouseEvent) => any, ...args: T[]) => delegate<T>(':scope ' + selector, handler, ...args)
