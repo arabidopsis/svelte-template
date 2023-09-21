@@ -19,7 +19,7 @@ plots = Blueprint(
 def data():
     import time
 
-    data = [
+    plot_data = [
         {
             "values": [22, 26, 52],
             "labels": ["Residential", "Non-Residential", "Utility"],
@@ -27,14 +27,14 @@ def data():
         },
     ]
     time.sleep(5)
-    return jsonify(dict(data=data))
+    return jsonify(dict(data=plot_data))
 
 
 @plots.route("/google")
 def google():
     import time
 
-    data = [
+    plot_data = [
         ["Task", "Hours per Day"],
         ["Work", 11],
         ["Eat", 2],
@@ -46,7 +46,7 @@ def google():
         "title": "My Weekly Activities",
     }
     time.sleep(5)
-    return jsonify(dict(data=data, options=options))
+    return jsonify(dict(data=plot_data, options=options))
 
 
 @plots.route("/plots")

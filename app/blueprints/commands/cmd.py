@@ -74,9 +74,9 @@ class Command:
                         break
 
             t1 = threading.Thread(target=reader, args=(self._cmd.stdout,))
-            t1.setDaemon(True)
+            t1.daemon = True
             t2 = threading.Thread(target=reader, args=(self._cmd.stderr,))
-            t2.setDaemon(True)
+            t2.daemon = True
             t1.start()
             t2.start()
             outstanding = 2
@@ -121,7 +121,8 @@ def eventstream(func):
 
         def generate() -> Iterator[bytes]:
             for event in chain(func(*args, **kwargs), (None,)):
-                yield ("data: %s\n\n" % json.dumps(event)).encode()
+                data = json.dumps(event)
+                yield f"data: {data}\n\n".encode()
 
         resp = Response(
             stream_with_context(generate()),
