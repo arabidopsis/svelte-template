@@ -74,12 +74,18 @@
 
             <div id="app-navbar-collapse" class="collapse navbar-collapse" role="navigation">
                 <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
+                    <li class="nav-item ms-1">
                         <a class="{{ nav_link('view.index') }}" title="Home page">
                             Home <i class="fas fa-home"></i>
                         </a>
                     </li>
-
+                    {% for link in links %}
+                        <li class="nav-item ms-2">
+                            <a class="{{ nav_link(link.endpoint) }}">
+                                {{link.name.title()}} {% if link.fa %}<i class="{{link.fa}}"></i> {% endif %}
+                            </a>
+                        </li>
+                    {% endfor %}
                     {% block navbar_left %}{% endblock %}
 
                 </ul>

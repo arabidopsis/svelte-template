@@ -10,6 +10,8 @@ from flask import request
 from flask import Response
 from flask import session
 
+from ...flask_utils import add_link
+from ...flask_utils import Link
 from .cmd import command_iterator
 from .cmd import killprocess
 
@@ -47,4 +49,8 @@ def kill() -> str:
 
 
 def init_app(app: Flask) -> None:
+    add_link(
+        app,
+        Link(name="Command", endpoint="command.index", fa="fa-solid fa-terminal"),
+    )
     app.register_blueprint(cmd)

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import gzip
+from dataclasses import dataclass
 from os.path import abspath
 from os.path import isabs
 from os.path import join
@@ -29,7 +30,7 @@ from .utils import attrstr
 from .utils import human
 from .utils import mtime
 
-NAME = __name__.split(".")[0]
+NAME = __name__.split(".", maxsplit=1)[0]
 
 
 def error_resp(msg: str, code: int) -> Response:
@@ -122,7 +123,6 @@ def register_bytecode_cache(app: Flask, directory="bytecode_cache") -> None:
 
 
 def create_reloader(app: Flask) -> Callable[[str, str], str]:
-
     jstxt = ""
 
     def reloader(mod: str, endpoint: str = "static"):
@@ -272,3 +272,22 @@ def register_filters(app: Flask) -> None:  # noqa: C901
     @app.errorhandler(404)
     def page_not_found(e):  # pylint: disable=unused-variable
         return render_template("errors/404.html"), 404
+
+    @app.context_processor
+    def inject_links():
+        return dict(links=current_app.extensions.get("links", []))
+
+
+@dataclass
+class Link:
+    name: str
+    endpoint: str
+    fa: str | None = None
+
+
+def add_link(app: Flask, link: Link) -> None:
+    if "links" not in app.extensions:
+        app.extensions["links"] = links = []
+    else:
+        links = app.extensions["links"]
+    links.append(link)

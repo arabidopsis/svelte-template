@@ -26,4 +26,10 @@ def fetch(pubmed: int):
 
 
 def init_app(app: Flask) -> None:
+    from ...flask_utils import add_link, Link
+
+    add_link(
+        app,
+        Link(name="Delay", endpoint="delay.index", fa="fa-solid fa-person-running"),
+    )
     app.register_blueprint(delay)

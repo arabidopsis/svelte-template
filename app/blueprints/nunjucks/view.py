@@ -25,5 +25,16 @@ def index():
 
 
 def init_app(app: Flask) -> None:
+    from ...flask_utils import add_link, Link
+
     app.jinja_env.globals["NUNJUCKS"] = "https://mozilla.github.io/nunjucks/"
+
+    add_link(
+        app,
+        Link(
+            name="Nunjucks",
+            endpoint="nunjucks.index",
+            fa="fa-regular fa-file-powerpoint",
+        ),
+    )
     app.register_blueprint(nunjucks)

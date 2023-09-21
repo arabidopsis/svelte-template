@@ -67,4 +67,10 @@ def myjs():
 
 
 def init_app(app: Flask) -> None:
+    from ...flask_utils import add_link, Link
+
+    add_link(
+        app,
+        Link(name="Charts", endpoint="plots.index", fa="fa-solid fa-chart-line"),
+    )
     app.register_blueprint(plots)

@@ -30,4 +30,10 @@ def upload():
 
 
 def init_app(app: Flask) -> None:
+    from ...flask_utils import add_link, Link
+
+    add_link(
+        app,
+        Link(name="Dropzone", endpoint="dropzone.index", fa="fa-solid fa-upload"),
+    )
     app.register_blueprint(dropzone)

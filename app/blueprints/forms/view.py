@@ -25,4 +25,10 @@ def insertform():
 
 
 def init_app(app: Flask) -> None:
+    from ...flask_utils import add_link, Link
+
+    add_link(
+        app,
+        Link(name="Forms", endpoint="forms.index", fa="fa-regular fa-rectangle-list"),
+    )
     app.register_blueprint(forms)
