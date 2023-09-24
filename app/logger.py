@@ -71,7 +71,6 @@ def init_email_logger(
     Cls: type[SMTPHandler] = SMTPHandler,
     level: int = logging.ERROR,
 ) -> None:
-
     admins: str | list[str] | None = app.config.get("ADMINS")
     if not admins:
         return
@@ -86,9 +85,9 @@ def init_email_logger(
         mailhost = (mailhost[0], int(mailhost[1]))
     mail_handler = Cls(
         mailhost,
-        app.name + f"-server-error@{frm}",
+        f"{app.name}-server-error@{frm}",
         admins,
-        subject=name + " Failed",
+        subject=f"{name} Failed",
     )
 
     mail_handler.setLevel(level)

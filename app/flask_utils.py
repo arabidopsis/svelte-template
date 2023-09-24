@@ -233,14 +233,14 @@ def register_filters(app: Flask) -> None:  # noqa: C901
     def svelte_js(
         mod: str,
         endpoint: str = "static",
-        type: str | None = None,
+        module: str | None = None,
         **kwargs: str,
     ) -> Markup:
         filename = join(assets, f"{mod}.js")
         url = url_for(endpoint, filename=filename, **getversion())
         e = reloader(mod, endpoint)
-        if type is not None:  # should only be 'module'
-            kwargs["type"] == type
+        if module is not None:  # should only be 'module'
+            kwargs["type"] = module
         attrs = attrstr(kwargs)
         return Markup(f'<script defer {attrs} src="{url}"></script>{e}')
 

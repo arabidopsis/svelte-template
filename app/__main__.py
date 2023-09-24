@@ -19,12 +19,13 @@ def generate(page: str, out: BinaryIO, debug: bool):
     from .wsgi import application
 
     application.debug = debug
-    client = application.test_client()
-    resp = client.get(page)
-    txt = resp.data
-    click.secho(f"writing: {out.name}", fg="green")
-    out.write(txt)
+
+    with application.test_client() as client:
+        resp = client.get(page)
+        txt = resp.data
+        click.secho(f"writing: {out.name}", fg="green")
+        out.write(txt)
 
 
 if __name__ == "__main__":
-    generate()
+    generate()  # pylint: ignore=no-value-for-parameter
