@@ -28,4 +28,4 @@ def generate(page: str, out: BinaryIO, debug: bool):
 
 
 if __name__ == "__main__":
-    generate()  # pylint: ignore=no-value-for-parameter
+    generate()  # pylint: disable=no-value-for-parameter
