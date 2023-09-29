@@ -21,4 +21,5 @@ SITE_URL = "https://mysite.url"
 # see also the .env file.
 ASSET_FOLDER = "assets"
 
+# template should use {% extends base_template %}
 BASE_TEMPLATE = "base.html"

@@ -1,5 +1,8 @@
-{% extends base_template %} {%block title %}Nunjucks Templates{% endblock %} {%
-block css %} {{ svelte_css('nunjucks', 'nunjucks.static') }}
+{% extends base_template %}
+
+{%block title %}Nunjucks Templates{% endblock %}
+{% block css %}
+{{ svelte_css('nunjucks', 'nunjucks.static') }}
 <style>
     #app {
         background-color: #eee;
@@ -9,7 +12,9 @@ block css %} {{ svelte_css('nunjucks', 'nunjucks.static') }}
         background-color: #eee;
     }
 </style>
-{% endblock css %} {% block content %}
+{% endblock css %}
+
+{% block content %}
 <div class="container mt-5 mb-5 w-50">
     <h1 class="text-center">Nunjucks/Jinja2</h1>
     <p>
@@ -25,5 +30,9 @@ block css %} {{ svelte_css('nunjucks', 'nunjucks.static') }}
     <code>nunjucks/fragment.html</code> Rendered by Nunjucks in browser
     <div id="app">{# Nunjucks.svelte goes here via nunjucks.js #}</div>
 </div>
-{% endblock content %} {% block js %} {{cdn_js('nunjucks-slim')}} {{
-svelte_js('nunjucks', 'nunjucks.static') }} {% endblock js %}
+{% endblock content %}
+
+{% block js %}
+{{cdn_js('nunjucks-slim')}}
+{{ svelte_js('nunjucks', 'nunjucks.static') }}
+{% endblock js %}

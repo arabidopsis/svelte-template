@@ -62,7 +62,7 @@ def init_blueprints(app: Flask) -> None:
             if init_app is not None:
                 init_app(app)
         except ImportError:
-            app.logger.error('can\'t import "%s"', d)
+            app.logger.error('can\'t import blueprint "%s"', d.name)
 
 
 def init_full_app(app: Flask) -> None:
