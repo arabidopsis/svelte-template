@@ -22,10 +22,11 @@ def git_version() -> str | None:
         check=False,
         stderr=subprocess.DEVNULL,
         cwd=cwd,
+        text=True,
     )
     if r.returncode or not r.stdout:
         return None
-    return r.stdout.decode("ascii")[:-1]
+    return r.stdout.strip()
 
 
 def attrstr(kwargs: dict[str, Any]) -> str:
