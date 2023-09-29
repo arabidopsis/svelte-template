@@ -4,36 +4,42 @@
     --app-a-hover: #66aaff;
     --header-font: Gruppo, "Ubuntu", var(--bs-font-sans-serif);
 }
+
 body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
+
 main {
     flex-grow: 1;
 }
 
 #app-navbar {
-    z-index:500;
+    z-index: 500;
 }
+
 .app-bg {
     background-color: var(--app-bg);
     color: var(--app-fg);
 }
+
 .app-bg a {
     color: var(--app-fg);
 }
+
 .app-bg a:hover {
     color: var(--app-a-hover);
 }
-.app-bg .dropdown-menu  {
+
+.app-bg .dropdown-menu {
     background-color: var(--app-bg);
 }
 
 
 #hero {
-    width:100%;
-    height:150px;
+    width: 100%;
+    height: 150px;
 }
 
 .header-text {
@@ -42,32 +48,36 @@ main {
     color: var(--bs-white);
     text-shadow: 2px 2px black;
 }
+
 .header-font {
     font-family: var(--header-font);
 }
 
 a.offsite::after {
-    padding-left:.4em;
+    padding-left: .4em;
     text-rendering: auto;
     -webkit-font-smoothing: antialiased;
     content: '\f35d';
     /* font-family: 'Font Awesome 5 free';
     font-weight: 600; */
     font: var(--fa-font-solid);
-    font-size:.6em;
+    font-size: .6em;
     vertical-align: top;
     text-decoration: none !important;
 }
 
-#toast-container > .toast-error {
+#toast-container>.toast-error {
     background-color: var(--bs-danger) !important;
 }
-#toast-container > .toast-warning {
+
+#toast-container>.toast-warning {
     background-color: var(--bs-warning) !important;
 }
-#toast-container > .toast-success {
+
+#toast-container>.toast-success {
     background-color: var(--bs-success) !important;
 }
-#toast-container > .toast-info {
+
+#toast-container>.toast-info {
     background-color: var(--bs-info) !important;
 }

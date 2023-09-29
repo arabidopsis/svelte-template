@@ -1,183 +1,226 @@
 <!DOCTYPE html>
 {%- from "fragments/macros.html" import nav_link -%}
 <html lang="en">
+    <head>
+        <title>{% block title %}{{config.APP_NAME}}{% endblock %}</title>
+        {%- include "fragments/meta.html" %} {% block meta %}{% endblock meta %}
+        <link
+            rel="icon"
+            href="{{url_for('static', filename='img/svelte-blue.svg')}}"
+        />
+        <link
+            rel="apple-touch-icon"
+            href="{{url_for('static', filename='img/svelte-blue.svg')}}"
+        />
+        {% include "fragments/google.html" %}
 
-<head>
-    <title>{% block title %}{{config.APP_NAME}}{% endblock %}</title>
-    {%- include "fragments/meta.html" %}
-    {% block meta %}{% endblock meta %}
-    <link rel="icon" href="{{url_for('static', filename='img/svelte-blue.svg')}}" />
-    <link rel="apple-touch-icon" href="{{url_for('static', filename='img/svelte-blue.svg')}}" />
-    {% include "fragments/google.html" %}
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="https://fonts.googleapis.com/css?family=Gruppo"
+        />
+        {{ cdn_css("bootstrap") }}
+        {% if config.FONT_ICONS %}
+        {{ cdn_css("fontawesome6") }}
+        {% endif %}
 
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Gruppo" />
-    {{ cdn_css("bootstrap") }}
+        {% block cdn_css %}{% endblock %}
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="{{url_for('static', filename='css/global.css')}}"
+        />
+        <style>
+            #hero {
+                background: top / contain no-repeat
+                        url("{{url_for('static', filename='img/svelte.svg')}}"),
+                    var(--app-bg);
+            }
+        </style>
+        {% block css %}{% endblock css %}{% block header_js %}{% endblock %}
+    </head>
 
-    {% if config.FONT_ICONS %}
-
-    {{ cdn_css("fontawesome6") }}
-
-    {% endif %}
-
-    {% block cdn_css %}{% endblock %}
-    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/global.css')}}" />
-    <style>
-        #hero {
-            background: bottom / contain no-repeat url("{{url_for('static', filename='img/svelte.svg')}}"),
-            var(--app-bg);
-        }
-    </style>
-    {% block css %}{% endblock css %}
-
-    {% block header_js %}{% endblock %}
-
-</head>
-
-<body>
-    {% block body_top %}{% endblock %}
-    {# include "fragments/beta.html" #}
-    <a href="#main-content" class="sr-only sr-only-focusable">Skip to main content</a>
-    {# needs to be outside any effects divs #}
-    {% block dialogs %}{% endblock dialogs %}
-
-
-    {% block header %}
-    <header id="app-header">
-        <div id="hero" class="d-none d-lg-block app-bg">
-            <span class="header-text header-font">
-                <span>{{config.APP_NAME}}</span>
-            </span>
-
-        </div>
-
-        <div class="d-lg-none header-font text-white text-center bg-info" style="height:2.5em;">
-            <div style="font-size:1.8em;">
-                {{config.APP_NAME}}
+    <body>
+        {% block body_top %}{% endblock %} {# include "fragments/beta.html" #}
+        <a href="#main-content" class="sr-only sr-only-focusable"
+            >Skip to main content</a
+        >
+        {# needs to be outside any effects divs #} {% block dialogs %}{%
+        endblock dialogs %} {% block header %}
+        <header id="app-header" class="app-bg">
+            <div id="hero" class="d-none d-lg-block">
+                <span class="header-text header-font">
+                    <span>{{config.APP_NAME}}</span>
+                </span>
             </div>
-        </div>
 
-    </header>
-    {% endblock header %}
+            <div
+                class="d-lg-none header-font text-white text-center bg-info"
+                style="height: 2.5em"
+            >
+                <div style="font-size: 1.8em">{{config.APP_NAME}}</div>
+            </div>
+        </header>
+        {% endblock header %} {% block navbar %}
+        <nav
+            id="app-navbar"
+            class="navbar sticky-top navbar-expand-md navbar-dark app-bg"
+            id="top"
+        >
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    <img
+                        src="{{url_for('static', filename='img/svelte.svg')}}"
+                        style="height: 1.1em"
+                        alt="{{config.APP_NAME}} logo"
+                    />
+                    {{config.APP_NAME}}
+                </a>
+                <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#app-navbar-collapse"
+                    aria-controls="app-navbar-collapse"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                >
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-    {% block navbar %}
-    <nav id="app-navbar" class="navbar sticky-top navbar-expand-md navbar-dark app-bg" id="top">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <img src="{{url_for('static', filename='img/svelte.svg')}}" style="height:1.1em"
-                    alt="{{config.APP_NAME}} logo" />
-                {{config.APP_NAME}}
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#app-navbar-collapse"
-                aria-controls="app-navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div id="app-navbar-collapse" class="collapse navbar-collapse" role="navigation">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item ms-1">
-                        <a class="{{ nav_link('view.index') }}" title="Home page">
-                            Home <i class="fas fa-home"></i>
-                        </a>
-                    </li>
-                    {% for link in links %}
-                        <li class="nav-item ms-2">
-                            <a class="{{ nav_link(link.endpoint) }}">
-                                {{link.name.title()}} {% if link.fa %}<i class="{{link.fa}}"></i> {% endif %}
+                <div
+                    id="app-navbar-collapse"
+                    class="collapse navbar-collapse"
+                    role="navigation"
+                >
+                    <ul class="navbar-nav me-auto" style="--bs-navbar-active-color: #ffaaaa">
+                        <li class="nav-item ms-1">
+                            <a
+                                {{ nav_link('view.index') }}
+                                title="Home page"
+                            >
+                                Home <i class="fas fa-home"></i>
                             </a>
                         </li>
-                    {% endfor %}
-                    {% block navbar_left %}{% endblock %}
-
-                </ul>
-                <ul class="navbar-nav">
-                    {%- block navbar_right -%}
-                    <li class="nav-item">
-                        <a class="{{ nav_link('view.index') }}" title="My Other Site">
-                            See my other site <i class="fas fa-chevron-right"></i>
-                        </a>
-                    </li>
-                    {% endblock navbar_right %}
-                </ul>
-            </div>
-        </div>
-    </nav>
-    {% endblock navbar %}
-
-    {% block precontent %}{% endblock %}
-
-    <main id="main-content">
-        {% block content %}{% endblock %}
-    </main>
-
-    {% block postcontent %}{% endblock %}
-
-    {% block footer %}
-    <footer id="app-footer" class="app-bg">
-        <div class="container">
-            <div class="d-flex justify-content-around">
-                <div>
-                    <ul class="list-inline text-center" style="padding-top:.5em">
-                        <li class="list-inline-item">
-                            <a class="offsite" href="https://plantenergy.edu.au" target="_blank" rel="noreferrer">© 2022
-                                Millar Lab</a>
+                        {% for link in links %}
+                        <li class="nav-item">
+                            <a {{ nav_link(link.endpoint) }}>
+                                {{link.name.title()}} {% if link.fa %}<i
+                                    class="{{link.fa}}"
+                                ></i>
+                                {% endif %}
+                            </a>
                         </li>
-                        <li class="list-inline-item">|</li>
-                        <li class="list-inline-item">version:
-                            <span class="text-muted">
-                                {{ config['GIT_VERSION'][:7] }}</span>
+                        {% endfor %} {% block navbar_left %}{% endblock %}
+                    </ul>
+                    <ul class="navbar-nav">
+                        {%- block navbar_right -%}
+                        <li class="nav-item">
+                            <a
+                                {{ nav_link('view.index') }}
+                                title="My Other Site"
+                            >
+                                See my other site
+                                <i class="fas fa-chevron-right"></i>
+                            </a>
                         </li>
+                        {% endblock navbar_right %}
                     </ul>
                 </div>
             </div>
-            <div class="row">
+        </nav>
+        {% endblock navbar %} {% block precontent %}{% endblock %}
 
-                <div class="col text-center">
-                    If you find this resource useful please cite the following:
-                </div>
-                <div class="col text-center">
+        <main id="main-content">{% block content %}{% endblock %}</main>
 
-                    Me and You
-                    <br />
-                    PMID: <a target="pubmed" class="offsite" href="https://ncbi.nlm.nih.gov/pubmed/XXXXXX">PUBMED</a>
-                    doi: <a target="doi" class="offsite" href="https://doi.org/XXXXX">DOI</a>
-
-                </div>
-
-                <div class="col text-center">
-                    <img src="{{url_for('static', filename='img/svelte.svg')}}" style="margin-top:10px;height:4em"
-                        alt="Svelte logo" />
-                </div>
-
-            </div>
-
-            <div class="text-center mb-1">
-                <div class="d-none d-lg-flex justify-content-around">
-                    <img alt="Creative Commons License" style="border-width:0"
-                        src="https://i.creativecommons.org/l/by/4.0/88x31.png" />
-                </div>
+        {% block postcontent %}{% endblock %} {% block footer %}
+        <footer id="app-footer" class="app-bg">
+            <div class="container">
                 <div class="d-flex justify-content-around">
-                    <small>
-                        &copy; 2022.
-                        This work is licensed under a <a rel="license" class="offsite"
-                            href="https://creativecommons.org/licenses/by/4.0/">
-                            Creative Commons Attribution 4.0 International License</a>.
-                        <i class="fas fa-code"></i> with <i class="fas fa-heart"></i> by IRC.
-                    </small>
+                    <div>
+                        <ul
+                            class="list-inline text-center"
+                            style="padding-top: 0.5em"
+                        >
+                            <li class="list-inline-item">
+                                <a
+                                    class="offsite"
+                                    href="https://plantenergy.edu.au"
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    >© 2022 Millar Lab</a
+                                >
+                            </li>
+                            <li class="list-inline-item">|</li>
+                            <li class="list-inline-item">
+                                version:
+                                <span class="text-muted">
+                                    {{ config['GIT_VERSION'][:7] }}</span
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col text-center">
+                        If you find this resource useful please cite the
+                        following:
+                    </div>
+                    <div class="col text-center">
+                        Me and You
+                        <br />
+                        PMID:
+                        <a
+                            target="pubmed"
+                            class="offsite"
+                            href="https://ncbi.nlm.nih.gov/pubmed/XXXXXX"
+                            >PUBMED</a
+                        >
+                        doi:
+                        <a
+                            target="doi"
+                            class="offsite"
+                            href="https://doi.org/XXXXX"
+                            >DOI</a
+                        >
+                    </div>
+
+                    <div class="col text-center">
+                        <img
+                            src="{{url_for('static', filename='img/svelte.svg')}}"
+                            style="margin-top: 10px; height: 4em"
+                            alt="Svelte logo"
+                        />
+                    </div>
+                </div>
+
+                <div class="text-center mb-1">
+                    <div class="d-none d-lg-flex justify-content-around">
+                        <img
+                            alt="Creative Commons License"
+                            style="border-width: 0"
+                            src="https://i.creativecommons.org/l/by/4.0/88x31.png"
+                        />
+                    </div>
+                    <div class="d-flex justify-content-around">
+                        <small>
+                            &copy; 2022. This work is licensed under a
+                            <a
+                                rel="license"
+                                class="offsite"
+                                href="https://creativecommons.org/licenses/by/4.0/"
+                            >
+                                Creative Commons Attribution 4.0 International
+                                License</a
+                            >. <i class="fas fa-code"></i> with
+                            <i class="fas fa-heart"></i> by IRC.
+                        </small>
+                    </div>
                 </div>
             </div>
-        </div>
-    </footer>
-    {% endblock footer %}
-
-    {# cdn_js("jquery") #}
-    {{ cdn_js("bootstrap") }}
-
-    {% if not config.FONT_ICONS %}
-
-    {{ cdn_js("fontawesome6") }}
-
-    {% endif %}
-    {% block js %}{% endblock js %}
-</body>
-
+        </footer>
+        {% endblock footer %} {# cdn_js("jquery") #} {{ cdn_js("bootstrap") }}
+        {% if not config.FONT_ICONS %} {{ cdn_js("fontawesome6") }} {% endif %}
+        {% block js %}{% endblock js %}
+    </body>
 </html>
