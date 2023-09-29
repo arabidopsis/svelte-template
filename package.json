@@ -16,25 +16,25 @@
     "check": "svelte-check --tsconfig ./tsconfig.json --fail-on-warnings  --fail-on-hint"
   },
   "devDependencies": {
-    "@tsconfig/svelte": "^4.0.1",
-    "@types/bootstrap": "^5.2.6",
-    "@types/dropzone": "^5.7.4",
-    "@types/google.visualization": "^0.0.68",
-    "@types/plotly.js": "^2.12.18",
-    "dotenv": "^16.0.3",
+    "@tsconfig/svelte": "^5.0.2",
+    "@types/bootstrap": "^5.2.7",
+    "@types/dropzone": "^5.7.5",
+    "@types/google.visualization": "^0.0.70",
+    "@types/plotly.js": "^2.12.27",
+    "dotenv": "^16.3.1",
     "dropzone": "6.0.0-beta.2",
-    "esbuild": "^0.17.17",
-    "esbuild-svelte": "^0.7.3",
+    "esbuild": "^0.19.4",
+    "esbuild-svelte": "^0.8.0",
     "nunjucks": "^3.2.4",
-    "svelte": "^3.58.0",
-    "svelte-check": "^3.2.0",
-    "svelte-preprocess": "^5.0.3",
-    "tslib": "^2.5.0",
-    "typescript": "^5.0.4"
+    "svelte": "^4.2.1",
+    "svelte-check": "^3.5.2",
+    "svelte-preprocess": "^5.0.4",
+    "tslib": "^2.6.2",
+    "typescript": "^5.2.2"
   },
   "dependencies": {
-    "bootstrap5-tags": "^1.5.15",
+    "bootstrap5-tags": "^1.6.9",
     "notyf": "^3.10.0",
-    "npm-check-updates": "^16.10.8"
+    "npm-check-updates": "^16.14.4"
   }
 }

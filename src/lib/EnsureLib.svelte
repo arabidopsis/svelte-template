@@ -4,6 +4,7 @@
     export let src: string
     export let css: string = ""
     let loaded = false
+    let script_src = src // very strange bug...
     const dispatch = createEventDispatcher()
 
     function onload() {
@@ -23,7 +24,7 @@
 	</EnsureLib>
 -->
 <svelte:head>
-    <script {src} on:load={onload}></script>
+    <script src={script_src} on:load={onload}></script>
     {#if css}
         <link href={css} rel="stylesheet" type="text/css" />
     {/if}

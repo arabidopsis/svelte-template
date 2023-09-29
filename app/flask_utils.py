@@ -15,7 +15,6 @@ from typing import Iterator
 import toml
 from flask import current_app
 from flask import Flask
-from flask import Markup
 from flask import render_template
 from flask import Response
 from flask import stream_with_context
@@ -25,6 +24,7 @@ from flask.scaffold import find_package
 from jinja2 import FileSystemBytecodeCache
 from jinja2 import FileSystemLoader
 from jinja2 import TemplateNotFound
+from markupsafe import Markup
 
 from .utils import attrstr
 from .utils import human
@@ -169,7 +169,7 @@ def register_filters(app: Flask) -> None:  # noqa: C901
             return None
 
         def get_loaders() -> Iterator[FileSystemLoader]:
-            loader: FileSystemLoader = app.jinja_loader  # type: ignore
+            loader: FileSystemLoader | None = app.jinja_loader  # type: ignore
             if loader is not None:
                 yield loader
 
@@ -185,7 +185,10 @@ def register_filters(app: Flask) -> None:  # noqa: C901
                     return ret
             raise TemplateNotFound(filename)
 
-        src = app.jinja_env.loader.get_source(app.jinja_env, filename)[0]
+        ldr = app.jinja_env.loader
+        if ldr is None:
+            raise TemplateNotFound(filename)
+        src = ldr.get_source(app.jinja_env, filename)[0]
         return Markup(src)
 
     def cdn_js(key: str, **kwargs: str) -> Markup:

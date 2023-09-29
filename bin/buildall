@@ -1,0 +1,7 @@
+#!/bin/bash
+builds=(commands delay dropzone forms nunjucks plots)
+npx node svelte-build/build.main.mjs
+for b in ${builds[@]}; do
+    echo "building $b"
+    npx node app/blueprints/$b/src/build.$b.mjs
+done
