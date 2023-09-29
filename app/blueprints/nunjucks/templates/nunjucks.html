@@ -1,9 +1,5 @@
-{% extends base_template %}
-
-{%block title %}Nunjucks Templates{% endblock %}
-
-{% block css %}
-{{ svelte_css('nunjucks', 'nunjucks.static') }}
+{% extends base_template %} {%block title %}Nunjucks Templates{% endblock %} {%
+block css %} {{ svelte_css('nunjucks', 'nunjucks.static') }}
 <style>
     #app {
         background-color: #eee;
@@ -13,21 +9,21 @@
         background-color: #eee;
     }
 </style>
-{% endblock css %}
-
-{% block content %}
+{% endblock css %} {% block content %}
 <div class="container mt-5 mb-5 w-50">
     <h1 class="text-center">Nunjucks/Jinja2</h1>
+    <p>
+        Nunjucks is a javascript impelementation of jinja2. This is a blueprint
+        that show how to incorporate nunjucks templates in svelte. For a similar
+        idea see
+        <a href="https://htmx.org/extensions/client-side-templates/">htmx</a>
+    </p>
+    <hr />
     <code>nunjucks/fragment.html</code> Rendered by jinja2 on server
     <div id="jinja2">{{html|safe}}</div>
     <hr />
     <code>nunjucks/fragment.html</code> Rendered by Nunjucks in browser
     <div id="app">{# Nunjucks.svelte goes here via nunjucks.js #}</div>
 </div>
-{% endblock content %}
-
-{% block js %}
-
-{{cdn_js('nunjucks-slim')}}
-{{ svelte_js('nunjucks', 'nunjucks.static') }}
-{% endblock js %}
+{% endblock content %} {% block js %} {{cdn_js('nunjucks-slim')}} {{
+svelte_js('nunjucks', 'nunjucks.static') }} {% endblock js %}

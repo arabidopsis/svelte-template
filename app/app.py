@@ -62,15 +62,11 @@ def init_blueprints(app: Flask) -> None:
             if init_app is not None:
                 init_app(app)
         except ImportError:
-            pass
+            app.logger.error('can\'t import "%s"', d)
 
 
 def init_full_app(app: Flask) -> None:
     init_email_logger(app)  # email logger requires config.ADMINS = [email]
-
-    # agg, cairo, pdf, pgf, ps, svg, template
-
-    # matplotlib.use(app.config["BACKEND"], force=True)
 
     init_index(app)
 

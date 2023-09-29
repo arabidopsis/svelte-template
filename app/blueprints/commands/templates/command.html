@@ -32,8 +32,6 @@
         kill_url: "{{url_for('command.kill') }}"
     }
 </script>
-{#
-<script src="{{url_for('command.static', filename='assets/cmd.js', v=1)}}"></script>
-#}
+
 {{svelte_js('cmd', 'command.static')}}
 {% endblock js %}

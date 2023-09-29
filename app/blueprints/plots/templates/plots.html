@@ -1,7 +1,6 @@
 {% extends base_template %}
 
 {%block title %}Plotly Plots{% endblock %}
-
 {% block css %}
 {{ svelte_css('plots', 'plots.static') }}
 {% endblock css %}
@@ -10,10 +9,10 @@
 <div class="container mt-5 mb-5 w-50">
     <h1 class="text-center">Plots</h1>
     <p>
-    Test of <code>&lt;Require src="..."&gt;</code>. Wait until Plotting library
-    is downloaded before drawing plot... Here the
-    plotly library <code>https://cdn.plot.ly/plotly-2.16.1.min.js</code> but also
-    see code for <code>GoogleChart</code> and <code>Frappe</code>
+        Test of <code>&lt;Require src="..."&gt;</code>. Wait until Plotting
+        library is downloaded before drawing plot... Here the plotly library
+        <code>https://cdn.plot.ly/plotly-2.16.1.min.js</code> but also see code
+        for <code>GoogleChart</code> and <code>Frappe</code>
     </p>
     <div id="app">{# Plots.svelte goes here via plots.js #}</div>
 </div>
@@ -23,8 +22,9 @@
 <script>
     const PlotConfig = {
         data_url: "{{url_for('.data')}}",
-        google_url: "{{url_for('.google')}}"
+        google_url: "{{url_for('.google')}}",
     }
 </script>
 {{ svelte_js('plots', 'plots.static') }}
+
 {% endblock js %}

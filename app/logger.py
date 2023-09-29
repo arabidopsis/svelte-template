@@ -12,7 +12,7 @@ from flask import has_request_context
 from flask import request
 
 
-def remote_addr():
+def remote_addr() -> str | None:
     # try CloudFlare
     addr = request.headers.get("CF-Connecting-IP")
     if addr:
@@ -23,7 +23,7 @@ def remote_addr():
     return request.remote_addr
 
 
-def escapeit(url):
+def escapeit(url: str | None) -> str:
     # because microsoft mangles urls
     if not url:
         return ""
