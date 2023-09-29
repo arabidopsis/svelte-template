@@ -21,10 +21,4 @@ SITE_URL = "https://mysite.url"
 # see also the .env file.
 ASSET_FOLDER = "assets"
 
-# debug reloader for svelte javascript. Only used in DEBUG mode.
-# if javascript needs reloading then perform a page reload `window.location.reload()`
-# Set to 0 to turn off the reload.
-# Otherwise number of milliseconds to wait test for reload....
-RELOADER = 0
-
 BASE_TEMPLATE = "base.html"

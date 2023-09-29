@@ -35,6 +35,7 @@
     }
     function showchange() {
         // form.elements['file']
+        // @ts-ignore
         console.log(form.elements["file"])
     }
 </script>
@@ -65,10 +66,9 @@
 
 <style>
     .dropzone:hover {
-        border-width: 2px;
+        border-color: green;
     }
     .dropzone.dragover {
-        border-width: 2px;
-        border-color: red;
+        border-color: orange;
     }
 </style>
