@@ -1,6 +1,6 @@
 <script lang="ts">
     import { fade } from "svelte/transition";
-    import Require from "../../../../src/lib/Require.svelte";
+    import Require from "$lib/Require.svelte";
     const data = {
         labels: [
             "12am-3am",

@@ -1,9 +1,9 @@
 <script>
-    import Require from "../../../../src/lib/Require.svelte";
-    let added = false;
+    import Require from "$lib/Require.svelte"
+    let added = false
     setTimeout(() => {
-        added = true;
-    }, 5000);
+        added = true
+    }, 5000)
 </script>
 
 {#if added}

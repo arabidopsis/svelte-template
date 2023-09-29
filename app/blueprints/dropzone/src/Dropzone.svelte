@@ -7,7 +7,6 @@
 </script>
 
 <script lang="ts">
-    // import Require from "../../../../src/lib/Require.svelte"
     import Require from "$lib/Require.svelte"
     let dropzone: Dropzone
     let uploaded: string

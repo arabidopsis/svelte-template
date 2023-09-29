@@ -1,6 +1,6 @@
 <script>
     // npm install -D @types/plotly.js
-    import Require from "../../../../src/lib/Require.svelte";
+    import Require from "$lib/Require.svelte";
     import { PlotlyLib } from "./plotly_store";
 
     function onload() {

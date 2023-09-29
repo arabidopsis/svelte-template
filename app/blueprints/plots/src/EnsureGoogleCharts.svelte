@@ -1,6 +1,6 @@
 <script lang="ts">
     // npm install -D @types/google.visualization
-    import Require from "../../../../src/lib/Require.svelte";
+    import Require from "$lib/Require.svelte";
 
     export let packages: string[] = ["corechart"];
     export let version: string = "current";
