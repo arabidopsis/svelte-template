@@ -33,7 +33,10 @@ def create_init_app() -> Flask:
 
     @app.context_processor
     def base():
-        return dict(base_template=app.config["BASE_TEMPLATE"])
+        return dict(
+            base_template=app.config["BASE_TEMPLATE"],
+            links=app.extensions.get("links", []),
+        )
 
     return app
 
@@ -45,7 +48,6 @@ def create_app() -> Flask:
 
 
 def init_blueprints(app: Flask) -> None:
-
     blueprints = Path(app.root_path) / "blueprints"
     if not blueprints.is_dir():
         return
@@ -64,7 +66,6 @@ def init_blueprints(app: Flask) -> None:
 
 
 def init_full_app(app: Flask) -> None:
-
     init_email_logger(app)  # email logger requires config.ADMINS = [email]
 
     # agg, cairo, pdf, pgf, ps, svg, template

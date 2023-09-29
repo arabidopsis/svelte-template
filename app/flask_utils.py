@@ -97,8 +97,6 @@ def merge_dict(d1: dict, d2: dict) -> dict:
 def config_app(config: Config) -> Config:
     config.from_object(f"{NAME}.config")
     config.from_pyfile(f"{NAME}.cfg", silent=True)
-    if "CELERY" in config and "CELERY_CONFIG" in config:
-        merge_dict(config["CELERY_CONFIG"], config.pop("CELERY"))
 
     return config
 
@@ -213,24 +211,15 @@ def register_filters(app: Flask) -> None:  # noqa: C901
         attrs = attrstr(kwargs)
         return Markup(f'<script defer {attrs} src="{url}"></script>')
 
-    def nunjucks_js(mod: str, endpoint: str = "static") -> Markup:
-        url = url_for(
-            endpoint,
-            filename=join(assets, f"nunjucks-{mod}.js"),
-            **getversion(),
-        )
-        return Markup(f'<script src="{url}"></script>')
-
-    # for nunjucks includes
     app.jinja_env.globals["include_raw"] = include_raw
     app.jinja_env.globals["cdn_js"] = cdn_js
     app.jinja_env.globals["cdn_css"] = cdn_css
     app.jinja_env.globals["svelte_css"] = svelte_css
     app.jinja_env.globals["svelte_js"] = svelte_js
-    app.jinja_env.globals["nunjucks_js"] = nunjucks_js
 
     app.template_filter("human")(human)
 
+    # missing filter :(
     @app.template_filter()
     def split(
         s: str,
@@ -241,10 +230,6 @@ def register_filters(app: Flask) -> None:  # noqa: C901
     @app.errorhandler(404)
     def page_not_found(e):  # pylint: disable=unused-variable
         return render_template("errors/404.html"), 404
-
-    @app.context_processor
-    def inject_links():
-        return dict(links=current_app.extensions.get("links", []))
 
 
 @dataclass

@@ -6,7 +6,7 @@ VERSION = 1
 # use fontawesome css fonts
 FONT_ICONS = True
 # unexpected bugs that result in Internal Server Error 50x
-# will be emailed to here if set:
+# will be emailed (via MAIL_SERVER) to you here if set:
 # ADMINS = ['your.email@gmail.com']
 MAIL_SUBJECT = "svelte website"
 # SMTP mailserver

@@ -3,7 +3,8 @@
 <html lang="en">
     <head>
         <title>{% block title %}{{config.APP_NAME}}{% endblock %}</title>
-        {%- include "fragments/meta.html" %} {% block meta %}{% endblock meta %}
+        {%- include "fragments/meta.html" %}
+        {% block meta %}{% endblock meta %}
         <link
             rel="icon"
             href="{{url_for('static', filename='img/svelte-blue.svg')}}"
@@ -37,16 +38,17 @@
                     var(--app-bg);
             }
         </style>
-        {% block css %}{% endblock css %}{% block header_js %}{% endblock %}
+        {% block css %}{% endblock css %}
+        {% block header_js %}{% endblock %}
     </head>
 
     <body>
-        {% block body_top %}{% endblock %} {# include "fragments/beta.html" #}
+        {% block body_top %}{% endblock %}
         <a href="#main-content" class="sr-only sr-only-focusable"
             >Skip to main content</a
         >
-        {# needs to be outside any effects divs #} {% block dialogs %}{%
-        endblock dialogs %} {% block header %}
+        {% block dialogs %}{% endblock dialogs %}
+        {% block header %}
         <header id="app-header" class="app-bg">
             <div id="hero" class="d-none d-lg-block">
                 <span class="header-text header-font">
@@ -61,7 +63,8 @@
                 <div style="font-size: 1.8em">{{config.APP_NAME}}</div>
             </div>
         </header>
-        {% endblock header %} {% block navbar %}
+        {% endblock header %}
+        {% block navbar %}
         <nav
             id="app-navbar"
             class="navbar sticky-top navbar-expand-md navbar-dark app-bg"
@@ -129,11 +132,13 @@
                 </div>
             </div>
         </nav>
-        {% endblock navbar %} {% block precontent %}{% endblock %}
+        {% endblock navbar %}
+        {% block precontent %}{% endblock %}
 
         <main id="main-content">{% block content %}{% endblock %}</main>
 
-        {% block postcontent %}{% endblock %} {% block footer %}
+        {% block postcontent %}{% endblock %}
+        {% block footer %}
         <footer id="app-footer" class="app-bg">
             <div class="container">
                 <div class="d-flex justify-content-around">
@@ -219,7 +224,8 @@
                 </div>
             </div>
         </footer>
-        {% endblock footer %} {# cdn_js("jquery") #} {{ cdn_js("bootstrap") }}
+        {% endblock footer %}
+        {{ cdn_js("bootstrap") }}
         {% if not config.FONT_ICONS %} {{ cdn_js("fontawesome6") }} {% endif %}
         {% block js %}{% endblock js %}
     </body>
