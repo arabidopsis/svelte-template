@@ -1,5 +1,5 @@
 import * as esbuild from "esbuild"
-import path from 'path';
+// import path from 'path';
 // import { fileURLToPath } from 'url';
 import sveltePlugin from "esbuild-svelte";
 import sveltePreprocess from "svelte-preprocess";
@@ -12,6 +12,7 @@ dotenv.config({ path: '.env' })
 const TEMPLATE_FOLDER = process.env.TEMPLATE_FOLDER || 'app/templates'
 const production = process.env.NODE_ENV === 'production';
 const watch = process.argv.includes('--watch')
+const libDir = process.env.LIB_DIR || 'src/lib'
 // const __dirname = path.dirname(fileURLToPath(import.meta.url));
 //** @type {import('esbuild').BuildOptions} */
 const baseconfig = {
@@ -24,9 +25,10 @@ const baseconfig = {
   sourcemap: production,
   minify: production,
   target: 'es6',
-  plugins: [libDirPlugin(), sveltePlugin({ preprocess: [sveltePreprocess()] }), nunjucksImporterPlugin({ templateDir: TEMPLATE_FOLDER })],
+  plugins: [libDirPlugin(libDir), sveltePlugin({ preprocess: [sveltePreprocess()] }), nunjucksImporterPlugin({ templateDir: TEMPLATE_FOLDER })],
   logLevel: "info",
-  external: ['nunjucks', 'bootstrap']
+  external: ['nunjucks', 'bootstrap'],
+  outdir: process.env.ASSET_FOLDER
 }
 async function build(config) {
   if (watch) {

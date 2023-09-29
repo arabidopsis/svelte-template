@@ -71,6 +71,30 @@ git add . && git commit -m "initial commit"
 git push
 ```
 
+## Compiling svelte and typscript
+
+You can setup the build script anyway you want for example
+
+```javascript
+// mybuild.mjs
+import build from "svelte-build/build.mjs"
+await build({
+    entryPoints: [
+        "src/entrypoint1.js",
+        "src/entrypoint2.js",
+        // ...
+    ],
+})
+```
+
+`npx node mybuild.mjs` will create js/css files in `app/static/assets` which can then be
+loaded using jinja functions `{{svelte_js('entrypoint1')}}` and `{{svelte_css('entrypoint1')}}`
+in your templates. It's up to you if you put all your svelte code under src or spread
+it out in the flask app. Take a look at `app/blueprints/{commands,delay}src/build.mjs` for
+an idea to keep the client side code near the backend code that delivers it.
+
+You only need to keep the svelte-build directory and the package.json file.
+
 ## Development
 
 -   run `python -m app [--page=/]` to generate an `index.html` file from your flask templates

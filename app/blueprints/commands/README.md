@@ -9,7 +9,7 @@ If you don't want any of this just delete this directory...
 Build the app with:
 
 ```bash
-npx node app/blueprints/commands/src/build.cmd.mjs -- --watch
+npx node app/blueprints/commands/src/build.mjs -- --watch
 ```
 
 Goto the app with `/command`
