@@ -1,7 +1,7 @@
 
 # used with jinja2 functions cdn_js and cdn_css
 # e.g. {{cdn_js('jquery') }} will embed a script link to
-# the values here. Bump versions in this file
+# the values here. Bump javascript versions in this file
 [jquery.js]
 src = "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
 integrity = "sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="

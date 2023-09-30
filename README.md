@@ -30,10 +30,19 @@ npx degit arabidopsis/svelte-template my-new-website
 cd my-new-website
 # install javascript dependencies
 npm install
-# build the javascript bundles
-npm run build
-# **OR** for minified versions
-npm run production
+
+```
+
+Now build all the javascript (see `bin/buildall`)
+
+```bash
+# optional...
+export NODE_ENV=production
+blueprints=(commands delay dropzone forms nunjucks plots)
+npx node svelte-build/build.main.mjs
+for b in ${blueprints[@]}; do
+    npx node app/blueprints/$b/src/build.mjs
+done
 ```
 
 Now for the python. The dependencies are just `Flask`, `python-dotenv` and `toml`
@@ -55,6 +64,8 @@ poetry install --without=dev
 flask run
 ```
 
+You should have a fully running flask website.
+
 ### push new code to github
 
 See [here](https://docs.github.com/en/get-started/importing-your-projects-to-github/importing-source-code-to-github/adding-locally-hosted-code-to-github).
@@ -62,7 +73,7 @@ See [here](https://docs.github.com/en/get-started/importing-your-projects-to-git
 First remove anything you don't want or need (e.g nunjucks).
 
 ```bash
-# create a empty new repo on github
+# create a empty new repo {my-new-repo} on github. Then ...
 git clone git@github.com:{user}/my-new-repo.git
 # copy everything including hidden files
 cp -rT /path/to/my-new-website/ my-new-repo/

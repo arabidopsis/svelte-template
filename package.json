@@ -11,8 +11,8 @@
   "main": "src/main.js",
   "scripts": {
     "serve": "npx live-server --mount=/static:app/static index.html",
-    "build": "node svelte-build/build.main.mjs",
-    "production": "NODE_ENV=production node svelte-build/build.main.mjs",
+    "build": "node bin/buildapp.mjs",
+    "production": "NODE_ENV=production node bin/buildapp.mjs",
     "check": "svelte-check --tsconfig ./tsconfig.json --fail-on-warnings  --fail-on-hint"
   },
   "devDependencies": {

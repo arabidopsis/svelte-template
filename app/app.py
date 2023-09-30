@@ -7,6 +7,7 @@ from flask import Flask
 from werkzeug.middleware.proxy_fix import ProxyFix
 
 from .flask_utils import config_app
+from .flask_utils import NAME
 from .flask_utils import register_bytecode_cache
 from .flask_utils import register_filters
 from .index_view import init_app as init_index
@@ -16,7 +17,7 @@ from .utils import git_version
 
 def create_init_app() -> Flask:
     app = Flask(
-        __name__.split()[0],
+        NAME,
         instance_relative_config=True,
         template_folder="templates",
     )
@@ -54,7 +55,7 @@ def init_blueprints(app: Flask) -> None:
 
     name = app.name.split(".")[0]
     for d in blueprints.iterdir():
-        if not d.is_dir():
+        if not d.is_dir() or d.name == "__pycache__":
             continue
         try:
             m = importlib.import_module(f"{name}.blueprints.{d.name}.view")

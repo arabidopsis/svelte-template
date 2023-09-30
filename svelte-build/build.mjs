@@ -7,12 +7,14 @@ import dotenv from 'dotenv'
 
 import { nunjucksImporterPlugin } from './nunjucks-plugin.mjs'
 import { libDirPlugin } from './libdir-plugin.mjs'
-// grab e.g. TEMPLATE_FOLDER, ASSET_FOLDER from .env
+// grab e.g. TEMPLATE_FOLDER, ASSET_FOLDER etc. from .env
 dotenv.config({ path: '.env' })
-const TEMPLATE_FOLDER = process.env.TEMPLATE_FOLDER || 'app/templates'
+const templateDir = process.env.TEMPLATE_FOLDER || 'app/templates'
+const libDir = process.env.LIB_DIR || 'src/lib'
+const outdir = process.env.ASSET_FOLDER || 'app/static/assets'
 const production = process.env.NODE_ENV === 'production';
 const watch = process.argv.includes('--watch')
-const libDir = process.env.LIB_DIR || 'src/lib'
+
 // const __dirname = path.dirname(fileURLToPath(import.meta.url));
 //** @type {import('esbuild').BuildOptions} */
 const baseconfig = {
@@ -25,10 +27,10 @@ const baseconfig = {
   sourcemap: production,
   minify: production,
   target: 'es6',
-  plugins: [libDirPlugin(libDir), sveltePlugin({ preprocess: [sveltePreprocess()] }), nunjucksImporterPlugin({ templateDir: TEMPLATE_FOLDER })],
+  plugins: [libDirPlugin(libDir), sveltePlugin({ preprocess: [sveltePreprocess()] }), nunjucksImporterPlugin({ templateDir: templateDir })],
   logLevel: "info",
   external: ['nunjucks', 'bootstrap'],
-  outdir: process.env.ASSET_FOLDER
+  outdir: outdir
 }
 async function build(config) {
   if (watch) {

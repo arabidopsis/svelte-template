@@ -1,8 +1,8 @@
 {
     "extends": "@tsconfig/svelte/tsconfig.json",
     "compilerOptions": {
-        // "target": "es6",
-        // "module": "es6",
+        "target": "es6",
+        "module": "es6",
         "useDefineForClassFields": true, // switch to the upcoming ECMA runtime behavior of class fields.
         "resolveJsonModule": true, // allow importing of json modules
         /**
