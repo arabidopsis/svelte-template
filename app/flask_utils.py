@@ -121,6 +121,9 @@ def register_bytecode_cache(app: Flask, directory="bytecode_cache") -> None:
 def register_filters(app: Flask) -> None:  # noqa: C901
     """Register page not found filters cdn_js, cdn_css methods."""
 
+    assets = app.config["ASSET_FOLDER"]
+    version = app.config["VERSION"]
+
     with app.open_resource("cdn.toml", "rt") as fp:
         CDN = toml.load(fp)
 
@@ -188,9 +191,6 @@ def register_filters(app: Flask) -> None:  # noqa: C901
             f"""<link rel="stylesheet" href="{css['href']}" {attrs}>""",
         )
 
-    assets = app.config["ASSET_FOLDER"]
-    version = app.config["VERSION"]
-
     def getversion():
         return {"v": f"v{random()}" if app.debug else version}
 
@@ -214,8 +214,8 @@ def register_filters(app: Flask) -> None:  # noqa: C901
     app.jinja_env.globals["include_raw"] = include_raw
     app.jinja_env.globals["cdn_js"] = cdn_js
     app.jinja_env.globals["cdn_css"] = cdn_css
-    app.jinja_env.globals["svelte_css"] = svelte_css
     app.jinja_env.globals["svelte_js"] = svelte_js
+    app.jinja_env.globals["svelte_css"] = svelte_css
 
     app.template_filter("human")(human)
 
