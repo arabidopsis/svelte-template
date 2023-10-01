@@ -6,7 +6,7 @@
 {#
 <link rel="stylesheet" href="{{url_for('command.static', filename='assets/cmd.css', v=1)}}" />
 #}
-{{svelte_css('cmd', 'command.static')}}
+{{svelte_css('commands', 'command.static')}}
 {% endblock css %}
 
 {% block content %}
@@ -33,5 +33,5 @@
     }
 </script>
 
-{{svelte_js('cmd', 'command.static')}}
+{{svelte_js('commands', 'command.static')}}
 {% endblock js %}

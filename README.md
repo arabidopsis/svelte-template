@@ -11,6 +11,7 @@ The reason I like this setup is that I can create server side
 templates using jinja2, generate server side html fragments using
 jinja2 macros in the [HTML over the web way](https://hotwired.dev, https://qwik.builder.io/) (without the websockets :).
 So creation of static and semi-static html pages is simple.
+For limited interactivity I can add in [htmx](https://htmx.org) too.
 And _also_ create an "app" with multiple target points per page, viz `src/main.js`.
 
 Also, SvelteKit is awesome but I still need my backend to have access to
