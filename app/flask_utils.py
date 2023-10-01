@@ -19,7 +19,6 @@ from flask import Response
 from flask import stream_with_context
 from flask import url_for
 from flask.config import Config
-from flask.scaffold import find_package
 from jinja2 import FileSystemBytecodeCache
 from jinja2 import FileSystemLoader
 from jinja2 import TemplateNotFound
@@ -45,6 +44,8 @@ def stream_template(template_name: str, **context) -> Response:
 
 
 def auto_find_instance_path(name: str = NAME) -> str:
+    from flask.sansio.scaffold import find_package
+
     # cut'n'paste from flask
     prefix, package_path = find_package(name)
     if prefix is None:
@@ -56,6 +57,10 @@ def init_config(name: str = NAME) -> Config:
     # assumes that instance_relative_config=True is set for Flask app too
     instance_path = normpath(abspath(auto_find_instance_path(name)))
     return Config(instance_path)
+
+
+def create_and_config(name: str = NAME) -> Config:
+    return config_app(init_config(name))
 
 
 def dedottify(d: dict[str, Any]) -> dict[str, Any]:
@@ -99,10 +104,6 @@ def config_app(config: Config) -> Config:
     config.from_pyfile(f"{NAME}.cfg", silent=True)
 
     return config
-
-
-def create_and_config(name: str = NAME) -> Config:
-    return config_app(init_config(name))
 
 
 def register_bytecode_cache(app: Flask, directory="bytecode_cache") -> None:
