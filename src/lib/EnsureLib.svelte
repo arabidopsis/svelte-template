@@ -1,14 +1,16 @@
 <script lang="ts">
-	import { createEventDispatcher } from "svelte";
+    import { createEventDispatcher } from "svelte"
 
-	export let src: string;
-	let loaded = false;
-	const dispatch = createEventDispatcher();
+    export let src: string
+    export let css: string = ""
+    let loaded = false
+    let script_src = src // very strange bug...
+    const dispatch = createEventDispatcher()
 
-	function onload() {
-		loaded = true;
-		dispatch("load", src);
-	}
+    function onload() {
+        loaded = true
+        dispatch("load", src)
+    }
 </script>
 
 <!--
@@ -22,7 +24,10 @@
 	</EnsureLib>
 -->
 <svelte:head>
-	<script {src} on:load={onload}></script>
+    <script src={script_src} on:load={onload}></script>
+    {#if css}
+        <link href={css} rel="stylesheet" type="text/css" />
+    {/if}
 </svelte:head>
 
 <slot {loaded} />

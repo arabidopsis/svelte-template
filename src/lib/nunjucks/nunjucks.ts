@@ -16,12 +16,19 @@ interface Nunjucks {
     Environment: new () => Environment
 }
 
+// ensure nunjucks chooses PrecompiledLoader
+// https://github.com/mozilla/nunjucks/blob/master/nunjucks/src/environment.js#L79
+// @ts-ignore
+if (!window.nunjucksPrecompiled) {
+    // @ts-ignore
+    window.nunjucksPrecompiled = {}
+}
 
 nunjucks.installJinjaCompat()
-const env = new nunjucks.Environment();
+export const env = new nunjucks.Environment( /* new nunjucks.PrecompiledLoader(window.nunjucksPrecompiled)*/);
 
 // add all globals and extra filters here....
-env.addGlobal('NUNJUCKS', "https://mozilla.github.io/nunjucks/")
+// env.addGlobal('NUNJUCKS', "https://mozilla.github.io/nunjucks/")
 env.addFilter('split', function (s: string, match: string | RegExp): string[] {
     match = match ? match : /\s+/g;
     if (s) return s.split(match);

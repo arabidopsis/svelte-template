@@ -4,30 +4,37 @@
   "description": "template for svelte with esbuild and flask",
   "author": "ian castleden",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/arabidopsis/svelte-template.git"
+  },
   "main": "src/main.js",
   "scripts": {
     "serve": "npx live-server --mount=/static:app/static index.html",
-    "build": "node svelte-build/build.main.mjs",
-    "production": "NODE_ENV=production node svelte-build/build.main.mjs",
+    "build": "node bin/buildapp.mjs",
+    "production": "NODE_ENV=production node bin/buildapp.mjs",
     "check": "svelte-check --tsconfig ./tsconfig.json --fail-on-warnings  --fail-on-hint"
   },
   "devDependencies": {
-    "@tsconfig/svelte": "^3.0.0",
-    "@types/bootstrap": "^5.2.5",
-    "@types/plotly.js": "^2.12.9",
-    "@types/google.visualization": "^0.0.68",
-    "dotenv": "^16.0.2",
-    "esbuild": "^0.15.7",
-    "esbuild-svelte": "^0.7.1",
-    "nunjucks": "^3.2.3",
-    "svelte": "^3.50.1",
-    "svelte-check": "^2.9.0",
-    "svelte-preprocess": "^4.10.7",
-    "tslib": "^2.4.1",
-    "typescript": "^4.8.3"
+    "@tsconfig/svelte": "^5.0.2",
+    "@types/bootstrap": "^5.2.7",
+    "@types/dropzone": "^5.7.5",
+    "@types/google.visualization": "^0.0.70",
+    "@types/plotly.js": "^2.12.27",
+    "dotenv": "^16.3.1",
+    "dropzone": "6.0.0-beta.2",
+    "esbuild": "^0.19.4",
+    "esbuild-svelte": "^0.8.0",
+    "nunjucks": "^3.2.4",
+    "svelte": "^4.2.1",
+    "svelte-check": "^3.5.2",
+    "svelte-preprocess": "^5.0.4",
+    "tslib": "^2.6.2",
+    "typescript": "^5.2.2"
   },
   "dependencies": {
-    "bootstrap5-tags": "^1.4.42",
-    "notyf": "^3.10.0"
+    "bootstrap5-tags": "^1.6.9",
+    "notyf": "^3.10.0",
+    "npm-check-updates": "^16.14.4"
   }
 }

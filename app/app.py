@@ -1,12 +1,13 @@
 from __future__ import annotations
 
 import importlib
-import os
+from pathlib import Path
 
 from flask import Flask
 from werkzeug.middleware.proxy_fix import ProxyFix
 
 from .flask_utils import config_app
+from .flask_utils import NAME
 from .flask_utils import register_bytecode_cache
 from .flask_utils import register_filters
 from .index_view import init_app as init_index
@@ -16,7 +17,7 @@ from .utils import git_version
 
 def create_init_app() -> Flask:
     app = Flask(
-        __name__.split()[0],
+        NAME,
         instance_relative_config=True,
         template_folder="templates",
     )
@@ -33,7 +34,10 @@ def create_init_app() -> Flask:
 
     @app.context_processor
     def base():
-        return dict(base_template=app.config["BASE_TEMPLATE"])
+        return dict(
+            base_template=app.config["BASE_TEMPLATE"],
+            links=app.extensions.get("links", []),
+        )
 
     return app
 
@@ -45,28 +49,25 @@ def create_app() -> Flask:
 
 
 def init_blueprints(app: Flask) -> None:
+    blueprints = Path(app.root_path) / "blueprints"
+    if not blueprints.is_dir():
+        return
 
     name = app.name.split(".")[0]
-
-    for d in os.listdir(os.path.join(app.root_path, "blueprints")):
-        if d in {"__init__.py", "__pycache__"}:
+    for d in blueprints.iterdir():
+        if not d.is_dir() or d.name == "__pycache__":
             continue
         try:
-            m = importlib.import_module(f"{name}.blueprints.{d}.view")
+            m = importlib.import_module(f"{name}.blueprints.{d.name}.view")
             init_app = getattr(m, "init_app", None)
             if init_app is not None:
                 init_app(app)
         except ImportError:
-            pass
+            app.logger.error('can\'t import blueprint "%s"', d.name)
 
 
 def init_full_app(app: Flask) -> None:
-
     init_email_logger(app)  # email logger requires config.ADMINS = [email]
-
-    # agg, cairo, pdf, pgf, ps, svg, template
-
-    # matplotlib.use(app.config["BACKEND"], force=True)
 
     init_index(app)
 

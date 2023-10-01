@@ -1,4 +1,4 @@
-<script type="ts">
+<script lang="ts">
     import { onMount } from "svelte";
     import bootstrap from "bootstrap";
 
@@ -10,7 +10,6 @@
         modal = new bootstrap.Modal(dialog_dom);
         return () => modal.dispose();
     });
-    // onDestroy(() => modal.dispose());
 
     export function show() {
         modal.show();

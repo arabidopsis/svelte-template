@@ -1,5 +1,5 @@
 import './app.css'
-import Counter from "./lib/Counter.svelte";
+import Counter from "./Counter.svelte";
 
 const app = new Counter({
   target: document.getElementById('app'),

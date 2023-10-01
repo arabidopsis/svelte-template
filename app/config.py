@@ -6,7 +6,7 @@ VERSION = 1
 # use fontawesome css fonts
 FONT_ICONS = True
 # unexpected bugs that result in Internal Server Error 50x
-# will be emailed to here if set:
+# will be emailed (via MAIL_SERVER) to you here if set:
 # ADMINS = ['your.email@gmail.com']
 MAIL_SUBJECT = "svelte website"
 # SMTP mailserver
@@ -21,10 +21,5 @@ SITE_URL = "https://mysite.url"
 # see also the .env file.
 ASSET_FOLDER = "assets"
 
-# debug reloader for svelte javascript. Only used in DEBUG mode.
-# if javascript needs reloading then perform a page reload `window.location.reload()`
-# Set to 0 to turn off the reload.
-# Otherwise number of milliseconds to wait test for reload....
-RELOADER = 0
-
+# template should use {% extends base_template %}
 BASE_TEMPLATE = "base.html"

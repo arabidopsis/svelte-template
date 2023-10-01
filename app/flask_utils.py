@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import gzip
+from dataclasses import dataclass
 from os.path import abspath
 from os.path import isabs
 from os.path import join
@@ -8,13 +9,11 @@ from os.path import normpath
 from pathlib import Path
 from random import random
 from typing import Any
-from typing import Callable
 from typing import Iterator
 
 import toml
 from flask import current_app
 from flask import Flask
-from flask import Markup
 from flask import render_template
 from flask import Response
 from flask import stream_with_context
@@ -24,12 +23,12 @@ from flask.scaffold import find_package
 from jinja2 import FileSystemBytecodeCache
 from jinja2 import FileSystemLoader
 from jinja2 import TemplateNotFound
+from markupsafe import Markup
 
 from .utils import attrstr
 from .utils import human
-from .utils import mtime
 
-NAME = __name__.split(".")[0]
+NAME = __name__.split(".", maxsplit=1)[0]
 
 
 def error_resp(msg: str, code: int) -> Response:
@@ -98,8 +97,6 @@ def merge_dict(d1: dict, d2: dict) -> dict:
 def config_app(config: Config) -> Config:
     config.from_object(f"{NAME}.config")
     config.from_pyfile(f"{NAME}.cfg", silent=True)
-    if "CELERY" in config and "CELERY_CONFIG" in config:
-        merge_dict(config["CELERY_CONFIG"], config.pop("CELERY"))
 
     return config
 
@@ -121,38 +118,11 @@ def register_bytecode_cache(app: Flask, directory="bytecode_cache") -> None:
     )
 
 
-def create_reloader(app: Flask) -> Callable[[str, str], str]:
-
-    jstxt = ""
-
-    def reloader(mod: str, endpoint: str = "static"):
-        if "." not in endpoint:
-            folder = app.static_folder
-        else:
-            endpoint = endpoint.split(".")[0]
-            if endpoint not in app.blueprints:
-                return ""
-            folder = app.blueprints[endpoint].static_folder
-        if folder is None:
-            return ""
-        jsfile = join(folder, assets, f"{mod}.js")
-        m = mtime(jsfile)
-        u = url_for("view.checkjs")
-        return f'<script>window._DEBUG_ = {{url:"{u}", path:"{jsfile}", mtime: {m}, reloader: {interval}}};{jstxt}</script>'
-
-    def noop(mod: str, endpoint: str = "static"):
-        return ""
-
-    assets = app.config["ASSET_FOLDER"]
-    interval = app.config["RELOADER"]
-    if app.debug and app.template_folder and interval > 0:
-        jstxt = app.jinja_env.get_template("fragments/debug_reloader.js").render()
-        return reloader
-    return noop
-
-
 def register_filters(app: Flask) -> None:  # noqa: C901
     """Register page not found filters cdn_js, cdn_css methods."""
+
+    assets = app.config["ASSET_FOLDER"]
+    version = app.config["VERSION"]
 
     with app.open_resource("cdn.toml", "rt") as fp:
         CDN = toml.load(fp)
@@ -169,7 +139,7 @@ def register_filters(app: Flask) -> None:  # noqa: C901
             return None
 
         def get_loaders() -> Iterator[FileSystemLoader]:
-            loader: FileSystemLoader = app.jinja_loader  # type: ignore
+            loader: FileSystemLoader | None = app.jinja_loader  # type: ignore
             if loader is not None:
                 yield loader
 
@@ -185,35 +155,41 @@ def register_filters(app: Flask) -> None:  # noqa: C901
                     return ret
             raise TemplateNotFound(filename)
 
-        src = app.jinja_env.loader.get_source(app.jinja_env, filename)[0]
+        ldr = app.jinja_env.loader
+        if ldr is None:
+            raise TemplateNotFound(filename)
+        src = ldr.get_source(app.jinja_env, filename)[0]
         return Markup(src)
 
-    def cdn_js(key: str, **kwargs: dict[str, Any]) -> Markup:
+    def cdn_js(key: str, **kwargs: str) -> Markup:
         js = CDN[key]["js"]
         async_ = "async" if js.get("async", False) else ""
-        attrs = attrstr(kwargs)
+
         integrity = js.get("integrity")
-        integrity = f'integrity="{integrity}"' if integrity else ""
+        if integrity:
+            kwargs.setdefault("integrity", integrity)
 
-        return Markup(
-            f"""<script src="{js['src']}" {async_}
-            {integrity} {attrs}crossorigin="anonymous" referrerpolicy="no-referrer"></script>""",
-        )
+        kwargs.setdefault("crossorigin", "anonymous")
+        kwargs.setdefault("referrerpolicy", "no-referrer")
 
-    def cdn_css(key: str, **kwargs: dict[str, Any]) -> Markup:
-        css = CDN[key]["css"]
         attrs = attrstr(kwargs)
-        integrity = css.get("integrity")
-        integrity = f'integrity="{integrity}"' if integrity else ""
+
         return Markup(
-            f"""<link rel="stylesheet" href="{css['href']}"
-            {integrity} {attrs}crossorigin="anonymous" referrerpolicy="no-referrer">""",
+            f"""<script src="{js['src']}" {async_} {attrs}></script>""",
         )
 
-    assets = app.config["ASSET_FOLDER"]
-    version = app.config["VERSION"]
+    def cdn_css(key: str, **kwargs: str) -> Markup:
+        css = CDN[key]["css"]
+        integrity = css.get("integrity")
+        if integrity:
+            kwargs.setdefault("integrity", integrity)
 
-    reloader = create_reloader(app)
+        kwargs.setdefault("crossorigin", "anonymous")
+        kwargs.setdefault("referrerpolicy", "no-referrer")
+        attrs = attrstr(kwargs)
+        return Markup(
+            f"""<link rel="stylesheet" href="{css['href']}" {attrs}>""",
+        )
 
     def getversion():
         return {"v": f"v{random()}" if app.debug else version}
@@ -222,30 +198,28 @@ def register_filters(app: Flask) -> None:  # noqa: C901
         url = url_for(endpoint, filename=join(assets, f"{mod}.css"), **getversion())
         return Markup(f'<link rel="stylesheet" href="{url}"/>')
 
-    def svelte_js(mod: str, endpoint: str = "static") -> Markup:
+    def svelte_js(
+        mod: str,
+        endpoint: str = "static",
+        module: str | None = None,
+        **kwargs: str,
+    ) -> Markup:
         filename = join(assets, f"{mod}.js")
         url = url_for(endpoint, filename=filename, **getversion())
-        e = reloader(mod, endpoint)
-        return Markup(f'<script defer src="{url}"></script>{e}')
+        if module is not None:  # should only be 'module'
+            kwargs["type"] = module
+        attrs = attrstr(kwargs)
+        return Markup(f'<script defer {attrs} src="{url}"></script>')
 
-    def nunjucks_js(mod: str, endpoint: str = "static") -> Markup:
-        url = url_for(
-            endpoint,
-            filename=join(assets, f"nunjucks-{mod}.js"),
-            **getversion(),
-        )
-        return Markup(f'<script src="{url}"></script>')
-
-    # for nunjucks includes
     app.jinja_env.globals["include_raw"] = include_raw
     app.jinja_env.globals["cdn_js"] = cdn_js
     app.jinja_env.globals["cdn_css"] = cdn_css
-    app.jinja_env.globals["svelte_css"] = svelte_css
     app.jinja_env.globals["svelte_js"] = svelte_js
-    app.jinja_env.globals["nunjucks_js"] = nunjucks_js
+    app.jinja_env.globals["svelte_css"] = svelte_css
 
     app.template_filter("human")(human)
 
+    # missing filter :(
     @app.template_filter()
     def split(
         s: str,
@@ -256,3 +230,18 @@ def register_filters(app: Flask) -> None:  # noqa: C901
     @app.errorhandler(404)
     def page_not_found(e):  # pylint: disable=unused-variable
         return render_template("errors/404.html"), 404
+
+
+@dataclass
+class Link:
+    name: str
+    endpoint: str
+    fa: str | None = None
+
+
+def add_link(app: Flask, link: Link) -> None:
+    if "links" not in app.extensions:
+        app.extensions["links"] = links = []
+    else:
+        links = app.extensions["links"]
+    links.append(link)

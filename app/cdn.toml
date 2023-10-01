@@ -1,7 +1,7 @@
 
 # used with jinja2 functions cdn_js and cdn_css
 # e.g. {{cdn_js('jquery') }} will embed a script link to
-# the values here. Bump versions in this file
+# the values here. Bump javascript versions in this file
 [jquery.js]
 src = "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
 integrity = "sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
@@ -65,7 +65,7 @@ integrity = "sha256-sh9FYQZVVLprCQB3/IcNyCRrZwu9hZ+xLHhUszDfsK4="
 # src = "https://mozilla.github.io/nunjucks/files/nunjucks-slim.js"
 src = "https://unpkg.com/nunjucks@3.2.3/browser/nunjucks-slim.min.js"
 
-[select2.js]  # at 4.0.13
+[select2.js] # at 4.0.13
 src = "https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.12/js/select2.min.js"
 integrity = "sha256-wfVTTtJ2oeqlexBsfa3MmUoB77wDNRPqT1Q1WA2MMn4="
 
@@ -83,8 +83,8 @@ integrity = "sha256-Cm3tWrvOEzMWWN0jnzQ4Kr0GSSx0txth6MqoES7FX6U="
 async = true
 
 [requirejs.js]
-src = "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"
-integrity = "sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA="
+src = "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"
+integrity = "sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg=="
 
 [datatables.js]
 src = "https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.js"
@@ -109,3 +109,10 @@ integrity = "sha256-IwkvZNRC/3S26O1gWwjBINmrPZ4zYvPX4z/98OKWHkQ="
 
 [plotly.js]
 src = "https://cdn.plot.ly/plotly-2.16.1.min.js"
+
+[pico.css]
+href = "https://unpkg.com/@picocss/pico@latest/css/pico.min.css"
+
+[htmx.js]
+src = "https://cdnjs.cloudflare.com/ajax/libs/htmx/1.9.6/htmx.min.js"
+integrity = "sha512-tGWc4YBM6ag1pJndcieiU2r+lJXdzBRk70mHE13JoGeZI/QdWQkQ6q1CL1xYdJtTOfARf5oPcxJCnS6bLaM+KA=="

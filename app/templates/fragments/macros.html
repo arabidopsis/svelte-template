@@ -1,8 +1,8 @@
 {%- macro nav_link(endpoint, cls='', url_args={}) -%}
   {%- set u = url_for(endpoint, **url_args) -%}
   {%- if (not url_args and u == request.path) or (request.path != '/' and u.startswith(request.path)) -%}
-    "nav-link active {{cls}}" href="{{u}}"
+    class="nav-link active {{cls}}" href="{{u}}"
   {%- else -%}
-    "nav-link {{cls}}" href="{{u}}"
+    class="nav-link {{cls}}" href="{{u}}"
   {%- endif -%}
 {%- endmacro -%}

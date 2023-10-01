@@ -2,8 +2,8 @@
     "extends": "@tsconfig/svelte/tsconfig.json",
     "compilerOptions": {
         "target": "es6",
-        "useDefineForClassFields": true, // switch to the upcoming ECMA runtime behavior of class fields.
         "module": "es6",
+        "useDefineForClassFields": true, // switch to the upcoming ECMA runtime behavior of class fields.
         "resolveJsonModule": true, // allow importing of json modules
         /**
        * Typecheck JS in `.svelte` and `.js` files by default.
@@ -16,23 +16,29 @@
         // tells TypeScript to warn you if you write certain code that
         // can’t be correctly interpreted by a single-file transpilation process.
         "isolatedModules": true,
-        "forceConsistentCasingInFileNames": true,
-        "strict": true,
-        // "skipLibCheck": true,
-        "types": [
-            "svelte"
-        ]
+        // "strict": true,
+        // "types": [
+        //     "svelte"
+        // ],
+        // "baseUrl": ".",
+        // see svelte-build/lib-plugin.mjs
+        "paths": {
+            "$lib": [
+                "./src/lib"
+            ],
+            "$lib/*": [
+                "./src/lib/*"
+            ]
+        }
     },
     "include": [
-        // "src/**/*.d.ts",
         "src/**/*.ts",
-        // "src/**/*.js",
         "src/**/*.svelte",
         "app/blueprints/**/*.svelte",
-        "app/blueprints/**/*.ts",
+        "app/blueprints/**/*.ts"
     ],
     "exclude": [
         "node_modules/**",
         "app/static/**"
-    ]
+    ],
 }

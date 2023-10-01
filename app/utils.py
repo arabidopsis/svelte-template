@@ -22,20 +22,21 @@ def git_version() -> str | None:
         check=False,
         stderr=subprocess.DEVNULL,
         cwd=cwd,
+        text=True,
     )
     if r.returncode or not r.stdout:
         return None
-    return r.stdout.decode("ascii")[:-1]
+    return r.stdout.strip()
 
 
 def attrstr(kwargs: dict[str, Any]) -> str:
-    attrs = " ".join(
-        f'{escape(k.replace("_","-"))}="{escape(v)}"'
-        for k, v in kwargs.items()
-        if v is not None
-    )
-    if attrs:
-        attrs += " "
+    def attr(k, v):
+        k = f'{escape(k.replace("_","-"))}'
+        if v is None:  # assume boolean
+            return k
+        return f'{k}="{escape(v)}"'
+
+    attrs = " ".join(attr(k, v) for k, v in kwargs.items())
     return attrs
 
 
@@ -52,14 +53,3 @@ def human(num: int, suffix: str = "B", scale: int = 1) -> str:
     if not e:
         return f"{int(num)}{suffix}"
     return f"{val:3.1f}{e}{suffix}"
-
-
-def mtime(filename: str) -> float:
-    path = Path(filename)
-    if path.exists():
-        return path.stat().st_mtime
-    return 0.0
-
-
-def isfileupdated(filename: str, time: float) -> bool:
-    return mtime(filename) > time

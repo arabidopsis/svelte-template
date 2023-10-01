@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import logging
 import time
+from logging import Filter
 from logging import Formatter
 from logging import LogRecord
 from logging.handlers import SMTPHandler
@@ -11,7 +12,7 @@ from flask import has_request_context
 from flask import request
 
 
-def remote_addr():
+def remote_addr() -> str | None:
     # try CloudFlare
     addr = request.headers.get("CF-Connecting-IP")
     if addr:
@@ -22,7 +23,7 @@ def remote_addr():
     return request.remote_addr
 
 
-def escapeit(url):
+def escapeit(url: str | None) -> str:
     # because microsoft mangles urls
     if not url:
         return ""
@@ -51,21 +52,25 @@ Request Referrer:     {req.referrer}
         return extra + ret
 
 
-class LimitFilter:
+class LimitFilter(Filter):
     def __init__(self, delay: int = 60 * 5):
+        super().__init__()
         self.start = time.time()
         self.delay = delay
 
-    def filter(self, record: LogRecord) -> int:
+    def filter(self, record: LogRecord) -> bool:
         t = time.time()
         if (t - self.start) > self.delay:
             self.start = t
-            return 1
-        return 0
+            return True
+        return False
 
 
-def init_email_logger(app: Flask, Cls=SMTPHandler, level: int = logging.ERROR) -> None:
-
+def init_email_logger(
+    app: Flask,
+    Cls: type[SMTPHandler] = SMTPHandler,
+    level: int = logging.ERROR,
+) -> None:
     admins: str | list[str] | None = app.config.get("ADMINS")
     if not admins:
         return
@@ -80,9 +85,9 @@ def init_email_logger(app: Flask, Cls=SMTPHandler, level: int = logging.ERROR) -
         mailhost = (mailhost[0], int(mailhost[1]))
     mail_handler = Cls(
         mailhost,
-        app.name + f"-server-error@{frm}",
+        f"{app.name}-server-error@{frm}",
         admins,
-        subject=name + " Failed",
+        subject=f"{name} Failed",
     )
 
     mail_handler.setLevel(level)

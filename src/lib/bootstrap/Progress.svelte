@@ -1,4 +1,4 @@
-<script type="ts">
+<script lang="ts">
     import { onDestroy } from "svelte";
 
     export let height: number = 5;

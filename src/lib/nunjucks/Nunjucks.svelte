@@ -1,3 +1,9 @@
+<script context="module">
+    import { env } from "./nunjucks";
+    env.addGlobal("NUNJUCKS", "https://mozilla.github.io/nunjucks/");
+    // also env.addFilter(name, func)
+</script>
+
 <script>
     // Remember to add `{{cdn_js('nunjucks-slim')}}` to your template file.
 

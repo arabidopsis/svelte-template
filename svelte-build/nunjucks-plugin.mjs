@@ -21,9 +21,10 @@ function find_template_dependencies(src) {
 function importstr(path) {
     return `import ${JSON.stringify(path)};`
 }
-const defaults = { templateDir: undefined, filter: /.html$/ }
-export const nunjucksImporterPlugin = (options = {}) => {
-    let { templateDir, filter } = { ...defaults, ...options }
+
+
+
+export const nunjucksImporterPlugin = ({ templateDir = undefined, filter = /\.html$/ } = {}) => {
 
     // importing .html files into javascript/svelte here means
     // we are using a nunjucks template
@@ -46,7 +47,8 @@ export const nunjucksImporterPlugin = (options = {}) => {
 
             if (templateDir) {
                 build.onResolve({ filter: filter }, args => {
-                    return { path: path.isAbsolute(args.path) ? args.path : path.join(templateDir, args.path) }
+                    if (args.kind === "import-statement")
+                        return { path: path.isAbsolute(args.path) ? args.path : path.join(templateDir, args.path) }
                 })
             }
             // REM: async filters must be known at compile-time
