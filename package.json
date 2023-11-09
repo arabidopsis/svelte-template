@@ -10,7 +10,7 @@
   },
   "main": "src/main.js",
   "scripts": {
-    "serve": "npx live-server --mount=/static:app/static index.html",
+    "serve": "bin/live-server index.html",
     "build": "node bin/buildapp.mjs",
     "production": "NODE_ENV=production node bin/buildapp.mjs",
     "check": "svelte-check --tsconfig ./tsconfig.json --fail-on-warnings  --fail-on-hint"

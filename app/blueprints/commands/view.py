@@ -20,7 +20,7 @@ cmd = Blueprint(
     __name__,
     template_folder="templates",
     static_folder="static",
-    static_url_path="/cmd/static",
+    static_url_path="/commands/static",
 )
 
 

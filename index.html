@@ -1,52 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
     <head>
-        <title>Welcome Svelte App</title>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        <title>Welcome Svelte App</title><meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+
+<meta name="copyright" content="Your Name, Your Department" />
+<meta name="author" content="Your Name" />
+
+<meta name="description" content="Svelte App" />
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:description" content="Svelte App" />
+
+
+<meta property="og:locale" content="en_US" />
+<meta property="og:title" content="Svelte App" />
+<meta property="og:description" content="Svelte App" />
+<meta property="og:url" content="https://mysite.url" />
+<meta property="og:site_name" content="Svelte App" />
+
+        <link
+            rel="icon"
+            href="/static/img/svelte-blue.svg"
+        />
+        <link
+            rel="apple-touch-icon"
+            href="/static/img/svelte-blue.svg"
         />
 
-        <meta name="copyright" content="Your Name, Your Department" />
-        <meta name="author" content="Your Name" />
 
-        <meta name="description" content="Svelte App" />
-
-        <meta name="twitter:card" content="summary" />
-        <meta name="twitter:description" content="Svelte App" />
-
-        <meta property="og:locale" content="en_US" />
-        <meta property="og:title" content="Svelte App" />
-        <meta property="og:description" content="Svelte App" />
-        <meta property="og:url" content="https://mysite.url" />
-        <meta property="og:site_name" content="Svelte App" />
-        <link rel="icon" href="/static/img/svelte-blue.svg" />
-        <link rel="apple-touch-icon" href="/static/img/svelte-blue.svg" />
 
         <link
             rel="stylesheet"
             type="text/css"
             href="https://fonts.googleapis.com/css?family=Gruppo"
         />
-        <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
-            integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
-            crossorigin="anonymous"
-            referrerpolicy="no-referrer"
-        />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+
 
         <link
             rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
-            integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
-            crossorigin="anonymous"
-            referrerpolicy="no-referrer"
+            type="text/css"
+            href="/static/css/global.css"
         />
-
-        <link rel="stylesheet" type="text/css" href="/static/css/global.css" />
         <style>
             #hero {
                 background: top / contain no-repeat
@@ -55,32 +58,36 @@
             }
         </style>
 
-        <link rel="stylesheet" href="/static/assets/main.css?v=1" />
-        <style>
-            .logo {
-                height: 6em;
-                padding: 1.5em;
-                will-change: filter;
-            }
+<link rel="stylesheet" href="/static/assets/main.css?v=1"/>
+<style>
+    .logo {
+        height: 6em;
+        padding: 1.5em;
+        will-change: filter;
+    }
 
-            .logo:hover {
-                filter: drop-shadow(0 0 2em #646cffaa);
-            }
+    .logo:hover {
+        filter: drop-shadow(0 0 2em #646cffaa);
+    }
 
-            .logo.svelte:hover {
-                filter: drop-shadow(0 0 2em #ff3e00aa);
-            }
+    .logo.svelte:hover {
+        filter: drop-shadow(0 0 2em #ff3e00aa);
+    }
 
-            .read-the-docs {
-                color: #888;
-            }
-        </style>
+    .read-the-docs {
+        color: #888;
+    }
+</style>
+
+
     </head>
 
     <body>
+
         <a href="#main-content" class="sr-only sr-only-focusable"
             >Skip to main content</a
         >
+
 
         <header id="app-header" class="app-bg">
             <div id="hero" class="d-none d-lg-block">
@@ -96,6 +103,7 @@
                 <div style="font-size: 1.8em">Svelte App</div>
             </div>
         </header>
+
 
         <nav
             id="app-navbar"
@@ -128,14 +136,10 @@
                     class="collapse navbar-collapse"
                     role="navigation"
                 >
-                    <ul
-                        class="navbar-nav me-auto"
-                        style="--bs-navbar-active-color: #ffaaaa"
-                    >
+                    <ul class="navbar-nav me-auto" style="--bs-navbar-active-color: #ffaaaa">
                         <li class="nav-item ms-1">
                             <a
-                                class="nav-link active"
-                                href="/"
+                                class="nav-link active " href="/"
                                 title="Home page"
                             >
                                 Home <i class="fas fa-home"></i>
@@ -143,176 +147,141 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="/nunjucks">
-                                Nunjucks
-                                <i class="fa-regular fa-file-powerpoint"></i>
+                            <a class="nav-link " href="/nunjucks">
+                                Nunjucks <i
+                                    class="fa-regular fa-file-powerpoint"
+                                ></i>
+
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="/plots">
-                                Charts <i class="fa-solid fa-chart-line"></i>
+                            <a class="nav-link " href="/plots">
+                                Charts <i
+                                    class="fa-solid fa-chart-line"
+                                ></i>
+
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="/command">
-                                Command <i class="fa-solid fa-terminal"></i>
+                            <a class="nav-link " href="/command">
+                                Command <i
+                                    class="fa-solid fa-terminal"
+                                ></i>
+
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="/dropzone">
-                                Dropzone <i class="fa-solid fa-upload"></i>
+                            <a class="nav-link " href="/dropzone">
+                                Dropzone <i
+                                    class="fa-solid fa-upload"
+                                ></i>
+
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="/delay">
-                                Delay <i class="fa-solid fa-person-running"></i>
+                            <a class="nav-link " href="/delay">
+                                Delay <i
+                                    class="fa-solid fa-person-running"
+                                ></i>
+
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="/forms">
-                                Forms
-                                <i class="fa-regular fa-rectangle-list"></i>
+                            <a class="nav-link " href="/forms">
+                                Forms <i
+                                    class="fa-regular fa-rectangle-list"
+                                ></i>
+
                             </a>
                         </li>
+
                     </ul>
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
+                    <ul class="navbar-nav"><li class="nav-item">
                             <a
-                                class="nav-link active"
-                                href="/"
+                                class="nav-link active " href="/"
                                 title="My Other Site"
                             >
                                 See my other site
                                 <i class="fas fa-chevron-right"></i>
                             </a>
                         </li>
+
                     </ul>
                 </div>
             </div>
         </nav>
 
-        <main id="main-content">
-            <div class="container mt-5 mb-5">
-                <main>
-                    <div
-                        class="w-75 mx-auto"
-                        style="text-align: center; text-justify: inter-word"
-                    >
-                        <div>
-                            <a
-                                href="https://esbuild.github.io/"
-                                target="_blank"
-                                rel="noreferrer"
-                            >
-                                <img
-                                    src="https://esbuild.github.io/favicon.svg"
-                                    class="logo"
-                                    alt="ESbuild Logo"
-                                />
-                            </a>
-                            <a
-                                href="https://svelte.dev"
-                                target="_blank"
-                                rel="noreferrer"
-                            >
-                                <img
-                                    src="/static/img/svelte.svg"
-                                    class="logo svelte"
-                                    alt="Svelte Logo"
-                                />
-                            </a>
-                            <a
-                                href="https://palletsprojects.com/p/flask/"
-                                target="_blank"
-                                rel="noreferrer"
-                            >
-                                <img
-                                    src="https://flask.palletsprojects.com/en/2.2.x/_static/flask-icon.png"
-                                    class="logo flask"
-                                    alt="Flask Logo"
-                                />
-                            </a>
-                            <a
-                                href="https://getbootstrap.com"
-                                target="_blank"
-                                rel="noreferrer"
-                            >
-                                <img
-                                    src="https://getbootstrap.com/docs/5.2/assets/brand/bootstrap-logo-shadow.png"
-                                    class="logo bootstrap"
-                                    alt="Bootstrap Logo"
-                                />
-                            </a>
-                            <a
-                                href="https://fontawesome.com/"
-                                target="_blank"
-                                rel="noreferrer"
-                            >
-                                <img
-                                    src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Font_Awesome_logomark_blue.svg"
-                                    class="logo fontawesome"
-                                    alt="FontAwesome Logo"
-                                />
-                            </a>
-                        </div>
-                        <h2>
-                            ESBuild + Svelte + Flask + Bootstrap + FontAwesome!
-                        </h2>
 
-                        <p>
-                            <a
-                                href="https://github.com/arabidopsis/svelte-template.git"
-                                >GitHub Repo</a
-                            >
-                        </p>
-                        <p>
-                            <code>&lt;Counter count=&lcub;0&rcub;&gt;</code>
-                        </p>
-                    </div>
-                    <div id="app"></div>
-                    <div
-                        class="card w-50 mx-auto"
-                        style="text-align: justify; text-justify: inter-word"
-                    >
-                        <p>
-                            <code>
-                                npx degit arabidopsis/svelte-template
-                                my-new-website
-                            </code>
-                        </p>
-                        <p>
-                            The javascript kiddy universe has recently
-                            backpeddled from delivering websites as javascript
-                            blobs and now are full of "SSR" (server-side
-                            rendering) and "hydration" ("SSR" and then rerunning
-                            the javascript on the client -- ugh!).
-                        </p>
-                        <p>
-                            We boring old farts are ahead of the game: we have
-                            always used SSR -- with flask and jinja2! This
-                            template repo is a way of adding super cool
-                            <code>svelte</code>
-                            and -- if you want --
-                            <code
-                                ><a href="https://mozilla.github.io/nunjucks/"
-                                    >nunjucks</a
-                                ></code
-                            >
-                            (jinja2 templates in javascript!)
-                        </p>
-                        <p class="read-the-docs">
-                            Click on the ESbuild/Svelte/Flask/Bootstrap or
-                            FontAwesome logos to learn more
-                        </p>
-                    </div>
-                </main>
+
+        <main id="main-content">
+<div class="container mt-5 mb-5">
+    <main>
+        <div class="w-75 mx-auto" style="text-align: center; text-justify: inter-word;">
+
+            <div>
+                <a href="https://esbuild.github.io/" target="_blank" rel="noreferrer">
+                    <img src="https://esbuild.github.io/favicon.svg" class="logo" alt="ESbuild Logo" />
+                </a>
+                <a href="https://svelte.dev" target="_blank" rel="noreferrer">
+                    <img src="/static/img/svelte.svg" class=" logo svelte"
+                        alt="Svelte Logo" />
+                </a>
+                <a href="https://palletsprojects.com/p/flask/" target="_blank" rel="noreferrer">
+                    <img src="https://flask.palletsprojects.com/en/2.2.x/_static/flask-icon.png" class="logo flask"
+                        alt="Flask Logo" />
+                </a>
+                <a href="https://getbootstrap.com" target="_blank" rel="noreferrer">
+                    <img src="https://getbootstrap.com/docs/5.2/assets/brand/bootstrap-logo-shadow.png"
+                        class="logo bootstrap" alt="Bootstrap Logo" />
+                </a>
+                <a href="https://fontawesome.com/" target="_blank" rel="noreferrer">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Font_Awesome_logomark_blue.svg"
+                        class="logo fontawesome" alt="FontAwesome Logo" />
+                </a>
             </div>
-        </main>
+            <h2>ESBuild + Svelte + Flask + Bootstrap + FontAwesome!</h2>
+
+            <p>
+                <a href="https://github.com/arabidopsis/svelte-template.git">GitHub Repo</a>
+            </p>
+            <p>
+                <code>&lt;Counter count=&lcub;0&rcub;&gt;</code>
+            </p>
+        </div>
+        <div id="app"></div>
+        <div class="card w-50 mx-auto" style="text-align: justify; text-justify: inter-word;">
+            <p>
+                <code> npx degit arabidopsis/svelte-template my-new-website </code>
+            </p>
+            <p>
+                The javascript kiddy universe has recently backpeddled from delivering
+                websites as javascript blobs and now are full of "SSR" (server-side
+                rendering) and "hydration" ("SSR" and then rerunning the javascript on the
+                client -- ugh!).
+            </p>
+            <p>
+                We boring old farts are ahead of the game: we have always used SSR -- with
+                flask and jinja2! This template repo is a way of adding super cool <code>svelte</code>
+                and -- if you want --
+                <code><a href="https://mozilla.github.io/nunjucks/">nunjucks</a></code> (jinja2
+                templates in javascript!)
+            </p>
+            <p class="read-the-docs">
+                Click on the ESbuild/Svelte/Flask/Bootstrap or FontAwesome logos to learn
+                more
+            </p>
+        </div>
+    </main>
+
+</div>
+</main>
+
+
 
         <footer id="app-footer" class="app-bg">
             <div class="container">
@@ -334,7 +303,9 @@
                             <li class="list-inline-item">|</li>
                             <li class="list-inline-item">
                                 version:
-                                <span class="text-muted"> de72fa8</span>
+                                <span class="text-muted">
+                                    b5560bf</span
+                                >
                             </li>
                         </ul>
                     </div>
@@ -397,13 +368,13 @@
                 </div>
             </div>
         </footer>
-        <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
-            crossorigin="anonymous"
-            referrerpolicy="no-referrer"
-        ></script>
 
-        <script defer src="/static/assets/main.js?v=1"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"  integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+
+
+<script defer  src="/static/assets/main.js?v=1"></script>
+
     </body>
 </html>

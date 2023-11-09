@@ -29,7 +29,7 @@ export class Delegate {
         for (let i = 0; i < elems.length; i++) {
             if (elems[i] === target || elems[i].contains(target)) {
                 this.handlers.forEach((handler) => {
-                    // hanlder may be async so res is a Promise
+                    // handler may be async so res is a Promise
                     // we can't stop propagation of an event from
                     // this type of function so we don't need to await it...
                     const res = handler.apply(elems[i], [e])
@@ -84,4 +84,4 @@ export const scoped_delegate = <T>(
     selector: string,
     handler: (this: HTMLElement, e: MouseEvent) => any,
     ...args: T[]
-) => delegate<T>(':scope ' + selector, handler, ...args)
+) => delegate<T>(":scope " + selector, handler, ...args)

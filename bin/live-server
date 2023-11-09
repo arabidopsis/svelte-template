@@ -1,0 +1,10 @@
+#!/bin/bash
+blueprints=(commands delay dropzone forms nunjucks plots)
+function mounts {
+    for b in ${blueprints[@]}; do
+        echo "--mount=/$b/static:app/blueprints/$b/static"
+    done
+}
+
+
+exec npx live-server --mount=/static:app/static  $(mounts) "$@"
