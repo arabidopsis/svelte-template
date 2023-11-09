@@ -45,6 +45,7 @@ def create_init_app() -> Flask:
 def create_app() -> Flask:
     app = create_init_app()
     init_full_app(app)
+    cli(app)
     return app
 
 
@@ -76,3 +77,26 @@ def init_full_app(app: Flask) -> None:
     register_filters(app)
 
     register_bytecode_cache(app)
+
+
+def cli(app: Flask):
+    import click
+    from typing import BinaryIO
+
+    @app.cli.command("page")
+    @click.option("--debug", is_flag=True, help="generate debug version of page")
+    @click.option("--page", default="/", help="page to generate", show_default=True)
+    @click.option(
+        "--out",
+        default="index.html",
+        help="file to write",
+        show_default=True,
+        type=click.File("wb"),
+    )
+    def page(page: str, out: BinaryIO, debug: bool) -> None:
+        """Generate static page from flask app"""
+        with app.test_client() as client:
+            resp = client.get(page)
+            txt = resp.data
+            click.secho(f"writing: {out.name}", fg="green")
+            out.write(txt)
