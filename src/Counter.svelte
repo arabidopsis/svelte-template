@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { toastr } from "./lib/toastr"
+    import { toastr } from "$lib/toastr"
     export let count: number = 0
     const increment = () => {
         count += 1

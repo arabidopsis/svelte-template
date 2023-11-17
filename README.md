@@ -165,7 +165,7 @@ And deal with them simply as
 ```html
 <script>
     import { onMount } from "svelte"
-    import { scoped_delegate } from "./lib/delegates"
+    import { scoped_delegate } from "$lib/delegates"
     export let dataid = 0
     const monitor = scoped_delegate(
         "> div.withids  div[data-id]",
