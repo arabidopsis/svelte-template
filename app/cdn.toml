@@ -114,5 +114,5 @@ src = "https://cdn.plot.ly/plotly-2.16.1.min.js"
 href = "https://unpkg.com/@picocss/pico@latest/css/pico.min.css"
 
 [htmx.js]
-src = "https://cdnjs.cloudflare.com/ajax/libs/htmx/1.9.6/htmx.min.js"
-integrity = "sha512-tGWc4YBM6ag1pJndcieiU2r+lJXdzBRk70mHE13JoGeZI/QdWQkQ6q1CL1xYdJtTOfARf5oPcxJCnS6bLaM+KA=="
+src = "https://cdnjs.cloudflare.com/ajax/libs/htmx/1.9.10/htmx.min.js"
+integrity = "sha512-9qpauSP4+dDIldsrdNEZ2Z7JoyLZGfJsAP2wfXnc3drOh+5NXOBxjlq3sGXKdulmN9W+iwLxRt42zKMa8AHEeg=="
