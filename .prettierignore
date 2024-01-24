@@ -1,0 +1,2 @@
+app/templates/**/*.html
+app/blueprints/*/templates/**/*.html
