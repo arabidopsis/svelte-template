@@ -46,7 +46,7 @@ for b in ${blueprints[@]}; do
 done
 ```
 
-Now for the python. The dependencies are just `Flask`, `python-dotenv` and `toml`
+Now for the python. The dependencies are just `Flask`, `python-dotenv` and `tomli`
 
 ```bash
 # activate a suitable python

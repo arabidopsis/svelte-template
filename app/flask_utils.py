@@ -11,7 +11,7 @@ from random import random
 from typing import Any
 from typing import Iterator
 
-import toml
+import tomli as tomllib
 from flask import current_app
 from flask import Flask
 from flask import render_template
@@ -125,8 +125,8 @@ def register_filters(app: Flask) -> None:  # noqa: C901
     assets = app.config["ASSET_FOLDER"]
     version = app.config["VERSION"]
 
-    with app.open_resource("cdn.toml", "rt") as fp:
-        CDN = toml.load(fp)
+    with app.open_resource("cdn.toml", "rb") as fp:
+        CDN = tomllib.load(fp)
 
     def include_raw(filename: str) -> Markup:
         def markup(loader: FileSystemLoader | None) -> Markup | None:

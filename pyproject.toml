@@ -7,7 +7,7 @@ authors = ["Ian Castleden <ian.castleden@uwa.edu.au>"]
 [tool.poetry.dependencies]
 python = ">=3.10,<=3.12"
 Flask = "^3.0.0"
-toml = "^0.10.2"
+tomli = "^2.0.1"
 python-dotenv = "^1.0.0"
 # importlib-metadata = "^4.12.0"
 
