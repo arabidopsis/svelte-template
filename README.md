@@ -129,7 +129,7 @@ reference css and javascript from CDNs specified in `app/cdn.toml`
 
 ## Usage
 
-In some file such as `main.js`
+In some file such as `src/main.js`
 
 ```javascript
 import "./app.css"
@@ -143,6 +143,12 @@ export const app = new App({
 export const another_app = new AnotherApp({
     target: document.getElementById("another-app"),
 })
+```
+
+Then run:
+
+```sh
+pnpm run build
 ```
 
 This, I think, gives me the best of both worlds.
