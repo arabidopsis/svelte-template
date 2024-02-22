@@ -27,7 +27,7 @@
 </script>
 
 {#if show}
-    <div class="eu-banner" transition:fly={{ y: 200, duration: 2000 }}>
+    <div class="eu-banner" transition:fly|global={{ y: 200, duration: 2000 }}>
         <slot>
             By continuing to visit this site, you accept the use of cookies by
             Google Analytics for statistical purposes.

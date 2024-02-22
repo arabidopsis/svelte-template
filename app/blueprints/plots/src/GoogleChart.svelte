@@ -35,7 +35,7 @@
 <h2 class="text-center">Google Charts</h2>
 <EnsureGoogleCharts let:loaded>
     {#if loaded && data}
-        <div class="mx-auto plot" use:drawPieChart={data} transition:fade />
+        <div class="mx-auto plot" use:drawPieChart={data} transition:fade|global />
     {:else}
         <div class="mx-auto plot waiting">
             {data ? "waiting for google" : "waiting for data"}

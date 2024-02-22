@@ -52,7 +52,7 @@
     let:loaded
 >
     {#if loaded}
-        <div use:frappe={config} transition:fade />
+        <div use:frappe={config} transition:fade|global />
     {:else}
         Loading...
     {/if}
