@@ -27,7 +27,7 @@ const baseconfig = {
   sourcemap: production,
   minify: production,
   target: 'es6',
-  plugins: [libDirPlugin(libDir), sveltePlugin({ preprocess: [sveltePreprocess()] }), nunjucksImporterPlugin({ templateDir: templateDir })],
+  plugins: [libDirPlugin(libDir), sveltePlugin({ preprocess: [sveltePreprocess({postcss:true})] }), nunjucksImporterPlugin({ templateDir: templateDir })],
   logLevel: "info",
   external: ['nunjucks', 'bootstrap'],
   outdir: outdir
