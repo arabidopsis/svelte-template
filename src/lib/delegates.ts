@@ -67,7 +67,7 @@ export function delegate<T>(
         if (target === null) return
         for (let i = 0; i < elems.length; i++) {
             if (elems[i] === target || elems[i].contains(target)) {
-                // hanlder may be async so res is a Promise
+                // handler may be async so res is a Promise
                 // we can't stop propagation of an event from
                 // this type of function so we don't need to await it...
                 const res = handler.apply(elems[i] as HTMLElement, [e, ...args])

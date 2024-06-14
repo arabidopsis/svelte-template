@@ -49,6 +49,9 @@ def kill() -> str:
 
 
 def init_app(app: Flask) -> None:
+
+    if app.secret_key is None:
+        raise RuntimeError("need SECRET_KEY for session object")
     add_link(
         app,
         Link(name="Command", endpoint="command.index", fa="fa-solid fa-terminal"),

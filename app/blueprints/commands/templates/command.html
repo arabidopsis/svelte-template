@@ -22,16 +22,25 @@
     </p>
     <div id="app">{# Command.svelte goes here via cmd.js #}</div>
 </div>
+xxx
 {% endblock content %}
 
 {% block js %}
+{# need defer =false #}
+{{svelte_js('commands', 'command.static', defer=false)}}
 <script>
     // of type ConfigType
     const Config = {
         runcommand_url: "{{url_for('command.runcommand') }}",
         kill_url: "{{url_for('command.kill') }}"
     }
+    const app = new window.Command({
+        target: document.getElementById('app'),
+        props: {
+
+            maxHeight: 20
+        }
+    })
 </script>
 
-{{svelte_js('commands', 'command.static')}}
 {% endblock js %}

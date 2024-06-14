@@ -23,3 +23,6 @@ ASSET_FOLDER = "assets"
 
 # template should use {% extends base_template %}
 BASE_TEMPLATE = "base.html"
+
+# for command
+SECRET_KEY = b"secret"

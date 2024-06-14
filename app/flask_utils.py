@@ -203,14 +203,17 @@ def register_filters(app: Flask) -> None:  # noqa: C901
         mod: str,
         endpoint: str = "static",
         module: str | None = None,
+        defer: bool = True,
         **kwargs: str,
     ) -> Markup:
         filename = join(assets, f"{mod}.js")
         url = url_for(endpoint, filename=filename, **getversion())
         if module is not None:  # should only be 'module'
             kwargs["type"] = module
+        if defer:
+            kwargs["defer"] = None  # type: ignore
         attrs = attrstr(kwargs)
-        return Markup(f'<script defer {attrs} src="{url}"></script>')
+        return Markup(f'<script {attrs} src="{url}"></script>')
 
     app.jinja_env.globals["include_raw"] = include_raw
     app.jinja_env.globals["cdn_js"] = cdn_js
