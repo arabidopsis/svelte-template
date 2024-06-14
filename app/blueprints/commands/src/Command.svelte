@@ -8,6 +8,7 @@
     type State = "PENDING" | "DONE" | "STARTED" | "KILLED" | "CANCELLED"
     export let runcommand: string = Config.runcommand_url
     export let maxHeight: number = 20
+    export let history = 2 * maxHeight
 
     let logarea: HTMLElement
 
@@ -32,7 +33,7 @@
     async function kill() {
         if (pid !== 0) {
             const res = await fetch(
-                Config.kill_url + "?" + new URLSearchParams({ pid: `${pid}` })
+                Config.kill_url + "?" + new URLSearchParams({ pid: `${pid}` }),
             )
             const txt = await res.text()
             if (txt === "KILLED") currentState = "KILLED"
@@ -56,8 +57,8 @@
                 retcode = data.retcode
             } else if (data.kind === "line") {
                 logs.push(data.line + "\n")
-                if (logs.length >= maxHeight + 2) {
-                    logs = logs.slice(logs.length -maxHeight - 2, logs.length)
+                if (history > 0 && logs.length >= history) {
+                    logs = logs.slice(logs.length - history, logs.length)
                 } else {
                     logs = logs // svelte signal
                 }
