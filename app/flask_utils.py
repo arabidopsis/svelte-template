@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import gzip
 from dataclasses import dataclass
+from datetime import date
 from os.path import abspath
 from os.path import isabs
 from os.path import join
@@ -221,6 +222,7 @@ def register_filters(app: Flask) -> None:  # noqa: C901
     app.jinja_env.globals["cdn_css"] = cdn_css
     app.jinja_env.globals["svelte_js"] = svelte_js
     app.jinja_env.globals["svelte_css"] = svelte_css
+    app.jinja_env.globals["current_year"] = date.today().year
 
     app.template_filter("human")(human)
 
