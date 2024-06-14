@@ -56,7 +56,11 @@
                 retcode = data.retcode
             } else if (data.kind === "line") {
                 logs.push(data.line + "\n")
-                logs = logs // svelte signal
+                if (logs.length >= maxHeight + 2) {
+                    logs = logs.slice(logs.length -maxHeight - 2, logs.length)
+                } else {
+                    logs = logs // svelte signal
+                }
                 await tick()
                 // scroll to bottom
                 logarea!.scrollTop = logarea!.scrollHeight
