@@ -157,6 +157,7 @@ def register_filters(app: Flask) -> None:  # noqa: C901
             raise TemplateNotFound(filename)
 
         ldr = app.jinja_env.loader
+        # ldr = app.jinja_loader
         if ldr is None:
             raise TemplateNotFound(filename)
         src = ldr.get_source(app.jinja_env, filename)[0]
