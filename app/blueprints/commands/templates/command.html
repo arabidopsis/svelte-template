@@ -20,9 +20,8 @@
     <p>
         Run: <code>[sys.executable, "-u", "-m", "app.blueprints.commands"]</code>
     </p>
-    <div id="app">{# Command.svelte goes here via cmd.js #}</div>
+    <div id="app">{# Command.svelte goes here via commands.js #}</div>
 </div>
-xxx
 {% endblock content %}
 
 {% block js %}
@@ -37,7 +36,6 @@ xxx
     const app = new window.Command({
         target: document.getElementById('app'),
         props: {
-
             maxHeight: 20,
         }
     })
