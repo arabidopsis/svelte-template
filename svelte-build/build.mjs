@@ -2,7 +2,7 @@ import * as esbuild from "esbuild"
 // import path from 'path';
 // import { fileURLToPath } from 'url';
 import sveltePlugin from "esbuild-svelte";
-import sveltePreprocess from "svelte-preprocess";
+import { sveltePreprocess } from "svelte-preprocess";
 import dotenv from 'dotenv'
 
 import { nunjucksImporterPlugin } from './nunjucks-plugin.mjs'
