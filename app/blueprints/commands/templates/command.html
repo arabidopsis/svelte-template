@@ -33,7 +33,7 @@
         runcommand_url: "{{url_for('command.runcommand') }}",
         kill_url: "{{url_for('command.kill') }}"
     }
-    const app = new window.Command({
+    const app = window.Command({
         target: document.getElementById('app'),
         props: {
             maxHeight: 20,

@@ -1,5 +1,6 @@
 
 import App from "./Nunjucks.svelte";
-const app = new App({
+import { mount } from "svelte"
+const app = mount(App, {
   target: document.getElementById('app')
 })

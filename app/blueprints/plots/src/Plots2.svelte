@@ -14,7 +14,7 @@
         {#if loaded}
             loaded is true
         {:else}
-            waiting for plotly <i class="fas fa-spinner fa-spin" />
+            waiting for plotly <i class="fas fa-spinner fa-spin" ></i>
         {/if}
     </EnsurePlotly>
 {:else}
@@ -26,6 +26,6 @@
         Plot 1
         <PlotlyPlot />
     {:else}
-        loading plotly <i class="fas fa-spinner fa-spin" />
+        loading plotly <i class="fas fa-spinner fa-spin" ></i>
     {/if}
 </EnsurePlotly>

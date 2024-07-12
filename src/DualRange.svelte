@@ -192,11 +192,11 @@
                 color: var(--bs-body);
                 line-height: 1;
 
-                .range-label-start {
+                &.range-label-start {
                     align-self: flex-start;
                 }
 
-                .range-label-end {
+                &.range-label-end {
                     align-self: flex-end;
                 }
             }

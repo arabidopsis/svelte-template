@@ -113,7 +113,7 @@
                 {pmid}
                 {#if running}
                     fetching
-                    <i class="fas fa-spinner fa-spin" />
+                    <i class="fas fa-spinner fa-spin" ></i>
                     <button
                         bind:this={current}
                         class="btn btn-warning btn-sm"
@@ -123,7 +123,7 @@
                 {:else}
                     <span class={status}>{msg}</span>
                     {#if status === "done"}
-                        <i class="fas fa-check" />
+                        <i class="fas fa-check" ></i>
                     {/if}
                 {/if}
             </li>

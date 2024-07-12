@@ -1,5 +1,6 @@
 <script context="module" lang="ts">
     import { scoped_delegate } from "$lib/delegates"
+    import { mount, unmount } from "svelte"
     // importing this class!
     import InsertForm from "./InsertForm.svelte"
     let row: HTMLElement | null = null
@@ -8,7 +9,7 @@
     if (table) {
         const func = scoped_delegate("tr[data-pubmed] > td", function (e) {
             if (current !== null) {
-                current.$destroy()
+                unmount(current)
                 current = null
             }
             // console.log(self.parentNode);
@@ -23,7 +24,7 @@
             const pubmed = tr.dataset.pubmed
             if (!table || !pubmed) return
             const colspan = tr.childElementCount
-            current = new InsertForm({
+            current = mount(InsertForm, {
                 target: table,
                 anchor: anchor,
                 props: {
