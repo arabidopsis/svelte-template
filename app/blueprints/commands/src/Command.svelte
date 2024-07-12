@@ -6,20 +6,26 @@
 <script lang="ts">
     import { tick } from "svelte"
     type State = "PENDING" | "DONE" | "STARTED" | "KILLED" | "CANCELLED"
-    export let runcommand: string = Config.runcommand_url
-    export let maxHeight: number = 20
-    export let history = 2 * maxHeight
+
+    type Props = {
+        runcommand?: string
+        maxHeight: number
+        history: number
+    }
+
+    const { runcommand = Config.runcommand_url, maxHeight= 20, history=40} : Props = $props()
 
     let logarea: HTMLElement
 
-    let logs: string[] = []
-    let currentState: State = "PENDING"
-    let cancel = false
-    let pid: number = 0
-    let retcode: number | null = null
-    let error: string | null = null
-    let elapsed: number = 0
-    $: canreset = ["CANCELLED", "DONE", "KILLED"].includes(currentState)
+    let logs: string[] = $state([])
+    let currentState: State = $state("PENDING")
+    let cancel = $state(false)
+    let pid: number = $state(0)
+    let retcode: number | null = $state(null)
+    let error: string | null = $state(null)
+    let elapsed: number = $state(0)
+
+    let canreset = $derived(["CANCELLED", "DONE", "KILLED"].includes(currentState))
 
     function reset() {
         logs = []
@@ -76,16 +82,16 @@
 </script>
 
 {#if currentState === "PENDING"}
-    <button class="btn btn-info" on:click={run}>Start Process</button>
+    <button class="btn btn-info" onclick={run}>Start Rune Process</button>
 {:else}
     <button
         class="btn btn-primary"
-        on:click={() => (cancel = true)}
+        onclick={() => (cancel = true)}
         disabled={currentState !== "STARTED"}>Stop Process</button
     >
     <button
         class="btn btn-danger"
-        on:click={kill}
+        onclick={kill}
         disabled={currentState !== "STARTED"}>Kill Process</button
     >
     {(elapsed / 1000).toFixed(2)} seconds
@@ -94,7 +100,7 @@
         <span class="r" class:retcode>retcode: {retcode}</span>
     {/if}
     {#if canreset}
-        <button class="btn btn-warning" on:click={reset}>Reset</button>
+        <button class="btn btn-warning" onclick={reset}>Reset</button>
     {/if}
 {/if}
 <pre

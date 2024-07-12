@@ -12,7 +12,7 @@
 <script lang="ts">
     import { onMount } from "svelte"
     import { PlotlyLib as Plotly } from "./plotly_store"
-    let data: Data[]
+    let data: Data[] = $state(null)
     onMount(async () => {
         const resp = await fetch(PlotConfig.data_url)
         const res = await resp.json()
@@ -34,11 +34,9 @@
             },
         }
     }
-    let plot2: HTMLElement
-    $: if (plot2 && $Plotly) $Plotly.newPlot(plot2, data)
+    let plot2: HTMLElement | null = $state(null)
+    $effect(() => { if(plot2 && $Plotly) $Plotly.newPlot(plot2, data) })
 </script>
-
-Plots {gvalue}!
 
 {#if data}
     <div class="plotly mx-auto" use:plotly={{ data }}></div>
@@ -46,7 +44,7 @@ Plots {gvalue}!
     <div class="plotly mx-auto" bind:this={plot2}></div>
 {:else}
     <div class="plotly mx-auto text-center align-middle">
-        <i class="fas fa-spinner fa-spin h2"></i>
+        waiting for data <i class="fas fa-spinner fa-spin h2"></i>
     </div>
 {/if}
 

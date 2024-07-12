@@ -1,17 +1,22 @@
 <script lang="ts">
     import { onDestroy } from "svelte";
+    type Props = {
+        height: number
+        width: number
+        delta: number
+        color: string
+    }
+    const {height=5, width=25, delta=2.5, color='bg-danger'}:Props = $props()
 
-    export let height: number = 5;
-    export let width: number = 25;
-    export let delta: number = 2.5;
-    export let color: string = "bg-danger";
-
-    let w: number = 0;
-    $: margin_left = `${w}%`;
     const mx = 100 - width;
+    let ddelta = delta;
 
-    let interval: number | null = null;
-    let display: string = "none";
+    let w: number = $state(0);
+    let margin_left = $derived(`${w}%`)
+
+
+    let interval: number | null = $state(null);
+    let display: string = $state("none");
 
     export function start() {
         if (interval) return;
@@ -20,10 +25,10 @@
             w = w + delta;
             if (w > mx) {
                 // w = mx;
-                delta = -delta;
+                ddelta = -ddelta;
             } else if (w < 0) {
                 // w = 0;
-                delta = -delta;
+                ddelta = -ddelta;
             }
         }, 50);
     }
@@ -41,7 +46,7 @@
         role="progressbar"
         style:width="{width}%"
         style:margin-left={margin_left}
-    />
+    ></div>
 </div>
 
 <style>

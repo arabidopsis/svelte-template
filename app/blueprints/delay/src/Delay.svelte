@@ -1,35 +1,17 @@
 <script context="module" lang="ts">
     type Config = Readonly<{
-        DELTA: number;
-    }>;
+        DELTA: number
+    }>
     // pick up  const Config from delay.html
     declare global {
-        var Config: Config;
+        var Config: Config
     }
 </script>
 
 <script lang="ts">
-    import { tick } from "svelte";
-    import { keepInView, wait } from "./lib";
-    let total = 0;
-    let running_idx = -1;
-    let current: HTMLElement | null = null;
-    let viewport: HTMLElement | null = null;
-    let cancel_pending = false;
-
-    // let quota = 0;
-    // let where = "";
-    $: keepInView(current, viewport);
-    $: restart = pubmedids.reduce(
-        (acc, { status }) => acc || status === "done",
-        false
-    );
-    $: percent = ((100 * (running_idx + 1)) / pubmedids.length).toFixed(0)
-
-    const config = Config;
-    const delta = Config.DELTA;
-
-    const pubmedids = [
+    import { tick } from "svelte"
+    import { keepInView, wait } from "./lib"
+    const pubmedids = $state([
         100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113,
         114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127,
         128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141,
@@ -39,39 +21,60 @@
         184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196, 197,
         198, 199,
     ].map((v) => {
-        return { pmid: v, status: "pending", msg: "todo" };
-    });
+        return { pmid: v, status: "pending", msg: "todo" }
+    }))
+    let viewport: HTMLElement
+
+    let total = $state(0)
+    let running_idx = $state(-1)
+    let current: HTMLElement | null = $state(null)
+    let cancel_pending = $state(false)
+
+    // let quota = 0;
+    // let where = "";
+    $effect(() => {
+        keepInView(current, viewport)
+    })
+    let restart = $derived(
+        pubmedids.reduce((acc, { status }) => acc || status === "done", false),
+    )
+    let percent = $derived(((100 * (running_idx + 1)) / pubmedids.length).toFixed(0))
+
+    const config = Config
+    const delta = Config.DELTA
+
+
 
     function reset() {
         // total = 0;
-        running_idx = -1;
-        current = null;
-        cancel_pending = false;
+        running_idx = -1
+        current = null
+        cancel_pending = false
     }
 
-    async function getpubmed(pubmed:number):Promise<number> {
+    async function getpubmed(pubmed: number): Promise<number> {
         const resp = await fetch(`/fetch/${pubmed}`)
         const result = await resp.json()
         return result.result as number
     }
 
     async function start() {
-        let result:number
-        let start = Date.now();
+        let result: number
+        let start = Date.now()
         for (let i = 0; i < pubmedids.length; ++i) {
-            if (cancel_pending) break;
-            let { pmid, status } = pubmedids[i];
+            if (cancel_pending) break
+            let { pmid, status } = pubmedids[i]
             if (status === "done") {
-                continue;
+                continue
             }
-            await tick();
-            running_idx = i;
-            let end = Date.now();
-            let dt = delta - (end - start);
+            await tick()
+            running_idx = i
+            let end = Date.now()
+            let dt = delta - (end - start)
             if (dt > 0) {
-                await wait(dt);
+                await wait(dt)
             }
-            total += pmid * 2;
+            total += pmid * 2
 
             // do work here
             result = await getpubmed(pmid)
@@ -79,25 +82,26 @@
                 pmid,
                 msg: `done ${result} ${dt}`,
                 status: "done",
-            };
-            start = Date.now();
+            }
+            start = Date.now()
         }
-        reset();
+        reset()
     }
 
     function stop() {
-        cancel_pending = true;
+        cancel_pending = true
     }
 </script>
 
 {#if running_idx < 0}
-    <button class="btn btn-primary" on:click={start}
-        >{#if restart}Re {/if}Start (delay={config.DELTA}ms)</button
+    <button class="btn btn-primary" onclick={start}
+        >{#if restart}Re
+        {/if}Start (delay={config.DELTA}ms)</button
     >
 {:else}
     <button
         class="btn btn-warning btn-sm"
-        on:click={stop}
+        onclick={stop}
         disabled={cancel_pending}>Cancel</button
     >
     {percent}% completed
@@ -113,17 +117,17 @@
                 {pmid}
                 {#if running}
                     fetching
-                    <i class="fas fa-spinner fa-spin" ></i>
+                    <i class="fas fa-spinner fa-spin"></i>
                     <button
                         bind:this={current}
                         class="btn btn-warning btn-sm"
-                        on:click={stop}
+                        onclick={stop}
                         disabled={cancel_pending}>Cancel</button
                     >
                 {:else}
                     <span class={status}>{msg}</span>
                     {#if status === "done"}
-                        <i class="fas fa-check" ></i>
+                        <i class="fas fa-check"></i>
                     {/if}
                 {/if}
             </li>

@@ -1,15 +1,21 @@
 <script lang="ts">
-    import { createEventDispatcher } from "svelte"
+    // import { createEventDispatcher } from "svelte"
+    import type {Snippet} from 'svelte'
+    type Props = {
+        src: string
+        css?: string
+        children?: Snippet
+        onload?: (e:Event) => void
+    }
+    const { src, css, onload , children }: Props = $props()
+    const script_src: string = src
+    let loaded = $state(false)
 
-    export let src: string
-    export let css: string = ""
-    let loaded = false
-    let script_src = src // very strange bug...
-    const dispatch = createEventDispatcher()
+    // const dispatch = createEventDispatcher()
 
-    function onload() {
+    function ionload(e:Event) {
         loaded = true
-        dispatch("load", src)
+        if(onload) onload(e)
     }
 </script>
 
@@ -24,10 +30,11 @@
 	</EnsureLib>
 -->
 <svelte:head>
-    <script src={script_src} on:load={onload}></script>
+    <script src={script_src} onload={ionload}></script>
     {#if css}
         <link href={css} rel="stylesheet" type="text/css" />
     {/if}
 </svelte:head>
-
-<slot {loaded} />
+{#if loaded && children}
+    {@render children()}
+{/if}

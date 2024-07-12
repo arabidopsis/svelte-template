@@ -1,14 +1,16 @@
 <script lang="ts">
     // npm install -D @types/google.visualization
-    import Require from "$lib/Require.svelte";
+    import Require from "$lib/Require.svelte"
+    type Props = {
+        packages: string[]
+        version: string
+    }
+    const { packages = ["corechart"], version = "current" }: Props = $props()
 
-    export let packages: string[] = ["corechart"];
-    export let version: string = "current";
-
-    let loaded = false;
+    let loaded = $state(false)
     function onload() {
-        google.charts.load(version, { packages });
-        google.charts.setOnLoadCallback(() => (loaded = true));
+        google.charts.load(version, { packages })
+        google.charts.setOnLoadCallback(() => (loaded = true))
     }
 </script>
 

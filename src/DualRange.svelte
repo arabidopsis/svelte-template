@@ -1,9 +1,18 @@
 <script lang="ts">
-    export let max: number = 1.0
-    export let min: number = 0.0
-    export let step: number = 0.01
-    export let name_max: string = "max_value"
-    export let name_min: string = "min_value"
+    // export let max: number = 1.0
+    // export let min: number = 0.0
+    // export let step: number = 0.01
+    // export let name_max: string = "max_value"
+    // export let name_min: string = "min_value"
+    type  Props = {
+        min:number
+        max:number
+        step:number
+        name_max:string
+        name_min:string
+    }
+    const {min=0.0, max=1.0, step=0.1, name_max='max_value', name_min='min_value' }:Props = $props()
+
     // from https://codepen.io/sarmunbustillo/pen/XWEYERa
     type SliderConfig = {
         max: number

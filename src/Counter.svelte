@@ -1,12 +1,14 @@
 <script lang="ts">
     import { toastr } from "$lib/toastr"
-    export let count: number = 0
+    // export let count: number = 0
+    const { count=0 } = $props()
+    let counter = $state(count)
     const increment = () => {
-        count += 1
-        toastr.success(`count ${count}`)
+        counter += 1
+        toastr.success(`count ${counter}`)
     }
 </script>
 
-<button on:click={increment}>
-    count is {count}
+<button onclick={increment}>
+    count is {counter}
 </button>

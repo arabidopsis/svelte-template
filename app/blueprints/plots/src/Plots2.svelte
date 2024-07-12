@@ -1,31 +1,33 @@
 <script>
-    import PlotlyPlot from "./PlotlyPlot.svelte";
+    import PlotlyPlot from "./PlotlyPlot.svelte"
     //import EnsureLib from "./EnsureLib.svelte";
-    import EnsurePlotly from "./EnsurePlotly.svelte";
+    import EnsurePlotly from "./EnsurePlotly.svelte"
     // import { PlotlyLib } from "./store";
-    let added = false;
+    let added = $state(false)
+    let loaded = $state(false)
     setTimeout(() => {
-        added = true;
-    }, 5000);
+        added = true
+    }, 10000)
 </script>
 
 {#if added}
-    <EnsurePlotly let:loaded>
+    <EnsurePlotly bind:loaded>
         {#if loaded}
-            loaded is true
+            loaded is {loaded}
         {:else}
-            waiting for plotly <i class="fas fa-spinner fa-spin" ></i>
+            loaded is {loaded} waiting for plotly
+            <i class="fas fa-spinner fa-spin"></i>
         {/if}
     </EnsurePlotly>
 {:else}
-    Waiting...
+    Waiting for added...
 {/if}
 <br />
-<EnsurePlotly let:loaded>
+<EnsurePlotly bind:loaded>
     {#if loaded}
         Plot 1
         <PlotlyPlot />
     {:else}
-        loading plotly <i class="fas fa-spinner fa-spin" ></i>
+        loaded is {loaded} loading plotly <i class="fas fa-spinner fa-spin"></i>
     {/if}
 </EnsurePlotly>

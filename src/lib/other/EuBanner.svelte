@@ -1,8 +1,12 @@
 <script lang="ts">
     // adapted from https://github.com/Alex-D/Cookies-EU-banner
+    import type {Snippet} from 'svelte'
     import { createEventDispatcher } from "svelte";
     import { fly } from "svelte/transition";
-
+    type Props = {
+        children?:Snippet
+    }
+    const { children }:Props = $props()
     const dispatch = createEventDispatcher();
 
     const isBot = /bot|crawler|spider|crawling/i.test(navigator.userAgent);
@@ -14,7 +18,7 @@
             ? dnt && dnt !== "yes" && dnt !== "1"
             : true;
 
-    let show = !(isBot || !isToTrack);
+    let show = $state(!(isBot || !isToTrack));
 
     function reject(e: Event) {
         dispatch("reject", e);
@@ -28,12 +32,16 @@
 
 {#if show}
     <div class="eu-banner" transition:fly|global={{ y: 200, duration: 2000 }}>
-        <slot>
+        {#if children}
+        {@render children()}
+        {:else}
+
             By continuing to visit this site, you accept the use of cookies by
             Google Analytics for statistical purposes.
-        </slot>
-        <button class="reject" on:click={reject}>Reject</button>
-        <button class="accept" on:click={accept}>Accept</button>
+
+        {/if}
+        <button class="reject" onclick={reject}>Reject</button>
+        <button class="accept" onclick={accept}>Accept</button>
     </div>
 {/if}
 

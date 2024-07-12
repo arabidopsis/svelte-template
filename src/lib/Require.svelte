@@ -5,16 +5,19 @@
 </script>
 
 <script lang="ts">
-    import { createEventDispatcher, tick } from "svelte"
+    import { createEventDispatcher, tick, type Snippet } from "svelte"
     import EnsureLib from "./EnsureLib.svelte"
-
-    export let src: string
-    export let css: string = ""
+    type Props = {
+        src: string
+        css?: string
+        children?: Snippet
+        onload?: (e:Event) => void
+    }
+    const { src, css, children }: Props = $props()
 
     const dispatch = createEventDispatcher()
 
-    let needsloading = false
-    let loaded = false
+    let needsloading = $state(false)
 
     if (beenloaded.has(src)) {
         tick().then(load)
@@ -25,7 +28,7 @@
         pending.set(src, [load])
     }
 
-    function onload() {
+    function onload(e:Event) {
         beenloaded.add(src)
         const funcs = pending.get(src)
         pending.delete(src)
@@ -33,7 +36,6 @@
     }
 
     function load() {
-        loaded = true
         try {
             dispatch("load", src)
         } catch (e) {
@@ -54,9 +56,7 @@
 	</Require>
 -->
 {#if needsloading}
-    <EnsureLib {src} {css} on:load={onload} let:loaded>
-        <slot {loaded} />
-    </EnsureLib>
+    <EnsureLib {src} {css} onload={onload} {children} />
 {:else}
-    <slot {loaded} />
+{#if children}{@render children()}{/if}
 {/if}

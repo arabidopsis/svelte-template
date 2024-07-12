@@ -1,8 +1,11 @@
 <script lang="ts">
-    export let pubmed: string
+    type Props = {
+        pubmed: string
+    }
+    const { pubmed }: Props = $props()
     let form: HTMLFormElement
     let multi: HTMLSelectElement
-    let json = ""
+    let json = $state("")
 
     function atleast(min: number = 1): boolean {
         if (multi.selectedOptions.length < min) {
@@ -45,16 +48,16 @@
     }
 </script>
 
-<pre>
+<code>
     {json}
-</pre>
+</code>
 <h3>Form for {pubmed}</h3>
 <form
     id="myform"
     class="row g-3"
     novalidate
-    on:submit={submit}
-    on:change={() => {
+    onsubmit={submit}
+    onchange={() => {
         form.classList.remove("was-validated")
         atleast()
     }}
