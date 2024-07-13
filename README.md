@@ -34,7 +34,7 @@ npm install
 
 ```
 
-Now build all the javascript (see `bin/buildall`)
+Now build all the javascript (see `svelte-build/buildapp.mjs`)
 
 ```bash
 # optional...
@@ -46,7 +46,8 @@ for b in ${blueprints[@]}; do
 done
 ```
 
-Now for the python. The dependencies are just `Flask`, `python-dotenv` and `tomli`
+Now for the python. The dependencies are just `Flask`, `python-dotenv` and `tomli` (This last dependency could be dropped
+for python version >= 3.12)
 
 ```bash
 # activate a suitable python
@@ -153,7 +154,7 @@ pnpm run build
 
 This, I think, gives me the best of both worlds.
 
-Also `esbuild` allows me to create build scripts (see say: `svelte-build/build.main.mjs`)
+Also `esbuild` allows me to create build scripts (see say: `svelte-build/buildapp.mjs`)
 to create multiple bundles, one for each page if necessary.
 
 You can run jinja2 macros with e.g.:
