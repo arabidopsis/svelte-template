@@ -82,7 +82,7 @@
 </script>
 
 {#if currentState === "PENDING"}
-    <button class="btn btn-info" onclick={run}>Start Rune Process</button>
+    <button class="btn btn-info" onclick={run}>Start Process</button>
 {:else}
     <button
         class="btn btn-primary"
