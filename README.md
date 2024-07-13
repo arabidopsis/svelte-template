@@ -1,5 +1,9 @@
 # Svelte + Flask + ESbuild + Bootstrap Template
 
+**UPDATE**: There is a branch (`svelte5`) in this repo that uses
+svelte5 (`5.0.0.next.196`). It still - in places - uses `createEventDispatcher` and `on:` and
+`<slot>` since - I think - it is a mistake to deprecate these.
+
 -   [Svelte](https://svelte.dev/)
 -   [Flask](https://flask.palletsprojects.com/)
 -   [esbuild](https://esbuild.github.io)
