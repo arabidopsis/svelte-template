@@ -12,8 +12,8 @@
   "main": "src/main.js",
   "scripts": {
     "serve": "bin/live-server index.html",
-    "build": "node bin/buildapp.mjs",
-    "production": "NODE_ENV=production node bin/buildapp.mjs",
+    "build": "node svelte-build/buildapp.mjs",
+    "production": "NODE_ENV=production node svelte-build/buildapp.mjs",
     "check": "svelte-check --tsconfig ./tsconfig.json --fail-on-warnings"
   },
   "devDependencies": {

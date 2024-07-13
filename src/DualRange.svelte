@@ -1,9 +1,5 @@
 <script lang="ts">
-    // export let max: number = 1.0
-    // export let min: number = 0.0
-    // export let step: number = 0.01
-    // export let name_max: string = "max_value"
-    // export let name_min: string = "min_value"
+
     type  Props = {
         min:number
         max:number

@@ -62,6 +62,7 @@
         cursor: pointer;
     }
     .form-div {
-        border: solid tomato 1px;
+        border: solid rgb(161, 83, 70) 1px;
+        border-radius: .5rem;
     }
 </style>
