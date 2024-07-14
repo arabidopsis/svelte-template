@@ -1,19 +1,20 @@
-<script context="module" lang="ts">
-    // generated in command.html page
-    declare const Config: ConfigType
-</script>
-
 <script lang="ts">
     import { tick } from "svelte"
     type State = "PENDING" | "DONE" | "STARTED" | "KILLED" | "CANCELLED"
 
     type Props = {
-        runcommand?: string
-        maxHeight: number
-        history: number
+        runcommand_url: string
+        kill_url: string
+        maxHeight?: number
+        history?: number
     }
 
-    const { runcommand = Config.runcommand_url, maxHeight= 20, history=40} : Props = $props()
+    const {
+        runcommand_url,
+        kill_url,
+        maxHeight = 20,
+        history = 40,
+    }: Props = $props()
 
     let logarea: HTMLElement
 
@@ -25,7 +26,9 @@
     let error: string | null = $state(null)
     let elapsed: number = $state(0)
 
-    let canreset = $derived(["CANCELLED", "DONE", "KILLED"].includes(currentState))
+    let canreset = $derived(
+        ["CANCELLED", "DONE", "KILLED"].includes(currentState),
+    )
 
     function reset() {
         logs = []
@@ -39,7 +42,7 @@
     async function kill() {
         if (pid !== 0) {
             const res = await fetch(
-                Config.kill_url + "?" + new URLSearchParams({ pid: `${pid}` }),
+                kill_url + "?" + new URLSearchParams({ pid: `${pid}` }),
             )
             const txt = await res.text()
             if (txt === "KILLED") currentState = "KILLED"
@@ -48,7 +51,7 @@
 
     function run() {
         let start = Date.now()
-        const es = new EventSource(runcommand)
+        const es = new EventSource(runcommand_url)
         es.addEventListener("message", async (event) => {
             const data: Message = JSON.parse(event.data)
             if (data === null || cancel) {
@@ -65,8 +68,6 @@
                 logs.push(data.line + "\n")
                 if (history > 0 && logs.length >= history) {
                     logs = logs.slice(logs.length - history, logs.length)
-                } else {
-                    logs = logs // svelte signal
                 }
                 await tick()
                 // scroll to bottom

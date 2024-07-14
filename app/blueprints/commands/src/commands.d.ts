@@ -16,8 +16,3 @@ interface Error {
 }
 
 type Message = Line | Retcode | Pid | Error
-
-type ConfigType = {
-    runcommand_url: string
-    kill_url: string
-}
