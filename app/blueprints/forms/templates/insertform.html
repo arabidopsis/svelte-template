@@ -29,5 +29,8 @@
 {% endblock content %}
 
 {% block js %}
-{{ svelte_js('forms', 'forms.static') }}
+{{ svelte_js('forms', 'forms.static', defer=False) }}
+<script>
+InsertForm.setEndpoint('{{url_for("forms.insertform")}}')
+</script>
 {% endblock js %}

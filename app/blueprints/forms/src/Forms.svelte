@@ -1,9 +1,11 @@
 <script lang="ts">
+    import { toastr } from "$lib/toastr"
     import { onDestroy } from "svelte"
     type Props = {
         pubmed: string
+        endpoint: string
     }
-    const { pubmed }: Props = $props()
+    const { pubmed, endpoint }: Props = $props()
     let form: HTMLFormElement
     let multi: HTMLSelectElement
     let json = $state("")
@@ -49,13 +51,14 @@
     }
     onDestroy(() => {
         console.log("destroyed", pubmed)
+        toastr.info(`${pubmed} form closed!`)
     })
 </script>
 
 <code>
     {json}
 </code>
-<h3>Form for {pubmed}</h3>
+<h3>Form for {pubmed} <code>{endpoint}</code></h3>
 <form
     id="myform"
     class="row g-3"

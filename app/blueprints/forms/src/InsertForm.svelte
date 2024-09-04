@@ -9,6 +9,10 @@
             current = null
         }
     }
+    export function setEndpoint(ep:string) {
+        endpoint = ep
+    }
+    let endpoint: string = "noendpoint" // endpoint to send form...
     let row: HTMLElement | null = null
     let current: any | null = null
     const table = document.getElementById("stufftable")
@@ -38,6 +42,7 @@
                     props: {
                         colspan: colspan,
                         pubmed: pubmed,
+                        endpoint: endpoint
                     },
                 })
             },
@@ -52,8 +57,9 @@
     type Props = {
         colspan: number
         pubmed: string
+        endpoint: string
     }
-    const { colspan, pubmed }: Props = $props()
+    const { colspan, pubmed ,endpoint }: Props = $props()
     let open = $state(true)
 </script>
 
@@ -67,7 +73,7 @@
                 >
                     Close
                 </button>
-                <Forms {pubmed} />
+                <Forms {pubmed} {endpoint}/>
             </div></td
         ></tr
     >
