@@ -130,18 +130,21 @@ reference css and javascript from CDNs specified in `app/cdn.toml`
 
 ## Usage
 
+This is for svelte5
+
 In some file such as `src/main.js`
 
 ```javascript
+import { mount } from "svelte"
 import "./app.css"
 import App from "./App.svelte"
 import AnotherApp from "./AnotherApp.svelte"
 // target two places in the jinja template to run
 // our apps.
-export const app = new App({
+export const app = mount(App, {
     target: document.getElementById("app"),
 })
-export const another_app = new AnotherApp({
+export const another_app = mount(AnotherApp, {
     target: document.getElementById("another-app"),
 })
 ```
@@ -160,11 +163,12 @@ to create multiple bundles, one for each page if necessary.
 You can run jinja2 macros with e.g.:
 
 ```python
+from flask.helpers import get_template_attribute
 @app.route('/fragment/<dataid>')
 def fragment(dataid:str) -> str:
   data = get_data(dataid)
-  macros = current_app.jinja_env.get_template("macros.html")
-  return macros.module.showdata(data)
+  showdata = get_template_attribute("macros.html", "showdata")
+  return showdata(data)
 ```
 
 And deal with them simply as
@@ -181,14 +185,14 @@ And deal with them simply as
             html = await res.text()
         }
     )
-    let html = ""
+    let html = $state("")
     onMount(async () => {
         const res = await fetch(`/fragment/${dataid}`)
         html = await res.text()
     })
 </script>
 
-<div on:click="{monitor}">{@html html}</div>
+<div onclick="{monitor}">{@html html}</div>
 ```
 
 ## Nunjucks
