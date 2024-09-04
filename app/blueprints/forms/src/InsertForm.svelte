@@ -3,8 +3,14 @@
     import { mount, unmount, type Component } from "svelte"
     // importing this class!
     import InsertForm from "./InsertForm.svelte"
+    export function clearForm() {
+        if (current !== null) {
+            unmount(current)
+            current = null
+        }
+    }
     let row: HTMLElement | null = null
-    let current: Component | null = null
+    let current: any | null = null
     const table = document.getElementById("stufftable")
     if (table) {
         const func = scoped_delegate(
@@ -48,13 +54,24 @@
         pubmed: string
     }
     const { colspan, pubmed }: Props = $props()
+    let open = $state(true)
 </script>
 
-<tr
-    ><td {colspan} class="mx-auto"
-        ><div class="form-div p-1"><Forms {pubmed} /></div></td
-    ></tr
->
+{#if open}
+    <tr
+        ><td {colspan} class="mx-auto"
+            ><div class="form-div p-1">
+                <button
+                    class="btn btn-sm btn-outline-warning float-end"
+                    onclick={() => (open = false)}
+                >
+                    Close
+                </button>
+                <Forms {pubmed} />
+            </div></td
+        ></tr
+    >
+{/if}
 
 <style>
     :global(#stufftable > tbody > tr > td) {
@@ -63,6 +80,6 @@
     }
     .form-div {
         border: solid rgb(161, 83, 70) 1px;
-        border-radius: .5rem;
+        border-radius: 0.5rem;
     }
 </style>

@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { onDestroy } from "svelte"
     type Props = {
         pubmed: string
     }
@@ -46,6 +47,9 @@
         // }
         return obj
     }
+    onDestroy(() => {
+        console.log("destroyed", pubmed)
+    })
 </script>
 
 <code>
