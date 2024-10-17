@@ -1,5 +1,9 @@
 // just need to import to use
-import InsertForm, { clearForm , setEndpoint} from "./InsertForm.svelte"
+import InsertForm, {
+    clearForm,
+    setEndpoint,
+    setTableId,
+} from "./InsertForm.svelte"
 // import Forms from "./Forms.svelte"
 // import { mount } from "svelte"
 // const app = document.getElementById("app")
@@ -13,3 +17,4 @@ import InsertForm, { clearForm , setEndpoint} from "./InsertForm.svelte"
 window.InsertForm = InsertForm
 InsertForm.clearForm = clearForm
 InsertForm.setEndpoint = setEndpoint
+InsertForm.setTableId = setTableId

@@ -9,45 +9,58 @@
             current = null
         }
     }
-    export function setEndpoint(ep:string) {
+    export function setEndpoint(ep: string) {
         endpoint = ep
     }
+    export function setTableId(tableid: string) {
+        if (table && func) {
+            table.removeEventListener("click", func)
+        }
+        if (current) {
+            unmount(current)
+            current = null
+        }
+        table = document.getElementById(tableid)
+        if (table) {
+            func = enable()
+            table.addEventListener("click", func)
+        }
+    }
+
     let endpoint: string = "noendpoint" // endpoint to send form...
     let row: HTMLElement | null = null
     let current: any | null = null
-    const table = document.getElementById("stufftable")
-    if (table) {
-        const func = scoped_delegate(
-            "tr[data-pubmed] > td",
-            function (e: Event) {
-                if (current !== null) {
-                    unmount(current)
-                    current = null
-                }
-                // console.log(self.parentNode);
-                const tr = this.parentNode as HTMLElement
-                if (tr === row || tr === null) {
-                    row = null
-                    return
-                }
-                row = tr
-                const table = tr.parentNode as HTMLElement
-                const anchor = (tr?.nextSibling as HTMLElement) || undefined
-                const pubmed = tr.dataset.pubmed
-                if (!table || !pubmed) return
-                const colspan = tr.childElementCount
-                current = mount(InsertForm, {
-                    target: table,
-                    anchor: anchor,
-                    props: {
-                        colspan: colspan,
-                        pubmed: pubmed,
-                        endpoint: endpoint
-                    },
-                })
-            },
-        )
-        table.addEventListener("click", func)
+    let table: HTMLElement | null = null
+    let func: any | null = null
+
+    function enable() {
+        return scoped_delegate("tr[data-pubmed] > td", function (e: Event) {
+            if (current !== null) {
+                unmount(current)
+                current = null
+            }
+            // console.log(self.parentNode);
+            const tr = this.parentNode as HTMLElement
+            if (tr === row || tr === null) {
+                row = null
+                return
+            }
+            row = tr
+            const table = tr.parentNode as HTMLElement
+            const anchor = (tr?.nextSibling as HTMLElement) || undefined
+            const pubmed = tr.dataset.pubmed
+            if (!table || !pubmed) return
+            const colspan = tr.childElementCount
+            current = mount(InsertForm, {
+                target: table,
+                anchor: anchor,
+                props: {
+                    colspan: colspan,
+                    pubmed: pubmed,
+                    endpoint: endpoint,
+                },
+            })
+        })
     }
 </script>
 
@@ -59,7 +72,7 @@
         pubmed: string
         endpoint: string
     }
-    const { colspan, pubmed ,endpoint }: Props = $props()
+    const { colspan, pubmed, endpoint }: Props = $props()
     let open = $state(true)
 </script>
 
@@ -73,7 +86,7 @@
                 >
                     Close
                 </button>
-                <Forms {pubmed} {endpoint}/>
+                <Forms {pubmed} {endpoint} />
             </div></td
         ></tr
     >

@@ -32,5 +32,6 @@
 {{ svelte_js('forms', 'forms.static', defer=False) }}
 <script>
 InsertForm.setEndpoint('{{url_for("forms.insertform")}}')
+InsertForm.setTableId('stufftable')
 </script>
 {% endblock js %}
