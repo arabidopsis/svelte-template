@@ -1,7 +1,5 @@
-import { preprocess, compileModule } from "svelte/compiler"
-import { sveltePreprocess } from "svelte-preprocess"
-import { transformSync } from "esbuild"
-// import {typescript } from "svelte-preprocess"
+import { compileModule } from "svelte/compiler"
+import { transform } from "esbuild"
 import fs from "fs"
 import path from "path"
 async function convertMessage(
@@ -41,9 +39,6 @@ const b64enc = Buffer
 function toUrl(data) {
     return "data:application/json;charset=utf-8;base64," + b64enc(data)
 }
-const PREFIX = '<script lang="ts">'
-const POSTFIX = "</script>"
-
 export const svelteModulePlugin = ({ filter = /\.svelte\.(js|ts)$/ } = {}) => {
     // deal with .svelte.js and .svelte.ts files
     return {
@@ -51,38 +46,20 @@ export const svelteModulePlugin = ({ filter = /\.svelte\.(js|ts)$/ } = {}) => {
 
         setup(build) {
             build.onLoad({ filter: filter }, async (args) => {
-                const source = await fs.promises.readFile(args.path, {
+                let source = await fs.promises.readFile(args.path, {
                     encoding: "utf8",
                 })
                 const filename = path.relative(process.cwd(), args.path)
-                let code
                 if (filename.endsWith(".ts")) {
-                    const ret = await preprocess(
-                        `${PREFIX}${source}${POSTFIX}`,
-                        // possibly just [typescript()]
-                        // https://github.com/sveltejs/svelte-preprocess/blob/HEAD/docs/preprocessing.md#overriding-preprocessors
-                        [
-                            sveltePreprocess({
-                                typescript({ content }) {
-                                    const { code, map } = transformSync(
-                                        content,
-                                        {
-                                            loader: "ts",
-                                        }
-                                    )
-                                    return { code, map }
-                                },
-                            }),
-                        ],
-                        { filename }
+                    const {code, map} = await transform(
+                        source,
+                        {
+                            loader: "ts",
+                        }
                     )
-                    code = ret.code
-                        .slice(0, ret.code.length - POSTFIX.length)
-                        .slice(PREFIX.length)
-                } else {
-                    code = source
+                    source = code
                 }
-                let { js, _, warnings } = compileModule(code, {
+                let { js, _, warnings } = compileModule(source, {
                     generate: "client",
                     filename,
                 })
