@@ -1,4 +1,4 @@
-<script context="module" lang="ts">
+<script module lang="ts">
     import { scoped_delegate } from "$lib/delegates"
     import { mount, unmount, type Component } from "svelte"
     // importing this class!

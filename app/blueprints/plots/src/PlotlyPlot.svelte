@@ -1,4 +1,4 @@
-<script context="module" lang="ts">
+<script module lang="ts">
     // generated in plot.html page
     declare const PlotConfig: PlotConfigType
     const gvalue: string = "module value"

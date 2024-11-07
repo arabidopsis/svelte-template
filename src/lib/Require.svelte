@@ -1,4 +1,4 @@
-<script context="module" lang="ts">
+<script module lang="ts">
     type loader = () => void
     const pending = new Map<string, loader[]>()
     const beenloaded = new Set<string>()
