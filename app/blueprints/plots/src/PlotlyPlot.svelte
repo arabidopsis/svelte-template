@@ -12,7 +12,7 @@
 <script lang="ts">
     import { onMount } from "svelte"
     import { PlotlyLib as Plotly } from "./plotly_store"
-    let data: Data[] = $state(null)
+    let data: Data[]|null = $state(null)
     onMount(async () => {
         const resp = await fetch(PlotConfig.data_url)
         const res = await resp.json()
@@ -35,7 +35,7 @@
         }
     }
     let plot2: HTMLElement | null = $state(null)
-    $effect(() => { if(plot2 && $Plotly) $Plotly.newPlot(plot2, data) })
+    $effect(() => { if(plot2 && $Plotly && data) $Plotly.newPlot(plot2, data) })
 </script>
 
 {#if data}

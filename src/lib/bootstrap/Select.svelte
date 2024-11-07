@@ -11,12 +11,18 @@
     const dispatch = createEventDispatcher()
 
     function tags(node: HTMLSelectElement) {
-        const tags = new Tags(node)
-        return {
-            destroy: () => {
+        $effect(() => {
+            const tags = new Tags(node)
+            return () => {
                 tags.dispose()
-            },
-        }
+            }
+        })
+        // const tags = new Tags(node)
+        // return {
+        //     destroy: () => {
+        //         tags.dispose()
+        //     },
+        // }
     }
     $effect(() => {
         dispatch("selected", Array.from(selected))
