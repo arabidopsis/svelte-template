@@ -1,5 +1,6 @@
 import { compileModule } from "svelte/compiler"
 import { transform } from "esbuild"
+import { originalPositionFor, TraceMap } from "@jridgewell/trace-mapping";
 import fs from "fs"
 import path from "path"
 async function convertMessage(
