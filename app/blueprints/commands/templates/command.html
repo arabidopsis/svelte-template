@@ -28,15 +28,12 @@
 {# need defer =false #}
 {{svelte_js('commands', 'command.static', defer=false)}}
 <script>
-    // of type ConfigType
-    const Config = {
-        runcommand_url: "{{url_for('command.runcommand') }}",
-        kill_url: "{{url_for('command.kill') }}"
-    }
-    const app = new window.Command({
+    const app = window.Command({
         target: document.getElementById('app'),
         props: {
             maxHeight: 20,
+            runcommand_url: "{{url_for('command.runcommand') }}",
+            kill_url: "{{url_for('command.kill') }}"
         }
     })
 </script>

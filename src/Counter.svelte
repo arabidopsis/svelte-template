@@ -1,12 +1,14 @@
 <script lang="ts">
     import { toastr } from "$lib/toastr"
-    export let count: number = 0
+    import { counter } from "./shared.svelte"
+    // export let count: number = 0
+
     const increment = () => {
-        count += 1
-        toastr.success(`count ${count}`)
+        counter.count += 1
+        toastr.success(`count ${counter.count}`)
     }
 </script>
 
-<button on:click={increment}>
-    count is {count}
+<button onclick={increment} class="btn btn-outline-primary">
+    count is {counter.count}
 </button>

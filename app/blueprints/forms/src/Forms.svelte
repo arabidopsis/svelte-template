@@ -1,8 +1,14 @@
 <script lang="ts">
-    export let pubmed: string
+    import { toastr } from "$lib/toastr"
+    import { onDestroy } from "svelte"
+    type Props = {
+        pubmed: string
+        endpoint: string
+    }
+    const { pubmed, endpoint }: Props = $props()
     let form: HTMLFormElement
     let multi: HTMLSelectElement
-    let json = ""
+    let json = $state("")
 
     function atleast(min: number = 1): boolean {
         if (multi.selectedOptions.length < min) {
@@ -18,43 +24,29 @@
         if (!form.checkValidity() || !atleast()) {
             event.preventDefault()
             event.stopPropagation()
+            toastr.error("invalid form")
         }
         form.classList.add("was-validated")
         const fd = new FormData(form)
         json = JSON.stringify(Array.from(fd.entries()))
         event.preventDefault()
     }
-    function serializeForm(form: HTMLFormElement): Record<string, any> {
-        var obj: Record<string, any> = {}
-        var formData = new FormData(form)
-        for (const [key, value] of formData.entries()) {
-            const v = obj[key]
-            if (v === undefined) {
-                obj[key] = value
-            } else if (Array.isArray(v)) {
-                v.push(value)
-            } else {
-                obj[key] = [v, value]
-            }
-            return obj
-        }
-        // for (const key of formData.keys()) {
-        //     obj[key] = formData.get(key);
-        // }
-        return obj
-    }
+    onDestroy(() => {
+        console.log("destroyed", pubmed)
+        toastr.info(`${pubmed} form closed!`)
+    })
 </script>
 
-<pre>
+<code>
     {json}
-</pre>
-<h3>Form for {pubmed}</h3>
+</code>
+<h3>Form for {pubmed} <code>{endpoint}</code></h3>
 <form
     id="myform"
     class="row g-3"
     novalidate
-    on:submit={submit}
-    on:change={() => {
+    onsubmit={submit}
+    onchange={() => {
         form.classList.remove("was-validated")
         atleast()
     }}

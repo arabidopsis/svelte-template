@@ -1,20 +1,24 @@
-<script context="module" lang="ts">
+<script module lang="ts">
     type loader = () => void
     const pending = new Map<string, loader[]>()
     const beenloaded = new Set<string>()
 </script>
 
 <script lang="ts">
-    import { createEventDispatcher, tick } from "svelte"
+    import { createEventDispatcher, tick, type Snippet } from "svelte"
     import EnsureLib from "./EnsureLib.svelte"
-
-    export let src: string
-    export let css: string = ""
+    type Props = {
+        src: string
+        loaded?: boolean
+        css?: string
+        children?: Snippet
+        // onload?: (e:Event) => void
+    }
+    let { src, css, loaded = $bindable(false), children }: Props = $props()
 
     const dispatch = createEventDispatcher()
 
-    let needsloading = false
-    let loaded = false
+    let needsloading = $state(false)
 
     if (beenloaded.has(src)) {
         tick().then(load)
@@ -25,7 +29,7 @@
         pending.set(src, [load])
     }
 
-    function onload() {
+    function onload(e:Event) {
         beenloaded.add(src)
         const funcs = pending.get(src)
         pending.delete(src)
@@ -33,9 +37,9 @@
     }
 
     function load() {
-        loaded = true
         try {
             dispatch("load", src)
+            loaded = true
         } catch (e) {
             console.log(`load error: ${src}`, e)
         }
@@ -54,9 +58,7 @@
 	</Require>
 -->
 {#if needsloading}
-    <EnsureLib {src} {css} on:load={onload} let:loaded>
-        <slot {loaded} />
-    </EnsureLib>
+    <EnsureLib {src} {css} {onload} {children} />
 {:else}
-    <slot {loaded} />
+{#if children}{@render children()}{/if}
 {/if}

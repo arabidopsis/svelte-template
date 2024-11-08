@@ -1,8 +1,6 @@
-import build from './build.mjs';
-// multiple entry points will generate multiple
-// outputfiles in ASSET_FOLDER
-const result = await build({
-    entryPoints: ["src/main.js"],
-    outdir: process.env.ASSET_FOLDER,
+// #!/usr/bin/env node
+import build from "./build.mjs"
 
-})
+Promise.all([
+    build({ entryPoints: ["src/main.js"], outdir: process.env.ASSET_FOLDER }),
+])

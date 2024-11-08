@@ -55,7 +55,7 @@
         on:dragleave={() => (dragover = false)}
         on:drop={() => (dragover = false)}
         on:change={showchange}
-    />
+    ></form>
     Uploaded: {uploaded ?? "..."}
     {#if uploaded}
         <button class="btn btn-outline-info mt-2" on:click={remove}>

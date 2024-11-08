@@ -1,18 +1,8 @@
-import './app.css'
-// import Counter from "./Counter.svelte";
-// const app = new Counter({
-//   target: document.getElementById('app'),
-//   props: {
-//     count: 0
-//   }
-// })
-import DualRange from "./DualRange.svelte";
-const app = new DualRange({
-  target: document.getElementById('app'),
-  props: {
-     min: -1.0,
-     max: 1.0
-  }
-})
+import "./app.css"
+import { mount } from "svelte"
+//import App from "./DualRange.svelte"
+import App from "./App.svelte"
 
-export default app
+const app = mount(App, {
+    target: document.getElementById("app"),
+})

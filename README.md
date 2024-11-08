@@ -46,7 +46,7 @@ npm install
 
 ```
 
-Now build all the javascript (see `bin/buildall`)
+Now build all the javascript (see `svelte-build/buildapp.mjs`)
 
 ```bash
 # optional...
@@ -58,7 +58,8 @@ for b in ${blueprints[@]}; do
 done
 ```
 
-Now for the python. The dependencies are just `Flask`, `python-dotenv` and `tomli`
+Now for the python. The dependencies are just `Flask`, `python-dotenv` and `tomli` (This last dependency could be dropped
+for python version >= 3.12)
 
 ```bash
 # activate a suitable python
@@ -141,18 +142,21 @@ reference css and javascript from CDNs specified in `app/cdn.toml`
 
 ## Usage
 
+This is for svelte5
+
 In some file such as `src/main.js`
 
 ```javascript
+import { mount } from "svelte"
 import "./app.css"
 import App from "./App.svelte"
 import AnotherApp from "./AnotherApp.svelte"
 // target two places in the jinja template to run
 // our apps.
-export const app = new App({
+export const app = mount(App, {
     target: document.getElementById("app"),
 })
-export const another_app = new AnotherApp({
+export const another_app = mount(AnotherApp, {
     target: document.getElementById("another-app"),
 })
 ```
@@ -165,17 +169,18 @@ pnpm run build
 
 This, I think, gives me the best of both worlds.
 
-Also `esbuild` allows me to create build scripts (see say: `svelte-build/build.main.mjs`)
+Also `esbuild` allows me to create build scripts (see say: `svelte-build/buildapp.mjs`)
 to create multiple bundles, one for each page if necessary.
 
 You can run jinja2 macros with e.g.:
 
 ```python
+from flask.helpers import get_template_attribute
 @app.route('/fragment/<dataid>')
 def fragment(dataid:str) -> str:
   data = get_data(dataid)
-  macros = current_app.jinja_env.get_template("macros.html")
-  return macros.module.showdata(data)
+  showdata = get_template_attribute("macros.html", "showdata")
+  return showdata(data)
 ```
 
 And deal with them simply as
@@ -192,14 +197,14 @@ And deal with them simply as
             html = await res.text()
         }
     )
-    let html = ""
+    let html = $state("")
     onMount(async () => {
         const res = await fetch(`/fragment/${dataid}`)
         html = await res.text()
     })
 </script>
 
-<div on:click="{monitor}">{@html html}</div>
+<div onclick="{monitor}">{@html html}</div>
 ```
 
 ## Nunjucks

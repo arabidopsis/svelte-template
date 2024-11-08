@@ -4,14 +4,15 @@
     setTimeout(() => {
         added = true
     }, 5000)
+    let loaded = $state(false)
 </script>
 
 {#if added}
-    <Require src="/myjs.js" let:loaded on:load={() => console.log("require3")}>
+    <Require src="/myjs.js" bind:loaded on:load={() => console.log("require3")}>
         {#if loaded}
             loaded is true myjs={window.myjs}
         {:else}
-            waiting for myjs <i class="fas fa-spinner fa-spin" />
+            waiting for myjs <i class="fas fa-spinner fa-spin" ></i>
         {/if}
     </Require>
 {:else}
@@ -22,7 +23,7 @@
     {#if loaded}
         1 myjs={window.myjs}
     {:else}
-        1 loading myjs <i class="fas fa-spinner fa-spin" />
+        1 loading myjs <i class="fas fa-spinner fa-spin" ></i>
     {/if}
 </Require>
 
@@ -30,6 +31,6 @@
     {#if loaded}
         2 myjs={window.myjs}
     {:else}
-        2 loading myjs <i class="fas fa-spinner fa-spin" />
+        2 loading myjs <i class="fas fa-spinner fa-spin" ></i>
     {/if}
 </Require>
