@@ -43,8 +43,8 @@
 </script>
 
 <Require
-    src="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone-min.js"
-    css="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone.css"
+    src="https://unpkg.com/dropzone@6.0.0-beta.2/dist/dropzone-min.js"
+    css="https://unpkg.com/dropzone@6.0.0-beta.2/dist/dropzone.css"
 
 >
     Upload a file
@@ -66,10 +66,10 @@
 </Require>
 
 <style>
-    .xdropzone:hover {
+    :global(.dropzone:hover) {
         border-color: green;
     }
-    .xdropzone.dragover {
+    :global(.dropzone.dragover) {
         border-color: orange;
     }
 </style>
