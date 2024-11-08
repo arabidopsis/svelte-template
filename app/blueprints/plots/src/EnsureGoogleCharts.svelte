@@ -1,11 +1,15 @@
 <script lang="ts">
     // npm install -D @types/google.visualization
     import Require from "$lib/Require.svelte"
-    type Props = {
+    import type {Snippet} from 'svelte'
+
+    let { packages = ["corechart"],
+        version = "current", children } : {
         packages: string[]
         version: string
-    }
-    const { packages = ["corechart"], version = "current" }: Props = $props()
+        children?: Snippet
+    } = $props()
+
 
     let loaded = $state(false)
     function onload() {
@@ -15,5 +19,7 @@
 </script>
 
 <Require src="https://www.gstatic.com/charts/loader.js" on:load={onload}>
-    <slot {loaded} />
+    {#if loaded && children}
+    {@render children()}
+    {/if}
 </Require>

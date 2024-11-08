@@ -9,11 +9,12 @@
     import EnsureLib from "./EnsureLib.svelte"
     type Props = {
         src: string
+        loaded?: boolean
         css?: string
         children?: Snippet
-        onload?: (e:Event) => void
+        // onload?: (e:Event) => void
     }
-    const { src, css, children }: Props = $props()
+    let { src, css, loaded = $bindable(false), children }: Props = $props()
 
     const dispatch = createEventDispatcher()
 
@@ -38,6 +39,7 @@
     function load() {
         try {
             dispatch("load", src)
+            loaded = true
         } catch (e) {
             console.log(`load error: ${src}`, e)
         }
@@ -56,7 +58,7 @@
 	</Require>
 -->
 {#if needsloading}
-    <EnsureLib {src} {css} onload={onload} {children} />
+    <EnsureLib {src} {css} {onload} {children} />
 {:else}
 {#if children}{@render children()}{/if}
 {/if}

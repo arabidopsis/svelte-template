@@ -9,6 +9,6 @@
     }
 </script>
 
-<button onclick={increment} class="btn btn-outline-success">
+<button onclick={increment} class="btn btn-outline-primary">
     count is {counter.count}
 </button>

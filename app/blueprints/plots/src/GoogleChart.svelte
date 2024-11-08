@@ -1,24 +1,25 @@
 <script context="module" lang="ts">
     // generated in plot.html page
-    declare const PlotConfig: PlotConfigType;
+    declare const PlotConfig: PlotConfigType
     type GD = {
-        data: any[];
-        options: google.visualization.PieChartOptions;
-    };
+        data: any[]
+        options: google.visualization.PieChartOptions
+    }
 </script>
 
 <script lang="ts">
-    import { onMount } from "svelte";
-    import { fade } from "svelte/transition";
-    import EnsureGoogleCharts from "./EnsureGoogleCharts.svelte";
+    import { onMount } from "svelte"
+    import { fade } from "svelte/transition"
+    import EnsureGoogleCharts from "./EnsureGoogleCharts.svelte"
 
-    let data: GD;
+    let data: GD
     function drawPieChart(node: HTMLElement, { data, options }: GD) {
-        const tdata = google.visualization.arrayToDataTable(data);
+        const tdata = google.visualization.arrayToDataTable(data)
 
-        const chart = new google.visualization.PieChart(node);
+        const chart = new google.visualization.PieChart(node)
 
-        chart.draw(tdata, options);
+        chart.draw(tdata, options)
+
     }
 
     // onMount(async () => {
@@ -28,18 +29,22 @@
     onMount(() => {
         fetch(PlotConfig.google_url)
             .then((resp) => resp.json())
-            .then((v: GD) => (data = v));
-    });
+            .then((v: GD) => (data = v))
+    })
 </script>
 
 <h2 class="text-center">Google Charts</h2>
-<EnsureGoogleCharts let:loaded>
-    {#if loaded && data}
-        <div class="mx-auto plot" use:drawPieChart={data} transition:fade|global />
+<EnsureGoogleCharts>
+    {#if data}
+        <div
+            class="mx-auto plot"
+            use:drawPieChart={data}
+            transition:fade|global
+        ></div>
     {:else}
         <div class="mx-auto plot waiting">
             {data ? "waiting for google" : "waiting for data"}
-            <i class="fas fa-spinner fa-spin" />
+            <i class="fas fa-spinner fa-spin"></i>
         </div>
     {/if}
 </EnsureGoogleCharts>

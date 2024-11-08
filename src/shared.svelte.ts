@@ -1,3 +1,3 @@
-export const counter = $state({
+export const counter = $state<{count:number}>({
 	count: 0
 });
