@@ -19,7 +19,6 @@
         const chart = new google.visualization.PieChart(node)
 
         chart.draw(tdata, options)
-
     }
 
     // onMount(async () => {
@@ -36,19 +35,18 @@
 <h2 class="text-center">Google Charts</h2>
 <EnsureGoogleCharts>
     <div></div>
-        {#if data}
+    {#if data}
         <div
-        class="mx-auto plot"
-        use:drawPieChart={data}
-        transition:fade|global
+            class="mx-auto plot"
+            use:drawPieChart={data}
+            transition:fade|global
         ></div>
-        {:else}
+    {:else}
         <div class="mx-auto plot waiting">
             {data ? "waiting for google" : "waiting for data"}
             <i class="fas fa-spinner fa-spin"></i>
         </div>
-        {/if}
-
+    {/if}
 </EnsureGoogleCharts>
 
 <style>

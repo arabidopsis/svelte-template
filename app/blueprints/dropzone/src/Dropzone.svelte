@@ -2,12 +2,14 @@
     // pnpm i -D @types/dropzone
     import type { DropzoneFile, DropzoneOptions } from "dropzone"
     declare global {
+        // @ts-ignore
         var Dropzone: typeof Dropzone
     }
 </script>
 
 <script lang="ts">
     import Require from "$lib/Require.svelte"
+    // @ts-ignore
     let dropzone: Dropzone
     let uploaded: string = $state('')
     let name: string
